@@ -1,0 +1,2 @@
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject.csprojResolveAssemblyReference.cache
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject.csproj.CoreCompileInputs.cache

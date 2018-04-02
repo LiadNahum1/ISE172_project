@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\CommunicationLayer",
+    "\\LogicLayer",
+    "\\PersistentLayer",
+    "\\PresentationLayer"
+  ],
+  "SelectedNode": "\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}

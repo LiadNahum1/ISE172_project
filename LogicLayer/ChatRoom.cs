@@ -20,13 +20,12 @@ namespace ChatRoomProject.LogicLayer
         const string ILLEGAL_LENGTH_MESSAGE = "The message souldn't be more than 150 characters";
         public ChatRoom()
         {
-            this.users = new List<IUser>();
-            this.messages = new List<IMessage>();
-            this.currentUser = null;
+            this.users = new List<IUser>(); //users list
+            this.messages = new List<IMessage>(); //messages list
+            this.currentUser = null; //user that is connected now
         }
         public void Start()
         {
-            //          log.Info("the system has started");
             //restoring the users list
             List<String> usersData = UserHandler.RestoreUsers();
             foreach (string data in usersData)
@@ -44,7 +43,7 @@ namespace ChatRoomProject.LogicLayer
             }
         }
 
-        /*Check if groupID and nickname inputs are legal. If groupID doesn't exist or nickname is already been used
+        /*Check if nickname input are legal. If nickname is already been used
         by the same group, the function throws an exception*/
         public bool Registration(string groupId, string nickname)
         {
@@ -82,11 +81,14 @@ namespace ChatRoomProject.LogicLayer
             }
             throw new Exception(ILLEGAL_LOGIN);
         }
+
         //Logout the current user
         public void Logout()
         {
             this.currentUser = null;
         }
+
+        /*The function retrieves from server 10 messages and adds them to the messages list*/
         public void RetrieveNMessages(int number)
         {
             List<IMessage> retrievedMessages = Communication.Instance.GetTenMessages(URL);
@@ -109,6 +111,8 @@ namespace ChatRoomProject.LogicLayer
             }
 
         }
+
+        /*The function returns list of 20 last messages to display*/
         public List<IMessage> DisplayNMessages(int number)
         {
             List<IMessage> display = new List<IMessage>();
@@ -121,7 +125,7 @@ namespace ChatRoomProject.LogicLayer
             return display;
 
         }
-        /*Check if the message content is legal.*/
+
         public void Send(string messageContent)
         {
             if (this.currentUser != null)
@@ -137,13 +141,11 @@ namespace ChatRoomProject.LogicLayer
                 }
                 catch (Exception e)
                 {
-                    log.Fatal("the send function has failed");
-                    //throw new Exception(ILLEGAL_LENGTH_MESSAGE);
+                    throw new Exception(ILLEGAL_LENGTH_MESSAGE);
                     Console.WriteLine("something wrong");
                 }
             }
             else
-                // log.Fatal("the system has crushed");
                 throw new NullReferenceException();
         }
 

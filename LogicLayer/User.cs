@@ -29,7 +29,6 @@ namespace ChatRoomProject.LogicLayer
         }
         public void Save()
         {
-            log.Info("the system is saving the user");
             UserHandler.SaveToFile(Nickname(), GroupID());
         }
         //returns message that recieved from server. The function build a Message instance that save itself in the constructor

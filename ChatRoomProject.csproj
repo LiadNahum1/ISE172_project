@@ -42,11 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommunicationLayer\Communication.cs" />
+    <Compile Include="CommunicationLayer\IMessage.cs" />
+    <Compile Include="LogicLayer\ChatRoom.cs" />
+    <Compile Include="LogicLayer\IChatRoom.cs" />
+    <Compile Include="LogicLayer\IUser.cs" />
+    <Compile Include="LogicLayer\Message.cs" />
+    <Compile Include="LogicLayer\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PersistentLayer\" />
+    <Folder Include="PresentationLayer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

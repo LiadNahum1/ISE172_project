@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using ChatRoomProject.LogicLayer;
 using ChatRoomProject.CommunicationLayer;
-
+using log4net;
 namespace ChatRoomProject.PresentationLayer
 {
     class Gui
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
         private ChatRoom chatroom;
 
         public Gui(ChatRoom chat)
@@ -18,14 +19,15 @@ namespace ChatRoomProject.PresentationLayer
         }
         public void Start()
         {
-            
+
             Console.WriteLine("Welcome to our Chat Room");
-                while (true)
-                {
-                    Console.WriteLine("Press 1 - to registrate \n" +
-                          "Press 2- to login +\n" +
-                          "Press 0 -to exit");
-                    Console.WriteLine("-----------------------------");
+            log.Info("the system starts now");
+            while (true)
+            {
+                Console.WriteLine("Press 1 - to registrate \n" +
+                      "Press 2- to login +\n" +
+                      "Press 0 -to exit");
+                Console.WriteLine("-----------------------------");
                 try
                 {
                     int request = int.Parse(Console.ReadLine());
@@ -33,13 +35,13 @@ namespace ChatRoomProject.PresentationLayer
                     {
                         case 0:
                             {
+                                log.Info("the user had left");
                                 return; // exit the function and close the cmd
                             }
                         case 1:
                             {
                                 Console.WriteLine("Registeration Window");
                                 Register();
-                                Console.WriteLine("You have been registered. Please login");
                                 break;
                             }
                         case 2:
@@ -56,11 +58,11 @@ namespace ChatRoomProject.PresentationLayer
                             }
                     }
                 }
-                catch(Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("Enter something");
                 }
-                
+
             }
 
         }
@@ -75,10 +77,12 @@ namespace ChatRoomProject.PresentationLayer
             try
             {
                 chatroom.Registration(groupId, nickname);
-
+                log.Info("the user had registered");
+                Console.WriteLine("you had been registered");
             }
             catch (Exception e)
             {
+                log.Info("the user had failed to register");
                 string exception = e.Message;
                 Console.WriteLine(exception);
             }
@@ -93,26 +97,30 @@ namespace ChatRoomProject.PresentationLayer
             try
             {
                 chatroom.Login(groupId, nickname);
+                log.Info("the user loged in");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine("We will repeat the login process,please insert the correct values");
-                Register();
+                log.Info("the user faild to log in");
+                Login();
             }
 
             try
             {
                 AfterLogin();
             }
-            catch(Exception e)
+            catch (Exception)
             {
+                log.Error("the system had failed");
                 Console.WriteLine("Something wrong");
             }
         }
         public void AfterLogin()
         {
-            while (true)
+            Boolean LogedIn = true;
+            while (LogedIn)
             {
                 Console.WriteLine("If you want to send a message press 1" + "\n" +
                     "If you want to retrieve 10 messages press 2" + "\n" +
@@ -128,21 +136,27 @@ namespace ChatRoomProject.PresentationLayer
                             Send();
                             break;
                         case 2:
-                            chatroom.RetrieveNMessages(10); // TODO - decide if to make it generic
+                            chatroom.RetrieveNMessages(10);
+                            log.Info("the user retrieved messages");
                             break;
                         case 3:
                             Display(20);
                             break;
                         case 4:
                             Logout();
+                            Console.WriteLine("you are now loged out");
+                            log.Info("the user loged out");
+                            LogedIn = false;
                             break;
                         default:
-                            Console.WriteLine("you press illegal number, we will repeat our questions again");
+                            Console.WriteLine("you press ilegal number, we will repeat our questions again");
+                            log.Info("the user pressed an ilegal value");
                             break;
                     }
                 }
-                catch(Exception e)
+                catch (Exception)
                 {
+                    log.Info("the user pressed an ilegal value");
                     Console.WriteLine("Enter Something");
                 }
             }
@@ -150,6 +164,7 @@ namespace ChatRoomProject.PresentationLayer
         }
         public void Display(int number)
         {
+
             List<IMessage> messages = chatroom.DisplayNMessages(number);
             foreach (Message msg in messages)
             {
@@ -167,16 +182,18 @@ namespace ChatRoomProject.PresentationLayer
             try
             {
                 chatroom.Send(messagetosend);
+                log.Info("send a message");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                log.Info("the user failed to send a message");
                 Console.WriteLine("We will repeat our questions, please enter legal message");
                 Send();
 
             }
 
         }
-       
+
     }
 }

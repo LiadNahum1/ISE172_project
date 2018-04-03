@@ -212,3 +212,4 @@ project.lock.json
 #####
 /obj/Debug/
 /obj/Debug/
+/.vs/VSWorkspaceState.json

@@ -139,7 +139,7 @@ namespace ChatRoomProject.LogicLayer
                         this.messages.Add(message);
                     }
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
                     throw new Exception(ILLEGAL_LENGTH_MESSAGE);
                     Console.WriteLine("something wrong");

@@ -27,6 +27,7 @@ namespace ChatRoomProject.LogicLayer
         }
         public void Start()
         {
+            log.Info("the system starts now");
             log.Info("the system is redtorig the users");
             //restoring the users list
             List<String> usersData = UserHandler.RestoreUsers();

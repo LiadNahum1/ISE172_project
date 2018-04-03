@@ -21,7 +21,6 @@ namespace ChatRoomProject.PresentationLayer
         {
 
             Console.WriteLine("Welcome to our Chat Room");
-            log.Info("the system starts now");
             while (true)
             {
                 Console.WriteLine("Press 1 - to registrate \n" +

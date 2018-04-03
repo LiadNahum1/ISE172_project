@@ -10,6 +10,7 @@ namespace ChatRoomProject.LogicLayer
 {
     public class ChatRoom
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
         private List<IUser> users;
         private List<IMessage> messages;
         private IUser currentUser;
@@ -26,6 +27,7 @@ namespace ChatRoomProject.LogicLayer
         }
         public void Start()
         {
+            log.Info("the system is redtorig the users");
             //restoring the users list
             List<String> usersData = UserHandler.RestoreUsers();
             foreach (string data in usersData)
@@ -33,7 +35,7 @@ namespace ChatRoomProject.LogicLayer
                 string[] details = data.Split(',');
                 this.users.Add(new User(details[0], details[1], true));
             }
-
+            log.Info("the system is redtorig the messeges");
             //restoring the messages list
             List<String> messagesData = MessageHandler.RestoreMessages();
             foreach (string data in messagesData)
@@ -48,7 +50,10 @@ namespace ChatRoomProject.LogicLayer
         public bool Registration(string groupId, string nickname)
         {
             if (!IsValidnickname(groupId, nickname))
+            {
+                log.Error("the user inserted an invalid nickname");
                 throw new Exception(INVALID_NICKNAME_ERROR);
+            }
             else
             {
                 this.currentUser = new User(groupId, nickname, false); //constructor adds user to file 
@@ -79,6 +84,7 @@ namespace ChatRoomProject.LogicLayer
                     return true;
                 }
             }
+            log.Error("the user msde an ilegal login");
             throw new Exception(ILLEGAL_LOGIN);
         }
 
@@ -91,6 +97,7 @@ namespace ChatRoomProject.LogicLayer
         /*The function retrieves from server 10 messages and adds them to the messages list*/
         public void RetrieveNMessages(int number)
         {
+            log.Info("the system is retrieving messeges");
             List<IMessage> retrievedMessages = Communication.Instance.GetTenMessages(URL);
             foreach (IMessage msg in retrievedMessages)
             {
@@ -115,6 +122,7 @@ namespace ChatRoomProject.LogicLayer
         /*The function returns list of 20 last messages to display*/
         public List<IMessage> DisplayNMessages(int number)
         {
+            log.Info("the system is displaying the messeges");
             List<IMessage> display = new List<IMessage>();
             for (int i = this.messages.Count - 1; i >= 0 & number > 0; i = i - 1)
             {
@@ -139,14 +147,19 @@ namespace ChatRoomProject.LogicLayer
                         this.messages.Add(message);
                     }
                 }
-                catch (Exception )
+                catch (Exception)
                 {
+
+                    log.Error("the user wrote an ilegal message");
                     throw new Exception(ILLEGAL_LENGTH_MESSAGE);
-                    Console.WriteLine("something wrong");
                 }
             }
             else
+            {
+
+                log.Error("the system got ilegal message");
                 throw new NullReferenceException();
+            }
         }
 
     }

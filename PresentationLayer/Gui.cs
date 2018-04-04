@@ -24,7 +24,7 @@ namespace ChatRoomProject.PresentationLayer
             while (true)
             {
                 Console.WriteLine("Press 1 - to registrate \n" +
-                      "Press 2- to login +\n" +
+                      "Press 2- to login \n" +
                       "Press 0 -to exit");
                 Console.WriteLine("-----------------------------");
                 try
@@ -84,6 +84,7 @@ namespace ChatRoomProject.PresentationLayer
                 log.Info("the user had failed to register");
                 string exception = e.Message;
                 Console.WriteLine(exception);
+                Console.WriteLine("We'll take you back to the main chat page, so you can choose which way to proceed.");
             }
 
         }
@@ -101,21 +102,35 @@ namespace ChatRoomProject.PresentationLayer
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                Console.WriteLine("We will repeat the login process,please insert the correct values");
                 log.Info("the user faild to log in");
-                Login();
+                Console.WriteLine("if you want to try to login again-press 1 \n" + "if you want to go back to the Main Page press-2");
+                int choose = int.Parse(Console.ReadLine());
+                switch (choose)
+                {
+                    case 1:
+                        {
+                            Console.WriteLine("We will repeat the login process,please insert the correct values");
+                            Login();
+                            break;
+                        }
+                    case 2:
+                        {
+                            Start();
+                            break;
+                        }
+                }
             }
-
-            try
+            try // If the connection succeeded
             {
-                AfterLogin();
+                    AfterLogin();
+                }
+                catch (Exception)
+                {
+                    log.Error("the system had failed");
+                    Console.WriteLine("Something wrong");
+                }
             }
-            catch (Exception)
-            {
-                log.Error("the system had failed");
-                Console.WriteLine("Something wrong");
-            }
-        }
+            
         public void AfterLogin()
         {
             Boolean LogedIn = true;

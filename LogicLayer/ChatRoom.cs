@@ -16,8 +16,8 @@ namespace ChatRoomProject.LogicLayer
         private IUser currentUser;
         public const string URL = " http://ise172.ise.bgu.ac.il:80";
         const string INVALID_GROUPID_ERROR = "The group doesn't exist!";
-        const string INVALID_NICKNAME_ERROR = "Already used nickname";
-        const string ILLEGAL_LOGIN = "You arent registered, please register first";
+        const string INVALID_NICKNAME_ERROR = "The nickname you entered is already in use, you must select a nickname that is not used in your group.";
+        const string ILLEGAL_LOGIN = "The details you entered are not recognized, you must register or try the login process again.";
         const string ILLEGAL_LENGTH_MESSAGE = "The message souldn't be more than 150 characters";
         public ChatRoom()
         {

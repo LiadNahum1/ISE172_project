@@ -16,7 +16,8 @@ namespace ChatRoomProject.LogicLayer
         bool Login(string groupId, string nickname);
         void Logout();
         void RetrieveNMessages(int number);
-        List<IMessage> DisplayNMessages(int number);
+        List<IMessage> DisplayNMessages(int number); //check if needed
+        List<IMessage> DisplayNMessagesFromUser(int number, string groupId, string nickname);
         void Send(string messageContent);
 
     }

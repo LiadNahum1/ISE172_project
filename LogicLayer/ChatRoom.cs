@@ -19,6 +19,7 @@ namespace ChatRoomProject.LogicLayer
         const string INVALID_NICKNAME_ERROR = "The nickname you entered is already in use, you must select a nickname that is not used in your group.";
         const string ILLEGAL_LOGIN = "The details you entered are not recognized, you must register or try the login process again.";
         const string ILLEGAL_LENGTH_MESSAGE = "The message souldn't be more than 150 characters";
+
         public ChatRoom()
         {
             this.users = new List<IUser>(); //users list
@@ -29,6 +30,7 @@ namespace ChatRoomProject.LogicLayer
         {
             log.Info("the system starts now");
             log.Info("the system is redtorig the users");
+
             //restoring the users list
             List<String> usersData = UserHandler.RestoreUsers();
             foreach (string data in usersData)
@@ -36,7 +38,8 @@ namespace ChatRoomProject.LogicLayer
                 string[] details = data.Split(',');
                 this.users.Add(new User(details[0], details[1], true));
             }
-            log.Info("the system is redtorig the messeges");
+            log.Info("the system is restorig the messeges");
+
             //restoring the messages list
             List<String> messagesData = MessageHandler.RestoreMessages();
             foreach (string data in messagesData)
@@ -46,7 +49,7 @@ namespace ChatRoomProject.LogicLayer
             }
         }
 
-        /*Check if nickname input are legal. If nickname is already been used
+        /*Check if nickname input is legal. If nickname is already been used
         by the same group, the function throws an exception*/
         public bool Registration(string groupId, string nickname)
         {
@@ -133,6 +136,20 @@ namespace ChatRoomProject.LogicLayer
             display.Reverse();
             return display;
 
+        }
+        public List<IMessage> DisplayNMessagesFromUser(string groupId, string nickname)
+        {
+            log.Info("the system is displaying all messeges from " + groupId + " " + nickname);
+            List<IMessage> display = new List<IMessage>();
+            for (int i = this.messages.Count - 1; i >= 0 ; i = i - 1)
+            {
+                if (this.messages[i].GroupID.Equals(groupId) && this.messages[i].UserName.Equals(nickname))
+                { 
+                    display.Add(this.messages[i]);
+                }
+            }
+            display.Reverse();
+            return display;
         }
 
         public void Send(string messageContent)

@@ -8,29 +8,33 @@ using ChatRoomProject.CommunicationLayer;
 
 namespace ChatRoomProject.LogicLayer
 {
-    public class ChatRoom
+    public class ChatRoom:IChatRoom
     {
+        //fields
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
         private List<IUser> users;
         private List<IMessage> messages;
         private IUser currentUser;
         public const string URL = " http://ise172.ise.bgu.ac.il:80";
-        const string INVALID_GROUPID_ERROR = "The group doesn't exist!";
-        const string INVALID_NICKNAME_ERROR = "The nickname you entered is already in use, you must select a nickname that is not used in your group.";
-        const string ILLEGAL_LOGIN = "The details you entered are not recognized, you must register or try the login process again.";
-        const string ILLEGAL_LENGTH_MESSAGE = "The message souldn't be more than 150 characters";
 
+        //useful error messages
+        const string INVALID_NICKNAME = "Invalid nickname. Can't use empty nickname or the same nickname twice in the same group";
+        const string INVALID_LOGIN = "Must register first";
+        const string ILLEGAL_LENGTH_MESSAGE = "Illegal length message. Must be under 150 characters";
+
+        //constructor
         public ChatRoom()
         {
             this.users = new List<IUser>(); //users list
             this.messages = new List<IMessage>(); //messages list
             this.currentUser = null; //user that is connected now
         }
+
+        /*The method restores the users and the messages that had been saved in the system files from previous use */
         public void Start()
         {
-            log.Info("the system starts now");
-            log.Info("the system is redtorig the users");
-
+            log.Info("The system starts now");
+            log.Info("The system is restorig the users ");
             //restoring the users list
             List<String> usersData = UserHandler.RestoreUsers();
             foreach (string data in usersData)
@@ -38,8 +42,8 @@ namespace ChatRoomProject.LogicLayer
                 string[] details = data.Split(',');
                 this.users.Add(new User(details[0], details[1], true));
             }
-            log.Info("the system is restorig the messeges");
 
+            log.Info("The system is restorig the messeges");
             //restoring the messages list
             List<String> messagesData = MessageHandler.RestoreMessages();
             foreach (string data in messagesData)
@@ -49,26 +53,30 @@ namespace ChatRoomProject.LogicLayer
             }
         }
 
-        /*Check if nickname input is legal. If nickname is already been used
-        by the same group, the function throws an exception*/
-        public bool Registration(string groupId, string nickname)
+        /*The method registrates a new user to the system. The method first checks if nickname input is legal.
+         * If it is, the method creats new User instance and adds him to the users list. 
+         * If nickname is already been used by the same groupId, the function throws an exception
+         */
+        public void Registration(string groupId, string nickname)
         {
-            if (!IsValidnickname(groupId, nickname))
+            if (!IsValidNickname(groupId, nickname))
             {
-                log.Error("the user inserted an invalid nickname");
-                throw new Exception(INVALID_NICKNAME_ERROR);
+                log.Error("Registration failed. The user inserted an invalid nickname");
+                throw new Exception(INVALID_NICKNAME);
             }
             else
             {
-                this.currentUser = new User(groupId, nickname, false); //constructor adds user to file 
-                this.users.Add(currentUser);
-                return true;
+                this.users.Add(new User(groupId, nickname, false));
             }
-
         }
-        //Check if nickname is already been used in the same group. 
-        private bool IsValidnickname(string groupId, string nickname)
+
+        /*Check if nickname is already been used in the same group. If it is, returns false because the nickname is invalid. 
+         * Nickname can only be used by one member of the same group
+         */
+        private bool IsValidNickname(string groupId, string nickname)
         {
+            if (nickname.Equals(" "))
+                return false; 
             foreach (IUser user in this.users)
             {
                 if (user.GroupID().Equals(groupId) && user.Nickname().Equals(nickname))
@@ -77,7 +85,7 @@ namespace ChatRoomProject.LogicLayer
             return true;
         }
 
-        //Check if the user is registered. If isn't throw an exception
+        //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname)
         {
             foreach (IUser user in this.users)
@@ -88,20 +96,23 @@ namespace ChatRoomProject.LogicLayer
                     return true;
                 }
             }
-            log.Error("the user msde an ilegal login");
-            throw new Exception(ILLEGAL_LOGIN);
+            log.Error("Login failed. The user is not registered");
+            throw new Exception(INVALID_LOGIN); 
         }
 
         //Logout the current user
         public void Logout()
         {
+            log.Info("User: " + this.currentUser + " logout");
             this.currentUser = null;
         }
 
-        /*The function retrieves from server 10 messages and adds them to the messages list*/
+        /*The function retrieves 10 last messages from server. The function adds only the new messages to the messages list.
+         Assumes that the server returns the messages sorted by their timestamp. The head of the list points to the oldest message.
+         */
         public void RetrieveNMessages(int number)
         {
-            log.Info("the system is retrieving messeges");
+            log.Info("The system is retrieving messeges");
             List<IMessage> retrievedMessages = Communication.Instance.GetTenMessages(URL);
             foreach (IMessage msg in retrievedMessages)
             {
@@ -123,63 +134,55 @@ namespace ChatRoomProject.LogicLayer
 
         }
 
-        /*The function returns list of 20 last messages to display*/
+        //The function returns list of 20 last messages to display without retrieving new messages from server
         public List<IMessage> DisplayNMessages(int number)
         {
-            log.Info("the system is displaying the messeges");
+            log.Info("The system is displaying the messeges");
             List<IMessage> display = new List<IMessage>();
             for (int i = this.messages.Count - 1; i >= 0 & number > 0; i = i - 1)
             {
                 display.Add(this.messages[i]);
                 number = number - 1;
             }
+            //We need to reverse the list so the list will be sorted from the oldest message to the newest 
             display.Reverse();
             return display;
-
         }
-        public List<IMessage> DisplayNMessagesFromUser(string groupId, string nickname)
+
+        /*The function gets groupId and nickname and returns list of all messages that have been sent from this certain user 
+        *sorted by their timestamp.
+        */
+        public List<IMessage> DisplayAllMessagesFromCertainUser(string groupId, string nickname)
         {
-            log.Info("the system is displaying all messeges from " + groupId + " " + nickname);
+            log.Info("The system is displaying all messeges from " + groupId + " " + nickname);
             List<IMessage> display = new List<IMessage>();
-            for (int i = this.messages.Count - 1; i >= 0 ; i = i - 1)
+            for (int i = 0; i< this.messages.Count; i = i + 1)
             {
                 if (this.messages[i].GroupID.Equals(groupId) && this.messages[i].UserName.Equals(nickname))
                 { 
                     display.Add(this.messages[i]);
                 }
             }
-            display.Reverse();
             return display;
         }
 
+        /*The function gets a string, checks if it is legal. If it is, sends the message content to the server and saves it in 
+         * messages list. If it isn't, throws an exception
+         */
         public void Send(string messageContent)
         {
-            if (this.currentUser != null)
+            if ((Message.CheckValidity(messageContent)))
             {
-                try
-                {
-                    if ((Message.CheckValidity(messageContent)))
-                    {
-                        IMessage msg = this.currentUser.Send(messageContent);
-                        Message message = new Message(msg, false);
-                        this.messages.Add(message);
-                    }
-                }
-                catch (Exception)
-                {
-
-                    log.Error("the user wrote an ilegal message");
-                    throw new Exception(ILLEGAL_LENGTH_MESSAGE);
-                }
-            }
+                IMessage msg = this.currentUser.Send(messageContent);
+                Message message = new Message(msg, false);
+                this.messages.Add(message);
+             }
             else
-            {
-
-                log.Error("the system got ilegal message");
-                throw new NullReferenceException();
+            { 
+              log.Error("The user wrote an illegal message");
+              throw new Exception(ILLEGAL_LENGTH_MESSAGE);   
             }
         }
-
     }
 }
 

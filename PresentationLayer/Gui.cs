@@ -19,13 +19,12 @@ namespace ChatRoomProject.PresentationLayer
         }
         public void Start()
         {
-
             Console.WriteLine("Welcome to our Chat Room");
             while (true)
             {
-                Console.WriteLine("Press 1 - to registrate \n" +
-                      "Press 2- to login \n" +
-                      "Press 0 -to exit");
+                Console.WriteLine("To registrate press 1\n" +
+                                  "To login press 2 \n" +
+                                  "To exit press 0 ");
                 Console.WriteLine("-----------------------------");
                 try
                 {
@@ -39,12 +38,14 @@ namespace ChatRoomProject.PresentationLayer
                             }
                         case 1:
                             {
+                                Console.Clear();
                                 Console.WriteLine("Registeration Window");
                                 Register();
                                 break;
                             }
                         case 2:
                             {
+                                Console.Clear();
                                 Console.WriteLine("Login Window");
                                 Login();
                                 break;
@@ -52,39 +53,58 @@ namespace ChatRoomProject.PresentationLayer
 
                         default:
                             {
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("You entered illegall value, please insert a correct value");
+                                Console.ForegroundColor = ConsoleColor.Gray;
                                 break;
                             }
                     }
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Enter something");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Enter some number");
+                    Console.ForegroundColor = ConsoleColor.Gray;
                 }
-
             }
 
+        }
+        private bool CheckIfInsertSomething(string str)
+        {
+            if (str == "")
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Please insert some data");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                return false;
+            }
+            return true;
         }
         public void Register()
         {
             string groupId;
             string nickname;
-            Console.WriteLine("Insert GroupId:");
+            Console.WriteLine("Please insert groupId: ");
             groupId = Console.ReadLine();
-            Console.WriteLine("Insert nickname: ");
+            Console.WriteLine("Please insert nickname: ");
             nickname = Console.ReadLine();
+            if (!CheckIfInsertSomething(groupId) |!CheckIfInsertSomething(nickname))
+            {
+                Register();
+            }
             try
             {
                 chatroom.Registration(groupId, nickname);
-                log.Info("the user had registered");
-                Console.WriteLine("you had been registered");
+                log.Info("The user registered");
+                Console.WriteLine("You had been registered");
             }
             catch (Exception e)
             {
-                log.Info("the user had failed to register");
-                string exception = e.Message;
-                Console.WriteLine(exception);
-                Console.WriteLine("We'll take you back to the main chat page, so you can choose which way to proceed.");
+                log.Info("The user had failed to register");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine("We'll take you back to the main chat page:");
             }
 
         }
@@ -94,48 +114,42 @@ namespace ChatRoomProject.PresentationLayer
             string groupId = Console.ReadLine();
             Console.WriteLine("Please enter your nickname");
             string nickname = Console.ReadLine();
+            if(!CheckIfInsertSomething(groupId) | !CheckIfInsertSomething(nickname))
+            {
+                Login();
+            }
             try
             {
                 chatroom.Login(groupId, nickname);
-                log.Info("the user loged in");
+                log.Info("The user logged in");
+                try 
+                {
+                   AfterLogin();
+                }
+               
+                catch (Exception)
+                {
+                    log.Error("The system had failed");
+                }
             }
             catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
-                log.Info("the user faild to log in");
-                Console.WriteLine("if you want to try to login again-press 1 \n" + "if you want to go back to the Main Page press-2");
-                int choose = int.Parse(Console.ReadLine());
-                switch (choose)
-                {
-                    case 1:
-                        {
-                            Console.WriteLine("We will repeat the login process,please insert the correct values");
-                            Login();
-                            break;
-                        }
-                    case 2:
-                        {
-                            Start();
-                            break;
-                        }
-                }
+                Console.ForegroundColor = ConsoleColor.Gray;
+                log.Info("The user faild to log in");
+                Console.WriteLine("Your login has been failed. Try again or register in the main Menu: ");
+                Start();
             }
-            try // If the connection succeeded
-            {
-                    AfterLogin();
-                }
-                catch (Exception)
-                {
-                    log.Error("the system had failed");
-                    Console.WriteLine("Something wrong");
-                }
-            }
-            
+
+        }
         public void AfterLogin()
         {
-            Boolean LogedIn = true;
+            bool LogedIn = true;
+            Console.WriteLine("You are logged in");
             while (LogedIn)
             {
+                Console.WriteLine();
                 Console.WriteLine("If you want to send a message press 1" + "\n" +
                     "If you want to retrieve 10 messages press 2" + "\n" +
                     "If you want to Display 20 last messages press 3" + "\n" +
@@ -150,72 +164,78 @@ namespace ChatRoomProject.PresentationLayer
                         case 1:
                             Send();
                             break;
+
                         case 2:
                             chatroom.RetrieveNMessages(10);
-                            log.Info("the user retrieved messages");
-                            Console.WriteLine("The message has been retrieved");
+                            log.Info("The user retrieved 10 messages");
+                            Console.WriteLine("The messages has been retrieved");
                             break;
+
                         case 3:
                             Display(20);
                             break;
+
                         case 4:
                             Console.WriteLine("Please enter the groupId of the specific user");
                             String groupId = Console.ReadLine();
                             Console.WriteLine("Please enter the nickname of the specific user");
                             String nickname = Console.ReadLine();
-                            try
-                            {
-                                List<IMessage> ListToDisplay=chatroom.DisplayAllMessagesFromUser(groupId, nickname);
-                                DisplayFromSpecificUser(ListToDisplay);
-                                log.Info("The function DisplayFromSpecificUser displayed the messages");
-                            }
-                            catch (Exception e)
-                            {
-                                String exception = e.Message;
-                                Console.WriteLine(exception);
-                                Console.WriteLine("We'll take you back to the AfterLoginPage, and you can re-decide what action you'd like to take.");
-                                log.Info("the user init invalid details of user so DisplayFromSpecificUser failed ");
-                            }
+                            List<IMessage> ListToDisplay = chatroom.DisplayAllMessagesFromCertainUser(groupId, nickname);
+                            DisplayFromSpecificUser(ListToDisplay);
                             break;
+
                         case 5:
                             Logout();
-                            Console.WriteLine("you are now loged out");
-                            log.Info("the user loged out");
+                            Console.WriteLine("You are now logged out");
+                            log.Info("The user logged out");
                             LogedIn = false;
                             break;
                         default:
-                            Console.WriteLine("you press ilegal number, we will repeat our questions again");
-                            log.Info("the user pressed an ilegal value");
+                            Console.WriteLine("You press illegal number, we will repeat our questions again");
+                            log.Info("The user pressed an ilegal value");
                             break;
                     }
                 }
                 catch (Exception)
                 {
-                    log.Info("the user pressed an ilegal value");
-                    Console.WriteLine("Enter Something");
+                    log.Error("The user pressed an ilegal value");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Enter valid input");
+                    Console.ForegroundColor = ConsoleColor.Gray;
                 }
             }
 
         }
         public void Display(int number)// display 20 last messages
         {
-
             List<IMessage> messages = chatroom.DisplayNMessages(number);
             if (messages.Count() == 0) // if we get an empty list it means that the client didnt retrieve any message 
-                Console.WriteLine("You have not retrieve messages, so we will cant show u any message.please retrieve and then press Display.");
-            foreach (Message msg in messages)
+                Console.WriteLine("You have not retrieve messages, so we will can't show you any message.\nPlease retrieve and then press Display.");
+            else
             {
-                Console.WriteLine(msg.ToString());
+                foreach (Message msg in messages)
+                {
+                    Console.WriteLine(msg.ToString());
+                }
+                log.Info("Display last messages");
             }
+           
         }
         public void DisplayFromSpecificUser(List<IMessage> messages) // display from specific user
         {
-            if(messages.Count()==0)
-                Console.WriteLine("The specific user didnt send any message from the the messages you retrieved.");
-
-            foreach (Message msg in messages)
+            if (messages.Count() == 0)
             {
-                Console.WriteLine(msg.ToString());
+                Console.WriteLine("The specific user didn't send any message from the the messages you retrieved.");
+                log.Info("There are no messages to display");
+            }
+                
+            else
+            {
+                foreach (Message msg in messages)
+                {
+                    Console.WriteLine(msg.ToString());
+                }
+                log.Info("The function displays messages from specific user");
             }
         }
         public void Logout()
@@ -224,17 +244,19 @@ namespace ChatRoomProject.PresentationLayer
         }
         public void Send()
         {
-            Console.WriteLine("Please enter your message, it can be only under 150 words");
+            Console.WriteLine("Please enter your message, it can be only under 150 characters");
             string messagetosend = Console.ReadLine();
             try
             {
                 chatroom.Send(messagetosend);
-                log.Info("send a message");
+                log.Info("User sends a message");
             }
             catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
-                log.Info("the user failed to send a message");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                log.Error(e.Message);
                 Console.WriteLine("We will repeat our questions, please enter legal message");
                 Send();
 

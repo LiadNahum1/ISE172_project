@@ -45,8 +45,16 @@ namespace ChatRoomProject.LogicLayer
         //The function gets a string of a message content and sends it to the server. Recieves an IMessage from server and returns it. 
         public IMessage Send(string messageContent)
         {
-            IMessage message = Communication.Instance.Send(ChatRoom.URL, GroupID(), Nickname(), messageContent);
-            return message;
+            try
+            {
+                IMessage message = Communication.Instance.Send(ChatRoom.URL, GroupID(), Nickname(), messageContent);
+                return message;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+           
         }
 
         public override string ToString()

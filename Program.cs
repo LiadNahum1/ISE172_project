@@ -15,13 +15,11 @@ namespace ChatRoomProject
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("Program.cs");
         static void Main(string[] args)
         {
-           
-                ChatRoom cr = new ChatRoom();
-                cr.Start();
-                Gui gui = new Gui(cr);
-                gui.Start();
-
-
+            Console.Clear();
+            ChatRoom cr = new ChatRoom();
+            cr.Start();
+            Gui gui = new Gui(cr);
+            gui.Start();
         }
     }
 }

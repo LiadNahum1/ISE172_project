@@ -18,7 +18,7 @@ namespace ChatRoomProject.LogicLayer
         public const string URL = " http://ise172.ise.bgu.ac.il:80";
 
         //useful error messages
-        const string INVALID_NICKNAME = "Invalid nickname. Can't use empty nickname or the same nickname twice in the same group";
+        const string INVALID_NICKNAME = "Invalid nickname. \nYou insert a nickname that is already used in your group";
         const string INVALID_LOGIN = "Must register first";
         const string ILLEGAL_LENGTH_MESSAGE = "Illegal length message. Must be under 150 characters";
 
@@ -59,6 +59,7 @@ namespace ChatRoomProject.LogicLayer
          */
         public void Registration(string groupId, string nickname)
         {
+            
             if (!IsValidNickname(groupId, nickname))
             {
                 log.Error("Registration failed. The user inserted an invalid nickname");
@@ -75,8 +76,6 @@ namespace ChatRoomProject.LogicLayer
          */
         private bool IsValidNickname(string groupId, string nickname)
         {
-            if (nickname.Equals(" ") | nickname.Equals(""))
-                return false; 
             foreach (IUser user in this.users)
             {
                 if (user.GroupID().Equals(groupId) && user.Nickname().Equals(nickname))
@@ -84,7 +83,7 @@ namespace ChatRoomProject.LogicLayer
             }
             return true;
         }
-
+       
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname)
         {
@@ -112,7 +111,6 @@ namespace ChatRoomProject.LogicLayer
          */
         public void RetrieveNMessages(int number)
         {
-            log.Info("The system is retrieving messeges");
             List<IMessage> retrievedMessages = Communication.Instance.GetTenMessages(URL);
             foreach (IMessage msg in retrievedMessages)
             {
@@ -174,8 +172,15 @@ namespace ChatRoomProject.LogicLayer
             if ((Message.CheckValidity(messageContent)))
             {
                 IMessage msg = this.currentUser.Send(messageContent);
-                Message message = new Message(msg, false);
-                this.messages.Add(message);
+                if (msg == null)
+                {
+                    throw new Exception("The user couldn't send the message");
+                }
+                else
+                {
+                    Message message = new Message(msg, false);
+                    this.messages.Add(message);
+                }
              }
             else
             { 

@@ -75,7 +75,7 @@ namespace ChatRoomProject.LogicLayer
          */
         private bool IsValidNickname(string groupId, string nickname)
         {
-            if (nickname.Equals(" "))
+            if (nickname.Equals(" ") | nickname.Equals(""))
                 return false; 
             foreach (IUser user in this.users)
             {

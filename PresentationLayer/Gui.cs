@@ -139,7 +139,8 @@ namespace ChatRoomProject.PresentationLayer
                 Console.WriteLine("If you want to send a message press 1" + "\n" +
                     "If you want to retrieve 10 messages press 2" + "\n" +
                     "If you want to Display 20 last messages press 3" + "\n" +
-                    "If you want to Logout press 4");
+                     "If you want to Display messages from specific user press 4" + "\n" +
+                    "If you want to Logout press 5");
                 Console.WriteLine("--------------------------------------------------");
                 try
                 {
@@ -152,11 +153,31 @@ namespace ChatRoomProject.PresentationLayer
                         case 2:
                             chatroom.RetrieveNMessages(10);
                             log.Info("the user retrieved messages");
+                            Console.WriteLine("The message has been retrieved");
                             break;
                         case 3:
                             Display(20);
                             break;
                         case 4:
+                            Console.WriteLine("Please enter the groupId of the specific user");
+                            String groupId = Console.ReadLine();
+                            Console.WriteLine("Please enter the nickname of the specific user");
+                            String nickname = Console.ReadLine();
+                            try
+                            {
+                                List<IMessage> ListToDisplay=chatroom.DisplayAllMessagesFromUser(groupId, nickname);
+                                DisplayFromSpecificUser(ListToDisplay);
+                                log.Info("The function DisplayFromSpecificUser displayed the messages");
+                            }
+                            catch (Exception e)
+                            {
+                                String exception = e.Message;
+                                Console.WriteLine(exception);
+                                Console.WriteLine("We'll take you back to the AfterLoginPage, and you can re-decide what action you'd like to take.");
+                                log.Info("the user init invalid details of user so DisplayFromSpecificUser failed ");
+                            }
+                            break;
+                        case 5:
                             Logout();
                             Console.WriteLine("you are now loged out");
                             log.Info("the user loged out");
@@ -176,10 +197,22 @@ namespace ChatRoomProject.PresentationLayer
             }
 
         }
-        public void Display(int number)
+        public void Display(int number)// display 20 last messages
         {
 
             List<IMessage> messages = chatroom.DisplayNMessages(number);
+            if (messages.Count() == 0) // if we get an empty list it means that the client didnt retrieve any message 
+                Console.WriteLine("You have not retrieve messages, so we will cant show u any message.please retrieve and then press Display.");
+            foreach (Message msg in messages)
+            {
+                Console.WriteLine(msg.ToString());
+            }
+        }
+        public void DisplayFromSpecificUser(List<IMessage> messages) // display from specific user
+        {
+            if(messages.Count()==0)
+                Console.WriteLine("The specific user didnt send any message from the the messages you retrieved.");
+
             foreach (Message msg in messages)
             {
                 Console.WriteLine(msg.ToString());

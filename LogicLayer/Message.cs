@@ -30,11 +30,7 @@ namespace ChatRoomProject.LogicLayer
             this.id = new Guid(id);
             this.nickname = nickname;
             this.groupId = groupId;
-            //this.date = DateTime.Parse(date);
-            string[] time = date.Split(' ');
-            string[] day = time[0].Split('/');
-            string[] hour = time[1].Split(':');
-            this.date = new DateTime(Int32.Parse(day[2]), Int32.Parse(day[1]), Int32.Parse(day[0]), Int32.Parse(hour[0]), Int32.Parse(hour[1]), Int32.Parse(hour[2]));
+            this.date = DateTime.Parse(date);
             this.messageContent = messageContent;
             if (!isRestored)
                 Save();
@@ -82,7 +78,7 @@ namespace ChatRoomProject.LogicLayer
 
         public override string ToString()
         {
-            return "Group:" + this.groupId + ",Nickname:" + this.nickname + " (" + this.date + "): " + this.messageContent + "(Message GUID:" + this.id + ")";
+            return "Group:" + this.groupId + ",Nickname:" + this.nickname + " (" + this.date + "): " + this.messageContent + " (Message GUID:" + this.id + ")";
         }
     }
 }

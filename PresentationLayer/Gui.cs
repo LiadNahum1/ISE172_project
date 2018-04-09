@@ -37,8 +37,9 @@ namespace ChatRoomProject.PresentationLayer
                     {
                         case 0:
                             {
-                                log.Info("the user had left");
-                                return; // exit the function and close the cmd
+                                log.Info("The user had left");
+                                Console.WriteLine("BYE BYE");
+                                return; // exit the function
                             }
                         case 1:
                             {
@@ -49,7 +50,6 @@ namespace ChatRoomProject.PresentationLayer
                             }
                         case 2:
                             {
-                                Console.Clear();
                                 Console.WriteLine("Login Window");
                                 Login();
                                 break;
@@ -64,6 +64,7 @@ namespace ChatRoomProject.PresentationLayer
                             }
                     }
                 }
+                
                 catch (Exception)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -73,17 +74,6 @@ namespace ChatRoomProject.PresentationLayer
             }
 
         }
-        private bool CheckIfInsertSomething(string str)
-        {
-            if (str == "")
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Please insert some data");
-                Console.ForegroundColor = ConsoleColor.Gray;
-                return false;
-            }
-            return true;
-        }
         public void Register()
         {
             string groupId;
@@ -92,10 +82,6 @@ namespace ChatRoomProject.PresentationLayer
             groupId = Console.ReadLine();
             Console.WriteLine("Please insert nickname: ");
             nickname = Console.ReadLine();
-            if (!CheckIfInsertSomething(groupId) |!CheckIfInsertSomething(nickname))
-            {
-                Register();
-            }
             try
             {
                 chatroom.Registration(groupId, nickname);
@@ -120,10 +106,6 @@ namespace ChatRoomProject.PresentationLayer
             string groupId = Console.ReadLine();
             Console.WriteLine("Please enter your nickname");
             string nickname = Console.ReadLine();
-            if(!CheckIfInsertSomething(groupId) | !CheckIfInsertSomething(nickname))
-            {
-                Login();
-            }
             try
             {
                 chatroom.Login(groupId, nickname);
@@ -145,7 +127,6 @@ namespace ChatRoomProject.PresentationLayer
                 Console.ForegroundColor = ConsoleColor.Gray;
                 log.Info("The user faild to log in");
                 Console.WriteLine("Your login has been failed. Try again or register in the main Menu: ");
-                Start();
             }
 
         }
@@ -195,10 +176,6 @@ namespace ChatRoomProject.PresentationLayer
 
                         case 5:
                             Logout();
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("You are now logged out");
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                            log.Info("The user logged out");
                             LogedIn = false;
                             break;
                         default:
@@ -242,7 +219,9 @@ namespace ChatRoomProject.PresentationLayer
             List<IMessage> messages = chatroom.DisplayAllMessagesFromCertainUser(groupId, nickname);
             if (messages.Count() == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("The specific user didn't send any message from the the messages you retrieved.");
+                Console.ForegroundColor = ConsoleColor.Gray;
                 log.Info("There are no messages to display");
             }  
             else
@@ -257,18 +236,23 @@ namespace ChatRoomProject.PresentationLayer
         public void Logout()
         {
             chatroom.Logout();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("You are now logged out");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            log.Info("The user logged out");
         }
         public void Send()
         {
             Console.WriteLine("Please enter your message, it can be only under 150 characters");
-            string messagetosend = Console.ReadLine();
+            string messageToSend = Console.ReadLine();
             try
             {
-                chatroom.Send(messagetosend);
+                chatroom.Send(messageToSend);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Your message has been sent");
                 Console.ForegroundColor = ConsoleColor.Gray;
                 log.Info("User sends a message");
+                
             }
             catch (Exception e)
             {

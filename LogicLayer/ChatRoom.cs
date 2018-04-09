@@ -19,6 +19,7 @@ namespace ChatRoomProject.LogicLayer
 
         //useful error messages
         const string INVALID_NICKNAME = "Invalid nickname. \nYou insert a nickname that is already used in your group";
+        const string EMPTY_INPUT = "Please insert data";
         const string INVALID_LOGIN = "Must register first";
         const string ILLEGAL_LENGTH_MESSAGE = "Illegal length message. Must be under 150 characters";
 
@@ -59,6 +60,10 @@ namespace ChatRoomProject.LogicLayer
          */
         public void Registration(string groupId, string nickname)
         {                   
+            if(!CheckIfInputIsEmpty(groupId) || !CheckIfInputIsEmpty(nickname))
+            {
+                throw new Exception(EMPTY_INPUT);
+            }
             if (!IsValidNickname(groupId, nickname))
             {
                 log.Error("Registration failed. The user inserted an invalid nickname");
@@ -82,10 +87,23 @@ namespace ChatRoomProject.LogicLayer
             }
             return true;
         }
-       
+        //return false if input is empty 
+        private bool CheckIfInputIsEmpty(string str)
+        {
+            if (str == "")
+            {
+                return false;
+            }
+            return true;
+        }
+
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname)
         {
+            if (!CheckIfInputIsEmpty(groupId) || !CheckIfInputIsEmpty(nickname))
+            {
+                throw new Exception(EMPTY_INPUT);
+            }
             foreach (IUser user in this.users)
             {
                 if (user.GroupID() == groupId && user.Nickname() == nickname)
@@ -157,13 +175,6 @@ namespace ChatRoomProject.LogicLayer
                         where msg.GroupID.Equals(groupId) && msg.UserName.Equals(nickname)
                         select msg;
             display = users.ToList();
-            //for (int i = 0; i< this.messages.Count; i = i + 1)
-            //{
-            //    if (this.messages[i].GroupID.Equals(groupId) && this.messages[i].UserName.Equals(nickname))
-            //    { 
-            //        display.Add(this.messages[i]);
-            //    }
-            //}
             return display;
         }
 

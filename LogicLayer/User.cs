@@ -59,7 +59,7 @@ namespace ChatRoomProject.LogicLayer
 
         public override string ToString()
         {
-            return GroupID() + Nickname();
+            return GroupID() + " "+ Nickname();
         }
     }
 }

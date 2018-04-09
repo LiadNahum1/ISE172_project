@@ -58,8 +58,7 @@ namespace ChatRoomProject.LogicLayer
          * If nickname is already been used by the same groupId, the function throws an exception
          */
         public void Registration(string groupId, string nickname)
-        {
-            
+        {                   
             if (!IsValidNickname(groupId, nickname))
             {
                 log.Error("Registration failed. The user inserted an invalid nickname");
@@ -106,8 +105,8 @@ namespace ChatRoomProject.LogicLayer
             this.currentUser = null;
         }
 
-        /*The function retrieves 10 last messages from server. The function adds only the new messages to the messages list.
-         Assumes that the server returns the messages sorted by their timestamp. The head of the list points to the oldest message.
+        /*The function retrieves 10 last messages from server. The function adds only the new messages to the messages list
+         * sorted by their timestamp. The head of the list points to the oldest message.
          */
         public void RetrieveNMessages(int number)
         {
@@ -129,7 +128,7 @@ namespace ChatRoomProject.LogicLayer
                     this.messages.Add(newMessage);
                 }
             }
-
+            this.messages = this.messages.OrderBy(m => m.Date).ToList();
         }
 
         //The function returns list of 20 last messages to display without retrieving new messages from server
@@ -154,13 +153,17 @@ namespace ChatRoomProject.LogicLayer
         {
             log.Info("The system is displaying all messeges from " + groupId + " " + nickname);
             List<IMessage> display = new List<IMessage>();
-            for (int i = 0; i< this.messages.Count; i = i + 1)
-            {
-                if (this.messages[i].GroupID.Equals(groupId) && this.messages[i].UserName.Equals(nickname))
-                { 
-                    display.Add(this.messages[i]);
-                }
-            }
+            var users = from msg in this.messages
+                        where msg.GroupID.Equals(groupId) && msg.UserName.Equals(nickname)
+                        select msg;
+            display = users.ToList();
+            //for (int i = 0; i< this.messages.Count; i = i + 1)
+            //{
+            //    if (this.messages[i].GroupID.Equals(groupId) && this.messages[i].UserName.Equals(nickname))
+            //    { 
+            //        display.Add(this.messages[i]);
+            //    }
+            //}
             return display;
         }
 

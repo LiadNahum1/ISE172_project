@@ -9,9 +9,13 @@ namespace ChatRoomProject.PresentationLayer
 {
     interface IGui
     {
-        void BuildGui(ChatRoom chat);
         void Start();
-        void Registration(string nickname, string groupId);
-        void Login(User user);
+        void Register();
+        void Login();
+        void AfterLogin();
+        void Display(int number);
+        void DisplayFromSpecificUser(string groupId, string nickname);
+        void Logout();
+        void Send();
     }
 }

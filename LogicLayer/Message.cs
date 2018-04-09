@@ -82,7 +82,7 @@ namespace ChatRoomProject.LogicLayer
 
         public override string ToString()
         {
-            return this.messageContent + " send by " + this.groupId + ":" + this.nickname + " " + this.date;
+            return "Group:" + this.groupId + ",Nickname:" + this.nickname + " (" + this.date + "): " + this.messageContent + "(Message GUID:" + this.id + ")";
         }
     }
 }

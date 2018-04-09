@@ -1,10 +1,24 @@
-2cf7d4dd-30b5-4fcb-bf77-423d98805ff6,einat,21,4/8/2018 4:39:15 PM,IT WORKKKKSSSSSSSSSSS
-293a518a-4075-4060-8c49-05b62d8d9a7a,ani,2,4/8/2018 4:43:24 PM,something special
-3326f943-3e17-4991-af4c-0110220a7488,ani,2,4/8/2018 4:44:03 PM,sofer baal habait
-ae0cba7b-8c04-4cba-85c4-5b83eca1f018,ani,2,4/8/2018 4:45:17 PM,sofer baal habait
-41cb63ed-bf5a-45e5-b149-ebdac8fa9067,ani,2,4/8/2018 4:45:34 PM,ahlan
-a0261aed-1c55-451d-8f99-83825b9491dc,ani,2,4/8/2018 4:46:17 PM,ahlan
-7b130175-3518-43df-95fb-3405bbf5e2ad,einat,21,4/8/2018 4:53:36 PM,laskfalksjflaksjflakjsflkjaslfkjalsjflajdfljalsfjlasjflajslfjalsjflasjfljaslfjalsjflajwlfjaslfjalsjflasjflajslfjaslfjlasjflasjfljaslfjalsjflajsfl
-b38cee17-db43-4393-a764-87492601e0e0,einat,21,4/8/2018 4:54:15 PM,shhhhhhhhhhhhhhhh
-22b0b855-edb3-4847-bb45-482250e684ae,ani,2,4/8/2018 4:54:21 PM,ahlan
-65000fbc-6c1d-43a5-ac57-66f9fcc7c22f,ani,2,4/8/2018 4:54:32 PM,ahlan
+cd79d92f-7619-4a82-af7b-e1cc8ee4f7c3,Ron,1,09/04/2018 10:01:11,Hello world!
+f1c8fff6-dfbe-47fb-99e9-45f5822f8e89,Ron,1,09/04/2018 10:01:35,Amir and Tal the gvraim
+fa43336e-4e68-4d57-a6d3-ef3fbf862f2d,a,21,09/04/2018 10:07:20,sf
+04e73bf7-5f58-4e2d-8962-ff4e4fbd6811,milnik,2,09/04/2018 10:09:59,Ron ?
+e3d80f51-71bb-46e2-9946-3878517be239,liad,34,09/04/2018 10:13:23,dfgfd
+71412082-b6f3-4b2d-a63e-c1f4fbe516e1,liad,34,09/04/2018 10:14:53,sdfds
+f8537fa8-27d2-4803-9150-0df33c49c381,liad,34,09/04/2018 10:17:53,hyooooosh
+66271da5-b5af-4aa8-9b93-871b64bb9481,liad,12,09/04/2018 10:24:28,hi
+b6a32969-fd98-4809-8a3c-0db66709890d,liad,12,09/04/2018 10:26:00,ssafd
+a85dfb23-87c2-49d2-ae60-e6b251414f89,liad,12,09/04/2018 10:55:09,hello
+f5f2e3f2-2aaa-4d6e-9c06-5ce5b24fb1b8,milnik,2,09/04/2018 10:27:10,check
+c813adb0-9cf8-4440-83cc-8873eaf5d43c,Ron,1,09/04/2018 10:32:33,Hopa
+c4e3279f-f7ef-4eca-a002-05f5e409096a,Eliad,1,09/04/2018 10:33:11,Hopa
+5e18ea12-4d23-41da-870d-938dc011a5b5,Eliad,1,09/04/2018 10:33:33,Lama ze lo oved
+6baf178b-4ce2-49e7-8006-5fa9487e98ee,Eliad,1,09/04/2018 10:45:06,helo
+3724509c-66fb-45d7-8630-fe17117580a5,Eliad,1,09/04/2018 10:49:03,Hello
+48755da9-064d-4d13-8dff-5fc9594f4ec6,1,1,09/04/2018 10:55:35,hellow
+094ff3a2-d30c-418f-bf8c-82ed2e620f8c,1,1,09/04/2018 10:56:28,kaki
+f58e9ff8-854b-4d05-a9cd-e1c853b8e70e,1,1,09/04/2018 10:57:19,hii
+4225b698-dda7-461f-a826-7f93df0af7e0,liad,12,09/04/2018 11:09:16,dfjg
+3f60c462-7186-4d6c-9476-8bfe6f41bd21,1,1,09/04/2018 11:02:39,pipi
+3d292b48-0d35-4121-a380-99025bd3fb28,eden,21,09/04/2018 11:11:01,hi whats up?
+4c33b8d8-f600-4a8c-bd6b-7dc586871233,lnl,21,09/04/2018 11:29:30,this is noa
+6aed9e92-93bd-4bb7-87d1-2c76a6cc675f,lnl,21,09/04/2018 11:30:09,what is going 

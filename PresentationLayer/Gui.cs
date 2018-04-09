@@ -8,10 +8,12 @@ using ChatRoomProject.CommunicationLayer;
 using log4net;
 namespace ChatRoomProject.PresentationLayer
 {
-    class Gui
+    class Gui:IGui
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
         private ChatRoom chatroom;
+        const int NUM_MSG_TO_DISPLAY = 20;
+        const int NUM_MSG_TO_RETRIVE = 10;
 
         public Gui(ChatRoom chat)
         {
@@ -19,7 +21,9 @@ namespace ChatRoomProject.PresentationLayer
         }
         public void Start()
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Welcome to our Chat Room");
+            Console.ForegroundColor = ConsoleColor.Gray;
             while (true)
             {
                 Console.WriteLine("To registrate press 1\n" +
@@ -96,7 +100,9 @@ namespace ChatRoomProject.PresentationLayer
             {
                 chatroom.Registration(groupId, nickname);
                 log.Info("The user registered");
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You had been registered");
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
             catch (Exception e)
             {
@@ -146,7 +152,9 @@ namespace ChatRoomProject.PresentationLayer
         public void AfterLogin()
         {
             bool LogedIn = true;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("You are logged in");
+            Console.ForegroundColor = ConsoleColor.Gray;
             while (LogedIn)
             {
                 Console.WriteLine();
@@ -166,13 +174,15 @@ namespace ChatRoomProject.PresentationLayer
                             break;
 
                         case 2:
-                            chatroom.RetrieveNMessages(10);
-                            log.Info("The user retrieved 10 messages");
+                            chatroom.RetrieveNMessages(NUM_MSG_TO_RETRIVE);
+                            log.Info("The user retrieved " + NUM_MSG_TO_RETRIVE+ "messages");
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("The messages has been retrieved");
+                            Console.ForegroundColor = ConsoleColor.Gray;
                             break;
 
                         case 3:
-                            Display(20);
+                            Display(NUM_MSG_TO_DISPLAY);
                             break;
 
                         case 4:
@@ -180,18 +190,21 @@ namespace ChatRoomProject.PresentationLayer
                             String groupId = Console.ReadLine();
                             Console.WriteLine("Please enter the nickname of the specific user");
                             String nickname = Console.ReadLine();
-                            List<IMessage> ListToDisplay = chatroom.DisplayAllMessagesFromCertainUser(groupId, nickname);
-                            DisplayFromSpecificUser(ListToDisplay);
+                            DisplayFromSpecificUser(groupId, nickname);
                             break;
 
                         case 5:
                             Logout();
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("You are now logged out");
+                            Console.ForegroundColor = ConsoleColor.Gray;
                             log.Info("The user logged out");
                             LogedIn = false;
                             break;
                         default:
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("You press illegal number, we will repeat our questions again");
+                            Console.ForegroundColor = ConsoleColor.Gray;
                             log.Info("The user pressed an ilegal value");
                             break;
                     }
@@ -206,13 +219,16 @@ namespace ChatRoomProject.PresentationLayer
             }
 
         }
-        public void Display(int number)// display 20 last messages
+        public void Display(int number)// display NUM_MSG_TO_DISPLAY last messages
         {
             List<IMessage> messages = chatroom.DisplayNMessages(number);
             if (messages.Count() == 0) // if we get an empty list it means that the client didnt retrieve any message 
                 Console.WriteLine("You have not retrieve messages, so we will can't show you any message.\nPlease retrieve and then press Display.");
             else
             {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Last messages:");
+                Console.ForegroundColor = ConsoleColor.Gray;
                 foreach (Message msg in messages)
                 {
                     Console.WriteLine(msg.ToString());
@@ -221,14 +237,14 @@ namespace ChatRoomProject.PresentationLayer
             }
            
         }
-        public void DisplayFromSpecificUser(List<IMessage> messages) // display from specific user
+        public void DisplayFromSpecificUser(string groupId, string nickname) // display from specific user
         {
+            List<IMessage> messages = chatroom.DisplayAllMessagesFromCertainUser(groupId, nickname);
             if (messages.Count() == 0)
             {
                 Console.WriteLine("The specific user didn't send any message from the the messages you retrieved.");
                 log.Info("There are no messages to display");
-            }
-                
+            }  
             else
             {
                 foreach (Message msg in messages)
@@ -249,6 +265,9 @@ namespace ChatRoomProject.PresentationLayer
             try
             {
                 chatroom.Send(messagetosend);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Your message has been sent");
+                Console.ForegroundColor = ConsoleColor.Gray;
                 log.Info("User sends a message");
             }
             catch (Exception e)

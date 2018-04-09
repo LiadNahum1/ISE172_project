@@ -1,15 +1,2 @@
-5,nitz
-22,lishay
-1,1
-23,lishay
-3,Yuval
-23,duval
-4,Noa
-3,NOLI
 12,liad
-13,liad
-12,yuval
-12 ,liad
-12,lishay
-45,liad
-,
+21,lnl

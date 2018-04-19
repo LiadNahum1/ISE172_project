@@ -9,7 +9,7 @@ using ChatRoomProject.PersistentLayer;
 
 namespace ChatRoomProject.LogicLayer
 {
-    class Message : IMessage
+    public class Message : IMessage
     {
         //fields
         private Guid id;

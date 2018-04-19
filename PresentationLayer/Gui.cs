@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 using ChatRoomProject.LogicLayer;
 using ChatRoomProject.CommunicationLayer;
 using log4net;
+using System.Timers;
+
 namespace ChatRoomProject.PresentationLayer
 {
-    class Gui:IGui
+    class Gui : IGui
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
         private ChatRoom chatroom;
         const int NUM_MSG_TO_DISPLAY = 20;
         const int NUM_MSG_TO_RETRIVE = 10;
-
+        private Timer timer;
         public Gui(ChatRoom chat)
         {
             chatroom = chat;
@@ -64,7 +66,7 @@ namespace ChatRoomProject.PresentationLayer
                             }
                     }
                 }
-                
+
                 catch (Exception)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -110,11 +112,11 @@ namespace ChatRoomProject.PresentationLayer
             {
                 chatroom.Login(groupId, nickname);
                 log.Info("The user logged in");
-                try 
+                try
                 {
-                   AfterLogin();
+                    AfterLogin();
                 }
-               
+
                 catch (Exception)
                 {
                     log.Error("The system had failed");
@@ -156,7 +158,7 @@ namespace ChatRoomProject.PresentationLayer
 
                         case 2:
                             chatroom.RetrieveNMessages(NUM_MSG_TO_RETRIVE);
-                            log.Info("The user retrieved " + NUM_MSG_TO_RETRIVE+ "messages");
+                            log.Info("The user retrieved " + NUM_MSG_TO_RETRIVE + "messages");
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("The messages has been retrieved");
                             Console.ForegroundColor = ConsoleColor.Gray;
@@ -212,7 +214,24 @@ namespace ChatRoomProject.PresentationLayer
                 }
                 log.Info("Display last messages");
             }
-           
+
+        }
+        public static void Display2(List<IMessage> messages)// display the new messages
+        {
+            if (messages.Count() == 0) // if we get an empty list it means that the client didnt retrieve any message 
+                 Console.WriteLine("You have not retrieve messages, so we will can't show you any message.\nPlease retrieve and then press Display.");
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Last messages:");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                foreach (Message msg in messages)
+                {
+                    Console.WriteLine(msg.ToString());
+                }
+                log.Info("Display last messages");
+            }
+
         }
         public void DisplayFromSpecificUser(string groupId, string nickname) // display from specific user
         {
@@ -223,7 +242,7 @@ namespace ChatRoomProject.PresentationLayer
                 Console.WriteLine("The specific user didn't send any message from the the messages you retrieved.");
                 Console.ForegroundColor = ConsoleColor.Gray;
                 log.Info("There are no messages to display");
-            }  
+            }
             else
             {
                 foreach (Message msg in messages)
@@ -252,7 +271,7 @@ namespace ChatRoomProject.PresentationLayer
                 Console.WriteLine("Your message has been sent");
                 Console.ForegroundColor = ConsoleColor.Gray;
                 log.Info("User sends a message");
-                
+
             }
             catch (Exception e)
             {
@@ -266,6 +285,9 @@ namespace ChatRoomProject.PresentationLayer
             }
 
         }
+      
+       
+    }
 
     }
-}
+

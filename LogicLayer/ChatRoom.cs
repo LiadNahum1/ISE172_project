@@ -82,6 +82,11 @@ namespace ChatRoomProject.LogicLayer
             }
         }
 
+        public List<IUser> getUsers()
+        {
+            return this.users;
+        }
+
         /*Check if nickname is already been used in the same group. If it is, returns false because the nickname is invalid. 
          * Nickname can only be used by one member of the same group
          */
@@ -219,7 +224,7 @@ namespace ChatRoomProject.LogicLayer
             chat.RetrieveNMessages(10);
             List<IMessage> msg = chat.DisplayNMessages(chat.getCount_of_new_message()); // update the data
             chat.setCount_of_new_message(0);
-            PresentationLayer.Gui.Display2(msg);
+            //PresentationLayer.Gui.Display2(msg);
         }
 
         public int getCount_of_new_message()

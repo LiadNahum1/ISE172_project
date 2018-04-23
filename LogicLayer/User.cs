@@ -50,7 +50,7 @@ namespace ChatRoomProject.LogicLayer
                 IMessage message = Communication.Instance.Send(ChatRoom.URL, GroupID(), Nickname(), messageContent);
                 return message;
             }
-            catch(Exception e)
+            catch(Exception )
             {
                 return null;
             }

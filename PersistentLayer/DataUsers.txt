@@ -1,11 +1,10 @@
-12,liad
-21,lnl
-22,liad
-         ,      
-,
-wds,sf
-12,dgf
-sd,dgh
-1,1
-3,Shliomi
-4,a
+9,snir
+9,snir
+2,liad
+2,lia
+2,snir
+7,liad
+30,ggg
+4,noa
+3,liad
+16,nadav

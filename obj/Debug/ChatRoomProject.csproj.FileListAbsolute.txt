@@ -1,0 +1,52 @@
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csprojResolveAssemblyReference.cache
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\MainWindow.g.cs
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\App.g.cs
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject_MarkupCompile.cache
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject_MarkupCompile.lref
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\bin\Debug\ChatRoomProject.exe.config
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\bin\Debug\ChatRoomProject.exe
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\bin\Debug\ChatRoomProject.pdb
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\bin\Debug\log4net.dll
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\bin\Debug\Newtonsoft.Json.dll
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\bin\Debug\log4net.xml
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\bin\Debug\Newtonsoft.Json.xml
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\MainWindow.baml
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.g.resources
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.Properties.Resources.resources
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csproj.GenerateResource.cache
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csproj.CoreCompileInputs.cache
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csproj.CopyComplete
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.exe
+c:\users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.pdb
+C:\Users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\Login.g.cs
+C:\Users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\Login.baml
+C:\Users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomW.g.cs
+C:\Users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\Registration.g.cs
+C:\Users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomW.baml
+C:\Users\ליעד\source\repos\ChatRoomProject\ChatRoomProject\obj\Debug\Registration.baml
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\bin\Debug\ChatRoomProject.exe.config
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\bin\Debug\ChatRoomProject.exe
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\bin\Debug\ChatRoomProject.pdb
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\bin\Debug\log4net.dll
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\bin\Debug\log4net.xml
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csprojResolveAssemblyReference.cache
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\MainWindow.g.cs
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\App.g.cs
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject_MarkupCompile.cache
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject_MarkupCompile.lref
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\MainWindow.baml
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.g.resources
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.Properties.Resources.resources
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csproj.GenerateResource.cache
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csproj.CoreCompileInputs.cache
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csproj.CopyComplete
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.exe
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.pdb
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomW.g.cs
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\Login.g.cs
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\Registration.g.cs
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomW.baml
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\Login.baml
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\Registration.baml

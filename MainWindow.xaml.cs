@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ChatRoomProject.LogicLayer;
-
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 namespace ChatRoomProject
 {
     /// <summary>
@@ -21,6 +21,7 @@ namespace ChatRoomProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("MianWinsow.xaml.cs");
         private ChatRoom chat;
         public MainWindow()
         {

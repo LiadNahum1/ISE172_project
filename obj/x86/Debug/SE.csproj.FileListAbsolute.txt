@@ -1,0 +1,14 @@
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\ConsoleApplication.exe.config
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\ConsoleApplication.exe
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\ConsoleApplication.pdb
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\log4net.dll
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\Newtonsoft.Json.dll
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\log4net.xml
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\Newtonsoft.Json.xml
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\x86\Debug\SE.csprojResolveAssemblyReference.cache
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\x86\Debug\SE.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\x86\Debug\ConsoleApplication.exe
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\x86\Debug\ConsoleApplication.pdb
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\nunit.framework.dll
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\nunit.framework.pdb
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\nunit.framework.xml

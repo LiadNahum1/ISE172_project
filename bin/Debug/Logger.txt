@@ -1,0 +1,267 @@
+INFO  2018-04-03 23:46:22,230   114ms cs                     Start              - the system starts now
+INFO  2018-04-03 23:48:28,494 126378ms cs                     Register           - the user had failed to register
+INFO  2018-04-03 23:48:32,831 130715ms cs                     Login              - the user loged in
+INFO  2018-04-03 23:48:36,378 134262ms cs                     AfterLogin         - the user loged out
+INFO  2018-04-03 23:48:38,015 135899ms cs                     Start              - the user had left
+INFO  2018-04-04 00:02:51,984    94ms cs                     Start              - the system starts now
+INFO  2018-04-04 00:04:58,867    91ms cs                     Start              - the system starts now
+INFO  2018-04-04 00:10:36,163    88ms cs                     Start              - the system starts now
+INFO  2018-04-04 00:30:54,661    89ms cs                     Start              - the system is redtorig the users
+INFO  2018-04-04 00:30:54,685   113ms cs                     Start              - the system is redtorig the messeges
+INFO  2018-04-04 00:30:54,686   114ms cs                     Start              - the system starts now
+ERROR 2018-04-04 00:31:01,570  6998ms cs                     Registration       - the user inserted an invalid nickname
+INFO  2018-04-04 00:31:01,570  6998ms cs                     Register           - the user had failed to register
+INFO  2018-04-04 00:31:05,444 10872ms cs                     Login              - the user loged in
+INFO  2018-04-04 00:31:10,217 15645ms cs                     DisplayNMessages   - the system is displaying the messeges
+INFO  2018-04-04 00:31:25,600 31028ms cs                     AfterLogin         - the user loged out
+INFO  2018-04-04 00:31:27,693 33120ms cs                     Start              - the user had left
+INFO  2018-04-06 12:06:42,062   168ms cs                     Start              - the system starts now
+INFO  2018-04-06 12:06:42,098   204ms cs                     Start              - the system is redtorig the users
+INFO  2018-04-06 12:06:42,106   212ms cs                     Start              - the system is redtorig the messeges
+INFO  2018-04-06 12:07:11,631 29737ms cs                     Register           - the user had registered
+INFO  2018-04-06 12:07:26,483 44589ms cs                     Login              - the user loged in
+INFO  2018-04-06 12:07:47,850 65956ms cs                     DisplayNMessages   - the system is displaying the messeges
+INFO  2018-04-06 12:08:22,245 100351ms cs                     AfterLogin         - the user loged out
+INFO  2018-04-06 12:08:25,239 103344ms cs                     Start              - the user had left
+INFO  2018-04-09 13:19:48,294   115ms cs                     Start              - The system starts now
+INFO  2018-04-09 13:19:48,316   138ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 13:19:48,316   138ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-09 13:19:52,342  4164ms cs                     Login              - The user logged in
+INFO  2018-04-09 13:20:02,953 14775ms cs                     gesFromCertainUser - The system is displaying all messeges from 1 1
+INFO  2018-04-09 13:20:02,953 14775ms cs                     ayFromSpecificUser - There are no messages to display
+INFO  2018-04-09 13:20:07,122 18944ms cs                     AfterLogin         - The user retrieved 10 messages
+INFO  2018-04-09 13:20:09,754 21576ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-09 13:20:09,754 21576ms cs                     Display            - Display last messages
+INFO  2018-04-09 13:26:41,863 413685ms cs                     Send               - User sends a message
+INFO  2018-04-09 13:26:57,821 429642ms cs                     AfterLogin         - The user retrieved 10 messages
+INFO  2018-04-09 13:27:00,513 432335ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-09 13:27:00,534 432355ms cs                     Display            - Display last messages
+INFO  2018-04-09 13:57:07,863   122ms cs                     Start              - The system starts now
+INFO  2018-04-09 13:57:07,879   138ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 13:57:07,879   138ms cs                     Start              - The system is restorig the messeges
+ERROR 2018-04-09 13:57:12,113  4372ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-09 13:57:12,113  4372ms cs                     Register           - The user had failed to register
+INFO  2018-04-09 13:57:14,547  6806ms cs                     Login              - The user logged in
+INFO  2018-04-09 13:57:19,340 11599ms cs                     Send               - User sends a message
+INFO  2018-04-09 13:57:26,417 18676ms cs                     Logout             - User: 11 logout
+INFO  2018-04-09 13:57:26,417 18676ms cs                     AfterLogin         - The user logged out
+INFO  2018-04-09 14:47:33,131   115ms cs                     Start              - The system starts now
+INFO  2018-04-09 14:47:33,146   131ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 14:47:33,162   147ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-09 14:47:34,194  1179ms cs                     Start              - the user had left
+INFO  2018-04-09 15:12:29,268   119ms cs                     Start              - The system starts now
+INFO  2018-04-09 15:12:29,284   135ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 15:12:29,284   135ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-09 15:14:30,249 121100ms cs                     Start              - the user had left
+INFO  2018-04-09 15:14:34,632   115ms cs                     Start              - The system starts now
+INFO  2018-04-09 15:14:34,647   131ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 15:14:34,647   131ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-09 15:14:42,014  7498ms cs                     Register           - The user registered
+ERROR 2018-04-09 15:14:45,862 11346ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-09 15:14:45,862 11346ms cs                     Register           - The user had failed to register
+INFO  2018-04-09 15:15:11,081   123ms cs                     Start              - The system starts now
+INFO  2018-04-09 15:15:11,110   152ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 15:15:11,110   152ms cs                     Start              - The system is restorig the messeges
+ERROR 2018-04-09 15:15:45,895 34937ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-09 15:15:45,895 34937ms cs                     Register           - The user had failed to register
+INFO  2018-04-09 15:15:57,992 47034ms cs                     Register           - The user registered
+INFO  2018-04-09 15:16:03,323 52365ms cs                     Login              - The user logged in
+INFO  2018-04-09 15:16:32,760 81802ms cs                     Send               - User sends a message
+INFO  2018-04-09 15:16:36,553 85595ms cs                     Logout             - User: 11 logout
+INFO  2018-04-09 15:16:36,553 85595ms cs                     AfterLogin         - The user logged out
+ERROR 2018-04-09 15:16:41,441 90483ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-09 15:16:41,441 90483ms cs                     Register           - The user had failed to register
+INFO  2018-04-09 15:16:45,570 94612ms cs                     Login              - The user logged in
+INFO  2018-04-09 15:16:48,780 97822ms cs                     AfterLogin         - The user retrieved 10messages
+INFO  2018-04-09 15:16:49,688 98730ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-09 15:16:49,688 98730ms cs                     Display            - Display last messages
+INFO  2018-04-09 15:16:57,504 106546ms cs                     AfterLogin         - The user retrieved 10messages
+INFO  2018-04-09 15:17:00,586 109628ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-09 15:17:00,586 109628ms cs                     Display            - Display last messages
+INFO  2018-04-09 15:17:15,571 124613ms cs                     Send               - User sends a message
+INFO  2018-04-09 15:17:17,847 126889ms cs                     AfterLogin         - The user retrieved 10messages
+INFO  2018-04-09 15:17:20,154 129196ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-09 15:17:20,169 129211ms cs                     Display            - Display last messages
+INFO  2018-04-09 15:17:45,739 154781ms cs                     gesFromCertainUser - The system is displaying all messeges from 34 54
+INFO  2018-04-09 15:17:45,739 154781ms cs                     ayFromSpecificUser - There are no messages to display
+INFO  2018-04-09 15:17:52,113 161155ms cs                     Logout             - User: 11 logout
+INFO  2018-04-09 15:17:52,113 161155ms cs                     AfterLogin         - The user logged out
+ERROR 2018-04-09 15:18:02,367 171409ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-09 15:18:02,367 171409ms cs                     Register           - The user had failed to register
+INFO  2018-04-09 15:18:04,340 173382ms cs                     Start              - the user had left
+INFO  2018-04-09 15:18:07,987   100ms cs                     Start              - The system starts now
+INFO  2018-04-09 15:18:08,002   115ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 15:18:08,002   115ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-09 15:18:14,121  6235ms cs                     Login              - The user logged in
+INFO  2018-04-09 15:18:24,150 16263ms cs                     gesFromCertainUser - The system is displaying all messeges from 34 5
+INFO  2018-04-09 15:18:24,150 16263ms cs                     ayFromSpecificUser - There are no messages to display
+INFO  2018-04-09 15:18:29,525 21638ms cs                     gesFromCertainUser - The system is displaying all messeges from 1 1
+INFO  2018-04-09 15:18:29,540 21654ms cs                     ayFromSpecificUser - The function displays messages from specific user
+INFO  2018-04-09 15:30:06,870   112ms cs                     Start              - The system starts now
+INFO  2018-04-09 15:30:06,890   132ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 15:30:06,890   132ms cs                     Start              - The system is restorig the messeges
+ERROR 2018-04-09 15:30:11,802  5043ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-09 15:30:11,802  5043ms cs                     Register           - The user had failed to register
+INFO  2018-04-09 15:30:15,365  8607ms cs                     Login              - The user logged in
+INFO  2018-04-09 15:30:20,427 13669ms cs                     Send               - User sends a message
+INFO  2018-04-09 15:30:22,193 15435ms cs                     AfterLogin         - The user retrieved 10messages
+INFO  2018-04-09 15:30:24,935 18177ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-09 15:30:24,947 18189ms cs                     Display            - Display last messages
+INFO  2018-04-09 15:30:28,684 21926ms cs                     gesFromCertainUser - The system is displaying all messeges from 1 1
+INFO  2018-04-09 15:30:28,700 21942ms cs                     ayFromSpecificUser - The function displays messages from specific user
+INFO  2018-04-09 15:30:33,308 26550ms cs                     Logout             - User: 11 logout
+INFO  2018-04-09 15:30:33,308 26550ms cs                     AfterLogin         - The user logged out
+INFO  2018-04-09 15:30:35,755 28997ms cs                     Start              - the user had left
+INFO  2018-04-09 15:31:15,569   115ms cs                     Start              - The system starts now
+INFO  2018-04-09 15:31:15,591   138ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 15:31:15,591   138ms cs                     Start              - The system is restorig the messeges
+ERROR 2018-04-09 15:31:20,778  5324ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-09 15:31:20,778  5324ms cs                     Register           - The user had failed to register
+INFO  2018-04-09 15:31:24,834  9381ms cs                     Login              - The user logged in
+INFO  2018-04-09 15:31:28,541 13087ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-09 15:31:28,541 13087ms cs                     Display            - Display last messages
+INFO  2018-04-09 15:31:30,973 15520ms cs                     Logout             - User: 11 logout
+INFO  2018-04-09 15:31:30,989 15535ms cs                     AfterLogin         - The user logged out
+INFO  2018-04-09 15:31:35,381 19928ms cs                     Register           - The user registered
+INFO  2018-04-09 15:31:38,884 23431ms cs                     Login              - The user logged in
+INFO  2018-04-09 15:31:41,356 25903ms cs                     Logout             - User: 11 logout
+INFO  2018-04-09 15:31:41,356 25903ms cs                     AfterLogin         - The user logged out
+INFO  2018-04-09 15:31:43,196 27743ms cs                     Start              - the user had left
+INFO  2018-04-09 15:32:09,378   104ms cs                     Start              - The system starts now
+INFO  2018-04-09 15:32:09,394   120ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-09 15:32:09,394   120ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-09 15:32:13,717  4442ms cs                     Register           - The user registered
+INFO  2018-04-09 15:32:15,457  6183ms cs                     Start              - the user had left
+INFO  2018-04-10 09:35:06,997   114ms cs                     Start              - The system starts now
+INFO  2018-04-10 09:35:07,026   144ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-10 09:35:07,026   144ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-10 09:35:24,662 17779ms cs                     Login              - The user logged in
+INFO  2018-04-10 09:36:32,528 85646ms cs                     gesFromCertainUser - The system is displaying all messeges from 1  1 
+INFO  2018-04-10 09:36:32,544 85662ms cs                     ayFromSpecificUser - There are no messages to display
+INFO  2018-04-10 09:36:37,698 90816ms cs                     gesFromCertainUser - The system is displaying all messeges from 1 1
+INFO  2018-04-10 09:36:37,698 90816ms cs                     ayFromSpecificUser - The function displays messages from specific user
+INFO  2018-04-10 09:37:12,049 125166ms cs                     gesFromCertainUser - The system is displaying all messeges from  
+INFO  2018-04-10 09:37:12,049 125166ms cs                     ayFromSpecificUser - There are no messages to display
+INFO  2018-04-10 09:37:32,702 145819ms cs                     gesFromCertainUser - The system is displaying all messeges from  
+INFO  2018-04-10 09:37:32,702 145819ms cs                     ayFromSpecificUser - There are no messages to display
+INFO  2018-04-10 09:46:09,429   122ms cs                     Start              - The system starts now
+INFO  2018-04-10 09:46:09,445   138ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-10 09:46:09,445   138ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-10 09:46:17,811  8503ms cs                     Register           - The user registered
+INFO  2018-04-10 09:46:26,330 17022ms cs                     Login              - The user faild to log in
+INFO  2018-04-12 00:24:34,923   137ms cs                     Start              - The system starts now
+INFO  2018-04-12 00:24:34,946   160ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-12 00:24:34,951   165ms cs                     Start              - The system is restorig the messeges
+ERROR 2018-04-12 00:24:41,523  6737ms cs                     Login              - Login failed. The user is not registered
+INFO  2018-04-12 00:24:41,525  6739ms cs                     Login              - The user faild to log in
+INFO  2018-04-12 00:24:47,522 12735ms cs                     Register           - The user registered
+INFO  2018-04-12 00:24:51,413 16626ms cs                     Start              - The user had left
+INFO  2018-04-19 14:08:26,039   131ms cs                     Start              - The system starts now
+INFO  2018-04-19 14:08:26,086   178ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-19 14:08:26,086   178ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-19 14:09:00,783 34875ms cs                     Register           - The user registered
+ERROR 2018-04-19 14:09:15,011 49103ms cs                     Login              - Login failed. The user is not registered
+INFO  2018-04-19 14:09:15,011 49103ms cs                     Login              - The user faild to log in
+INFO  2018-04-19 14:09:38,756 72848ms cs                     Register           - The user registered
+INFO  2018-04-19 14:09:58,154 92246ms cs                     Register           - The user registered
+INFO  2018-04-19 14:11:12,641 166733ms cs                     Register           - The user registered
+INFO  2018-04-19 14:11:23,140 177232ms cs                     Login              - The user logged in
+INFO  2018-04-19 22:58:21,019   215ms cs                     Start              - The system starts now
+INFO  2018-04-19 22:58:21,050   246ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-19 22:58:21,069   266ms cs                     Start              - The system is restorig the messeges
+ERROR 2018-04-19 22:58:50,524 29721ms cs                     Login              - Login failed. The user is not registered
+INFO  2018-04-19 22:58:50,540 29736ms cs                     Login              - The user faild to log in
+ERROR 2018-04-19 22:58:59,308 38504ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-19 22:58:59,323 38520ms cs                     Register           - The user had failed to register
+INFO  2018-04-19 22:59:09,672 48869ms cs                     Login              - The user logged in
+INFO  2018-04-23 14:35:57,296   258ms cs                     Start              - The system starts now
+INFO  2018-04-23 14:35:57,327   290ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-23 14:35:57,327   290ms cs                     Start              - The system is restorig the messeges
+ERROR 2018-04-23 14:36:05,971  8934ms cs                     Login              - Login failed. The user is not registered
+INFO  2018-04-23 14:36:05,991  8954ms cs                     Login              - The user faild to log in
+INFO  2018-04-23 14:36:12,020 14983ms cs                     Register           - The user registered
+INFO  2018-04-23 14:36:17,313 20276ms cs                     Login              - The user logged in
+INFO  2018-04-23 14:36:19,658 22621ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:19,673 22636ms cs                     Display2           - Display last messages
+INFO  2018-04-23 14:36:21,383 24346ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:23,349 26312ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:25,358 28321ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:27,362 30325ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:29,364 32327ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:31,367 34330ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:33,370 36333ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:35,376 38339ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:37,379 40342ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:39,381 42344ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:41,388 44350ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:43,394 46357ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:45,400 48363ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:47,453 50416ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:36:49,408 52371ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:37:35,806   303ms cs                     Start              - The system starts now
+INFO  2018-04-23 14:37:35,850   346ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-23 14:37:35,861   357ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-23 14:37:40,150  4647ms cs                     Login              - The user logged in
+INFO  2018-04-23 14:37:42,657  7154ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:37:42,668  7165ms cs                     Display            - Display last messages
+INFO  2018-04-23 14:39:05,943 90440ms cs                     Send               - User sends a message
+INFO  2018-04-23 14:39:20,848 105345ms cs                     AfterLogin         - The user retrieved 10messages
+INFO  2018-04-23 14:39:21,989 106485ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 14:39:22,005 106501ms cs                     Display            - Display last messages
+INFO  2018-04-23 14:57:14,935   261ms cs                     Start              - The system starts now
+INFO  2018-04-23 14:57:14,962   288ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-23 14:57:14,963   289ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-23 14:57:17,653  2980ms cs                     Login              - The user logged in
+INFO  2018-04-23 14:57:29,248 14574ms cs                     Send               - User sends a message
+INFO  2018-04-23 14:57:31,999 17325ms cs                     Send               - User sends a message
+INFO  2018-04-23 14:57:36,454 21781ms cs                     Send               - User sends a message
+INFO  2018-04-23 14:57:37,923 23250ms cs                     AfterLogin         - The user pressed an ilegal value
+INFO  2018-04-23 14:57:39,957 25283ms cs                     Send               - User sends a message
+INFO  2018-04-23 15:11:55,891   156ms cs                     Start              - The system starts now
+INFO  2018-04-23 15:11:55,909   174ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-23 15:11:55,910   175ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-23 15:12:05,671  9936ms cs                     Register           - The user registered
+ERROR 2018-04-23 15:12:21,288 25553ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-23 15:12:21,288 25553ms cs                     Register           - The user had failed to register
+INFO  2018-04-23 15:12:22,879 27144ms cs                     Login              - The user logged in
+INFO  2018-04-23 15:12:31,162 35427ms cs                     Send               - User sends a message
+INFO  2018-04-23 16:41:00,521 5344786ms cs                     Send               - User sends a message
+INFO  2018-04-23 16:41:01,929 5346194ms cs                     AfterLogin         - The user retrieved 10messages
+INFO  2018-04-23 16:41:03,441 5347706ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 16:41:03,452 5347717ms cs                     Display            - Display last messages
+INFO  2018-04-23 16:44:38,253   124ms cs                     Start              - The system starts now
+INFO  2018-04-23 16:44:38,273   144ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-23 16:44:38,273   144ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-23 16:44:41,665  3536ms cs                     Login              - The user logged in
+INFO  2018-04-23 16:44:50,811 12682ms cs                     AfterLogin         - The user retrieved 10messages
+INFO  2018-04-23 16:44:51,968 13838ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 16:44:51,976 13846ms cs                     Display            - Display last messages
+INFO  2018-04-23 16:45:46,726   117ms cs                     Start              - The system starts now
+INFO  2018-04-23 16:45:46,748   138ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-23 16:45:46,749   139ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-23 16:45:55,908  9299ms cs                     Login              - The user logged in
+INFO  2018-04-23 16:46:05,688 19078ms cs                     Send               - User sends a message
+INFO  2018-04-23 16:46:08,072 21463ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 16:46:08,084 21475ms cs                     Display            - Display last messages
+INFO  2018-04-23 16:46:20,833 34224ms cs                     AfterLogin         - The user retrieved 10messages
+INFO  2018-04-23 16:46:22,816 36207ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 16:46:22,824 36215ms cs                     Display            - Display last messages
+INFO  2018-04-23 16:47:44,997   263ms cs                     Start              - The system starts now
+INFO  2018-04-23 16:47:45,022   288ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-23 16:47:45,024   290ms cs                     Start              - The system is restorig the messeges
+ERROR 2018-04-23 16:47:49,035  4301ms cs                     Registration       - Registration failed. The user inserted an invalid nickname
+INFO  2018-04-23 16:47:49,042  4308ms cs                     Register           - The user had failed to register
+INFO  2018-04-23 16:47:51,234  6501ms cs                     Login              - The user logged in
+INFO  2018-04-23 16:57:46,499   207ms cs                     Start              - The system starts now
+INFO  2018-04-23 16:57:46,552   260ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-23 16:57:46,553   261ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-23 16:58:27,204 40912ms cs                     Login              - The user logged in
+INFO  2018-04-23 17:05:01,707 435415ms cs                     AfterLogin         - The user retrieved 10messages
+INFO  2018-04-23 17:05:05,521 439228ms cs                     DisplayNMessages   - The system is displaying the messeges
+INFO  2018-04-23 17:14:52,767   216ms cs                     Start              - The system starts now
+INFO  2018-04-23 17:14:52,782   231ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-23 17:14:52,798   247ms cs                     Start              - The system is restorig the messeges
+INFO  2018-04-23 17:14:55,974  3423ms cs                     Login              - The user logged in
+INFO  2018-04-24 09:56:16,493   297ms cs                     Start              - The system starts now
+INFO  2018-04-24 09:56:16,559   363ms cs                     Start              - The system is restorig the users 
+INFO  2018-04-24 09:56:16,601   404ms cs                     Start              - The system is restorig the messeges

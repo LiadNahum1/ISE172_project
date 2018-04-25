@@ -240,43 +240,48 @@ namespace ChatRoomProject.LogicLayer
             this.count_of_new_message = num;
         }
 
-        public List<IMessage> SortTimestampAscending()
+        public List<IMessage> SortTimestamp(Boolean assending)
         {
+            if(assending)
             return this.messages;
+            else
+            {
+                List<IMessage> order_list = this.messages;
+                order_list.Reverse();
+                return (order_list);
+            }
         }
-        public List<IMessage> SortByTimestampDescending()
+         
+        public List<IMessage> SortByNickname(Boolean assending)
         {
-            List<IMessage> order_list = this.messages;
-            order_list.Reverse();
-            return (order_list);
+            if (assending)
+            {
+                List<IMessage> order_list = this.messages;
+                order_list = order_list.OrderBy(o => o.UserName).ToList();
+                return order_list;
+            }
+            else
+            {
+                List<IMessage> order_list = this.messages;
+                order_list = order_list.OrderByDescending(o => o.UserName).ToList();
+                return order_list;
+            }
         }
-        public List<IMessage> SortByNicknameDescending()
+        public List<IMessage> SortByIdNicknameTimestamp(Boolean assending)
         {
-            List<IMessage> order_list = this.messages;
-            order_list = order_list.OrderByDescending(o => o.UserName).ToList();
-            return order_list;
+            if (assending)
+            {
+                List<IMessage> order_list = this.messages;
+                order_list.OrderBy(x => x.Id).ThenBy(x => x.UserName).ThenBy(x => x.Date);
+                return order_list;
+            }
+            else {
+                List<IMessage> order_list = this.messages;
+                order_list.OrderByDescending(x => x.Id).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date);
+                return order_list;
+            }
         }
-        public List<IMessage> SortByNicknameAscending()
-        {
-            List<IMessage> order_list = this.messages;
-            order_list = order_list.OrderBy(o => o.UserName).ToList();
-            return order_list;
-        }
-        public List<IMessage> SortByIdNicknameTimestamp()
-        {
-            List<IMessage> order_list = this.messages;
-            order_list.OrderBy(x => x.Id).ThenBy(x => x.UserName).ThenBy(x => x.Date);
-
-            return order_list;
-        }
-        public List<IMessage> SortByIdNicknameTimestampDescending()
-        {
-            List<IMessage> order_list = this.messages;
-            order_list.OrderByDescending(x => x.Id).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date);
-            return order_list;
-        }
-
-        public List<IMessage> FilterByGroupId(String groupId)
+               public List<IMessage> FilterByGroupId(String groupId)
         {
             List<IMessage> filter_list = this.messages;
             filter_list.Where (x => x.GroupID.Equals(groupId)).ToList();
@@ -289,10 +294,6 @@ namespace ChatRoomProject.LogicLayer
             filter_list.Where(x => (x.GroupID.Equals(groupId))&&x.UserName.Equals(nickname)).ToList();
             return filter_list;
         }
-
-
-
-
 
 
     }

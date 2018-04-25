@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("persistentlayer/datamessages.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("persistentlayer/datausers.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/logout1.png")]
 
 

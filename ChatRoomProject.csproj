@@ -146,5 +146,8 @@
   <ItemGroup>
     <Folder Include="PresentationLayer\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pictures\logout1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

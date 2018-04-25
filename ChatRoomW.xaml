@@ -9,18 +9,18 @@
     <Grid Background="AliceBlue">
         <WrapPanel HorizontalAlignment="Left" Height="100" Margin="348,231,0,0" VerticalAlignment="Top" Width="100"/>
         <ScrollBar HorizontalAlignment="Left" Margin="106,10,0,0" VerticalAlignment="Top" Height="367" Width="31"/>
-        <ListView x:Name"messageVieu" HorizontalAlignment="Left" Height="367" Margin="142,10,0,0" VerticalAlignment="Top" Width="650">
+        <ListView x:Name = "messageVieu" HorizontalAlignment="Left" Height="367" Margin="142,10,0,0" VerticalAlignment="Top" Width="650">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name"messageContent" HorizontalAlignment="Left" Height="27" Margin="310,382,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="472" TextChanged="TextBox_TextChanged"/>
-        <Button  x:Name"send" Content="send message" FontSize="22" Foreground="Purple"  HorizontalAlignment="Left" Margin="142,382,0,5" Width="163" Click="Button_Click" />
+        <TextBox x:Name="messageContent" HorizontalAlignment="Left" Height="27" Margin="310,382,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="472" TextChanged="TextBox_TextChanged"/>
+        <Button  x:Name="send" Content="send message" FontSize="22" Foreground="Purple"  HorizontalAlignment="Left" Margin="142,382,0,5" Width="163" Click="Button_Click" />
         <Menu Background="BlueViolet" HorizontalAlignment="Left" Height="399" Margin="0,10,0,0" VerticalAlignment="Top" Width="106">
-            <Label x:Name"hellowUserId" Content="hello" FontSize="20"/>
-            <Label x:Name"hellowUserName" Content="filters:" FontSize="20" Width="78"/>
+            <Label x:Name="hellowUserId" Content="hello" FontSize="20"/>
+            <Label x:Name="hellowUserName" Content="filters:" FontSize="20" Width="78"/>
             <CheckBox Content="Group ID" FontSize="16" Checked="CheckBox_Checked"/>
             <CheckBox Content="Nickname" FontSize="16" Checked="CheckBox_Checked_2"/>
             <CheckBox Content=" send Time" FontSize="16" Height="24" Checked="CheckBox_Checked_1"/>

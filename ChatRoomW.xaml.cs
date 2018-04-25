@@ -22,7 +22,7 @@ namespace ChatRoomProject
         public ChatRoomW(ChatRoom chat)
         {
             InitializeComponent();
-            hellowUserId.Content = ("hii");
+            hellowUserId.Content = ("hii" + chat.);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

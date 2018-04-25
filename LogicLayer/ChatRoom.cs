@@ -86,7 +86,10 @@ namespace ChatRoomProject.LogicLayer
         {
             return this.users;
         }
-
+        public IUser getCorrantUser()
+        {
+            return this.currentUser;
+        }
         /*Check if nickname is already been used in the same group. If it is, returns false because the nickname is invalid. 
          * Nickname can only be used by one member of the same group
          */

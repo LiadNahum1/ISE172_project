@@ -21,17 +21,17 @@ namespace ChatRoomProject
     {
         private ChatRoom chat;
         private Boolean[] sortChoses;
-        private Boolean[] filterChoses;
         const int sortOptionNumber = 3;
-        const int filterOptionNumber = 2;
+
         public ChatRoomW(ChatRoom chat)
         {
             InitializeComponent();
+            messageVieu.ItemsSource = chat.DisplayNMessages(5);
             this.chat = chat;
             hellowUserId.Content = ("hii" + chat.getCorrantUser().Nickname());
-            inisializeFilterAndSorter();
+            inisializeSorter();
         }
-        private void inisializeFilterAndSorter()
+        private void inisializeSorter()
         {
             ComboBoxItem comboBoxItem1 = new ComboBoxItem();
             comboBoxItem1.Content = "assending";
@@ -40,14 +40,9 @@ namespace ChatRoomProject
             comboBoxItem2.Content = "dessending";
             sortOrder.Items.Add(comboBoxItem2);
             sortChoses = new Boolean[sortOptionNumber];
-            filterChoses = new Boolean[filterOptionNumber];
             for (int i = 0; i< sortOptionNumber; i++)
             {
                 sortChoses[i] = false;
-            }
-            for (int i = 0; i < filterOptionNumber; i++)
-            {
-                filterChoses[i] = false;
             }
         }
         private void CheckBox_Unchecked_time(object sender, RoutedEventArgs e)
@@ -75,23 +70,7 @@ namespace ChatRoomProject
             sortChoses[2] = true;
         }
         
-        private void CheckBox_Unchecked_FID(object sender, RoutedEventArgs e)
-        {
-            filterChoses[0] = false;
-        }
-        private void CheckBox_Checked_FID(object sender, RoutedEventArgs e)
-        {
-            filterChoses[0] = true;
-        }
-        private void CheckBox_Unchecked_FName(object sender, RoutedEventArgs e)
-        {
-            filterChoses[1] = false;
-        }
-        private void CheckBox_Checked_FName(object sender, RoutedEventArgs e)
-        {
-            filterChoses[1] = true;
-        }
-       
+        
         private void Button_Click_sort(object sender, RoutedEventArgs e)
         {
             try{
@@ -116,22 +95,13 @@ namespace ChatRoomProject
 
         }
 
-        private void Button_Click_Filter(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-              
-
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show("plese chose filter options");
-            }
-
-        }
+       
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
         {
-
+            chat.Logout();
+            MainWindow main = new MainWindow(this.chat);
+            main.Show();
+            this.Close();
         }
         
         private void Button_Click_send(object sender, RoutedEventArgs e)
@@ -144,6 +114,34 @@ namespace ChatRoomProject
             {
                 MessageBox.Show(error.Message);
             }
+        }
+
+        private void Button_Click_FUser(object sender, RoutedEventArgs e)
+        {
+            try {
+                if(!userFilter.Text.Contains(","))
+                    throw new Exception("plese chose user to filter by write id,nickname");
+                else
+                {
+                    string[] userData = userFilter.Text.Split(',');
+                    if (!(userData.Length == 2))
+                        throw new Exception("plese chose user to filter by write id,nickname");
+                    else
+                        chat.FilterByUser(userData[0], userData[1]);
+                }
+            }
+            catch(Exception error) {
+                MessageBox.Show(error.Message);
+            }
+        }
+
+        private void Button_Click_FId(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                chat.FilterByGroupId(IdFilter.Text);
+            }
+            catch(Exception error) { MessageBox.Show(error.Message); }
         }
     }
 }

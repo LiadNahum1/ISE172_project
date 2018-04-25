@@ -22,13 +22,13 @@
             <Label x:Name="hellowUserId" Content="hello" FontSize="20"/>
             <Label x:Name="sortOptions" Content="Sort By:" VerticalContentAlignment="Top" FontSize="20"  Width="96" Height="36" RenderTransformOrigin="0.51,0.083"/>
             <ComboBox x:Name="sortOrder" Width="96" />
-            <CheckBox Content="Group ID" FontSize="16" Checked="CheckBox_Checked_Id" Unchecked="CheckBox_Unchecked_Id"/>
-            <CheckBox Content="Nickname" FontSize="16" Checked="CheckBox_Checked_name" Unchecked="CheckBox_Unchecked_name"/>
-            <CheckBox Content="Time" FontSize="16" Height="24" Checked="CheckBox_Checked_time" Unchecked="CheckBox_Unchecked_time"/>
+            <CheckBox Content="Group ID" FontSize="16" Checked="CheckBox_checked_Id" Unchecked="CheckBox_Unchecked_Id"/>
+            <CheckBox Content="Nickname" FontSize="16" Checked="CheckBox_checked_name" Unchecked="CheckBox_Unchecked_name"/>
+            <CheckBox Content="Time" FontSize="16" Height="24" Checked="CheckBox_checked_time" Unchecked="CheckBox_Unchecked_time"/>
             <Button Content="sort messages" FontSize="14" Width="96" Click="Button_Click_sort"/>
             <Label x:Name="filterOptions" Content="filter By:" FontSize="20" Width="78"/>
             <Button Content="filter by user" FontSize="14" Width="96" Click="Button_Click_FUser"/>
-            <TextBox x:Name="userfilter" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
+            <TextBox x:Name="userFilter" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
             <Button Content="filter by id" FontSize="14" Width="96" Click="Button_Click_FId"/>
             <TextBox x:Name="IdFilter" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
             <Button Width="80" Height="60" Click="Button_Click_LogOut" Margin="3">

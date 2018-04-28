@@ -16,7 +16,6 @@ namespace ChatRoomProject.LogicLayer
         private List<IMessage> messages;
         private IUser currentUser;
         public const string URL = " http://ise172.ise.bgu.ac.il:80";
-        private Timer timer;
 
         private int count_of_new_message;
         //useful error messages
@@ -32,10 +31,6 @@ namespace ChatRoomProject.LogicLayer
             this.messages = new List<IMessage>(); //messages list
             this.currentUser = null; //user that is connected now
             this.count_of_new_message = 0;
-            this.timer = new Timer(2000);
-            timer.AutoReset = true;
-            timer.Elapsed += (sender, e) => OnTimedEvent(sender, e, this);
-
         }
 
         /*The method restores the users and the messages that had been saved in the system files from previous use */
@@ -124,7 +119,6 @@ namespace ChatRoomProject.LogicLayer
                 if (user.GroupID() == groupId && user.Nickname() == nickname)
                 {
                     this.currentUser = user;
-                    timer.Start(); // BEGIN TIMER 
                     return true;
                 }
             }
@@ -137,7 +131,6 @@ namespace ChatRoomProject.LogicLayer
         {
             log.Info("User: " + this.currentUser + " logout");
             this.currentUser = null;
-            timer.Stop();//STOP TIMER
         }
 
         /*The function retrieves 10 last messages from server. The function adds only the new messages to the messages list
@@ -222,13 +215,7 @@ namespace ChatRoomProject.LogicLayer
                 throw new Exception(ILLEGAL_LENGTH_MESSAGE);
             }
         }
-        public static void OnTimedEvent(object source, ElapsedEventArgs e, ChatRoom chat)
-        {
-            chat.RetrieveNMessages(10);
-            List<IMessage> msg = chat.DisplayNMessages(chat.getCount_of_new_message()); // update the data
-            chat.setCount_of_new_message(0);
-            //PresentationLayer.Gui.Display2(msg);
-        }
+      
 
         public int getCount_of_new_message()
         {

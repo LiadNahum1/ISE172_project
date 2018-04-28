@@ -7,7 +7,7 @@ using System.IO;
 
 namespace ChatRoomProject.PersistentLayer
 {
-    class UserHandler
+    public class UserHandler
     {
         public static void SaveToFile(string nickname, string groupId)
         {

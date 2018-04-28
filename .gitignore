@@ -156,3 +156,4 @@ obj
 /.vs/ChatRoomProject/v15/.suo
 /bin/*
 /obj/*
+/obj/Debug/*

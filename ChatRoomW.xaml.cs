@@ -30,7 +30,6 @@ namespace ChatRoomProject
         public ChatRoomW(ChatRoom chat)
         {
             InitializeComponent();
-            messageVieu.ItemsSource = chat.DisplayNMessages(5);
             this.chat = chat;
             hellowUserId.Content = ("hii" + chat.getCorrantUser().Nickname());
             inisializeSorter();
@@ -46,11 +45,12 @@ namespace ChatRoomProject
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            chat.RetrieveNMessages(10);
+            chat.RetrieveNMessages(10); 
             List<IMessage> msg = chat.DisplayNMessages(chat.getCount_of_new_message()); // update the data
             chat.setCount_of_new_message(0);
-            messageVieu.ItemsSource = msg;
-            MessageBoxResult result = MessageBox.Show("HEY MAN");
+            messageVieu.Items.Add(msg);
+           // messageVieu.ItemsSource = msg;
+           
 
         }
         /*
@@ -110,13 +110,13 @@ namespace ChatRoomProject
             try{
                 bool isAssending = (sortOptions.DataContext.ToString().Equals("assending"));
                 if (sortChoses[0] & sortChoses[1] & sortChoses[2])
-                    chat.SortByIdNicknameTimestamp(isAssending);
+                    messageVieu.ItemsSource = chat.SortByIdNicknameTimestamp(isAssending);
                 else
                 {
                     if (sortChoses[0])
-                        chat.SortTimestamp(isAssending);
+                        messageVieu.ItemsSource = chat.SortTimestamp(isAssending);
                     else if (sortChoses[1])
-                        chat.SortByNickname(isAssending);
+                        messageVieu.ItemsSource = chat.SortByNickname(isAssending);
                     else
                         throw new Exception("didnt choose options to sort by");
                 }
@@ -163,7 +163,7 @@ namespace ChatRoomProject
                     if (!(userData.Length == 2))
                         throw new Exception("please choose user to filter by write id,nickname");
                     else
-                        chat.FilterByUser(userData[0], userData[1]);
+                        messageVieu.ItemsSource = chat.FilterByUser(userData[0], userData[1]);
                 }
             }
             catch(Exception error) {
@@ -175,7 +175,7 @@ namespace ChatRoomProject
         {
             try
             {
-                chat.FilterByGroupId(IdFilter.Text);
+                messageVieu.ItemsSource = chat.FilterByGroupId(IdFilter.Text);
             }
             catch(Exception error) { MessageBox.Show(error.Message); }
         }

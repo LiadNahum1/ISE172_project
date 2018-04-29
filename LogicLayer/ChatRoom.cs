@@ -16,7 +16,8 @@ namespace ChatRoomProject.LogicLayer
         private List<IMessage> messages;
         private IUser currentUser;
         public const string URL = " http://ise172.ise.bgu.ac.il:80";
-
+        private string sorter;
+        private string filter;
         private int count_of_new_message;
         //useful error messages
         const string INVALID_NICKNAME = "Invalid nickname. \nYou insert a nickname that is already used in your group";
@@ -27,6 +28,8 @@ namespace ChatRoomProject.LogicLayer
         //constructor
         public ChatRoom()
         {
+            this.sorter = "";
+            this.filter = "";
             this.users = new List<IUser>(); //users list
             this.messages = new List<IMessage>(); //messages list
             this.currentUser = null; //user that is connected now
@@ -55,7 +58,44 @@ namespace ChatRoomProject.LogicLayer
                 this.messages.Add(new Message(details[0], details[1], details[2], details[3], details[4], true));
             }
         }
+        //need to update fields sort and filter with setSort every time they change the sort
+        //return update list sorted by or filter by
+        
+        public List<IMessage> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName)
+        {
+            RetrieveNMessages(10);
+            List<IMessage> updateList = new List<IMessage>();
+            if(ascending)
+            {
+                if (sort.Equals("ByNickName"))
+                    updateList =SortByNickname(ascending);
+                if (sort.Equals("SortByIdNicknameTimestamp"))
+                    updateList= SortByIdNicknameTimestamp(ascending);
+                if (sort.Equals("SortByTimestamp"))
+                    updateList= SortTimestamp(ascending);
+            }
+            else
+            {
+                if (sort.Equals("ByNickName"))
+                    updateList= SortByNickname(ascending);
+                if (sort.Equals("SortByIdNicknameTimestamp"))
+                    updateList= SortByIdNicknameTimestamp(ascending);
+                if (sort.Equals("SortTimestampDescending"))
+                    updateList= SortTimestamp(ascending);
+            }
 
+            //filter- check we need to do both together
+            if(filter!=null)
+            {
+                if (filter.Equals("SortTimestamp"))
+                    return FilterByGroupId(updateList, groupId);
+                else
+                    return FilterByUser(updateList,groupId,nickName);
+            }
+            return updateList;
+           
+        }
+        
         /*The method registrates a new user to the system. The method first checks if nickname input is legal.
          * If it is, the method creats new User instance and adds him to the users list. 
          * If nickname is already been used by the same groupId, the function throws an exception
@@ -161,7 +201,7 @@ namespace ChatRoomProject.LogicLayer
             this.count_of_new_message = new_messages; //update the count of messages which added to the list
             this.messages = this.messages.OrderBy(m => m.Date).ToList();
         }
-
+/*
         //The function returns list of the *** last messages to display without retrieving new messages from server
         public List<IMessage> DisplayNMessages(int number)
         {
@@ -180,6 +220,7 @@ namespace ChatRoomProject.LogicLayer
         /*The function gets groupId and nickname and returns list of all messages that have been sent from this certain user 
         *sorted by their timestamp.
         */
+        /*
         public List<IMessage> DisplayAllMessagesFromCertainUser(string groupId, string nickname)
         {
             log.Info("The system is displaying all messeges from " + groupId + " " + nickname);
@@ -190,7 +231,7 @@ namespace ChatRoomProject.LogicLayer
             display = users.ToList();
             return display;
         }
-
+        */
         /*The function gets a string, checks if it is legal. If it is, sends the message content to the server and saves it in 
          * messages list. If it isn't, throws an exception
          */
@@ -227,7 +268,7 @@ namespace ChatRoomProject.LogicLayer
             this.count_of_new_message = num;
         }
 
-        public List<IMessage> SortTimestamp(Boolean assending)
+        private List<IMessage> SortTimestamp(Boolean assending)
         {
             if(assending)
             return this.messages;
@@ -238,8 +279,8 @@ namespace ChatRoomProject.LogicLayer
                 return (order_list);
             }
         }
-         
-        public List<IMessage> SortByNickname(Boolean assending)
+
+        private List<IMessage> SortByNickname(Boolean assending)
         {
             if (assending)
             {
@@ -254,7 +295,7 @@ namespace ChatRoomProject.LogicLayer
                 return order_list;
             }
         }
-        public List<IMessage> SortByIdNicknameTimestamp(Boolean assending)
+        private List<IMessage> SortByIdNicknameTimestamp(Boolean assending)
         {
             if (assending)
             {
@@ -268,16 +309,16 @@ namespace ChatRoomProject.LogicLayer
                 return order_list;
             }
         }
-               public List<IMessage> FilterByGroupId(String groupId)
+        private List<IMessage> FilterByGroupId(List<IMessage> list, String groupId)
         {
-            List<IMessage> filter_list = this.messages;
+            List<IMessage> filter_list = list;
             filter_list.Where (x => x.GroupID.Equals(groupId)).ToList();
             return filter_list;
         }
         // filtering by a specific groupId and nickname
-        public List<IMessage> FilterByUser(String groupId, String nickname)
+        private List<IMessage> FilterByUser(List<IMessage> list,String groupId, String nickname)
         {
-            List<IMessage> filter_list = this.messages;
+            List<IMessage> filter_list = list;
             filter_list.Where(x => (x.GroupID.Equals(groupId))&&x.UserName.Equals(nickname)).ToList();
             return filter_list;
         }

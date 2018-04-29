@@ -22,49 +22,39 @@ namespace ChatRoomProject
     /// </summary>
     public partial class ChatRoomW : Window
     {
+        private string nickName;
+        private string groupId;
+        private string sort;
+        private string filter;
+        private bool ascending;
         private ChatRoom chat;
         private Boolean[] sortChoses;
         const int sortOptionNumber = 3;
-        //  private Timer timer;
         private DispatcherTimer dispatcherTimer;
         public ChatRoomW(ChatRoom chat)
         {
             InitializeComponent();
-            messageVieu.ItemsSource = chat.DisplayNMessages(5);
+           // messageVieu.ItemsSource = chat.DisplayNMessages(5);
             this.chat = chat;
-            hellowUserId.Content = ("hii" + chat.getCorrantUser().Nickname());
+            nickName=null;
+            groupId=null;
+            sort= "SortByTimestamp";
+            filter=null;
+            ascending=false;
+        hellowUserId.Content = ("hii" + chat.getCorrantUser().Nickname());
             inisializeSorter();
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
             dispatcherTimer.Start();
 
-            //this.timer = new Timer(2000);
-            //timer.AutoReset = true;
-            //timer.Elapsed += (sender, e) => OnTimedEvent(sender, e,chat,this);
-            //timer.Start();// timer begin because the user logged in
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            chat.RetrieveNMessages(10);
-            List<IMessage> msg = chat.DisplayNMessages(chat.getCount_of_new_message()); // update the data
-            chat.setCount_of_new_message(0);
+            List<IMessage> msg = chat.MessageManager(this.ascending, this.filter,this.sort, this.groupId, this.nickName)
             messageVieu.ItemsSource = msg;
-            MessageBoxResult result = MessageBox.Show("HEY MAN");
-
         }
-        /*
-        public static void OnTimedEvent(object source, ElapsedEventArgs e,ChatRoom chat,ChatRoomW chat_gui)
-        {
-           chat.RetrieveNMessages(10);
-           List<IMessage> msg = chat.DisplayNMessages(chat.getCount_of_new_message()); // update the data
-           chat.setCount_of_new_message(0);
-           chat_gui.messageVieu.ItemsSource = msg;
-            MessageBoxResult result = MessageBox.Show("HEY MAN");
-
-        }
-        */
-
+       
         private void inisializeSorter()
         {
             ComboBoxItem comboBoxItem1 = new ComboBoxItem();
@@ -133,8 +123,7 @@ namespace ChatRoomProject
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
         {
             chat.Logout();
-            //  timer.Stop();// user logged out
-            this.dispatcherTimer.Stop();
+            this.dispatcherTimer.Stop();// user logged out
             MainWindow main = new MainWindow(this.chat);
             main.Show();
             this.Close();
@@ -145,6 +134,7 @@ namespace ChatRoomProject
             try
             {
                 chat.Send(messageContent.Text);
+                messageContent.Text = "";
             }
             catch(Exception error)
             {

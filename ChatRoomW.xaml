@@ -25,7 +25,7 @@
             <CheckBox Content="Group ID" FontSize="16" Checked="CheckBox_checked_Id" Unchecked="CheckBox_Unchecked_Id"/>
             <CheckBox Content="Nickname" FontSize="16" Checked="CheckBox_checked_name" Unchecked="CheckBox_Unchecked_name"/>
             <CheckBox Content="Time" FontSize="16" Height="24" Checked="CheckBox_checked_time" Unchecked="CheckBox_Unchecked_time"/>
-            <Button Content="sort messages" FontSize="14" Width="96" Click="Button_Click_sort"/>
+           
             <Label x:Name="filterOptions" Content="filter By:" FontSize="20" Width="78"/>
             <Button Content="filter by user" FontSize="14" Width="96" Click="Button_Click_FUser"/>
             <TextBox x:Name="userFilter" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />

@@ -73,3 +73,27 @@ C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProjec
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject.csproj.CoreCompileInputs.cache
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject.exe
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject.pdb
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\bin\Debug\ChatRoomProject.exe.config
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\bin\Debug\ChatRoomProject.exe
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\bin\Debug\ChatRoomProject.pdb
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\bin\Debug\log4net.xml
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\bin\Debug\Newtonsoft.Json.xml
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.csprojResolveAssemblyReference.cache
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomW.g.cs
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\Login.g.cs
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\MainWindow.g.cs
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\Registration.g.cs
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\App.g.cs
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject_MarkupCompile.cache
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject_MarkupCompile.lref
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomW.baml
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\Login.baml
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\MainWindow.baml
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\Registration.baml
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.g.resources
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.Properties.Resources.resources
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.csproj.GenerateResource.cache
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.csproj.CoreCompileInputs.cache
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.csproj.CopyComplete
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.exe
+D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.pdb

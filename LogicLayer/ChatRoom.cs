@@ -16,8 +16,6 @@ namespace ChatRoomProject.LogicLayer
         private List<IMessage> messages;
         private IUser currentUser;
         public const string URL = " http://ise172.ise.bgu.ac.il:80";
-        private string sorter;
-        private string filter;
         private int count_of_new_message;
         //useful error messages
         const string INVALID_NICKNAME = "Invalid nickname. \nYou insert a nickname that is already used in your group";
@@ -28,8 +26,6 @@ namespace ChatRoomProject.LogicLayer
         //constructor
         public ChatRoom()
         {
-            this.sorter = "";
-            this.filter = "";
             this.users = new List<IUser>(); //users list
             this.messages = new List<IMessage>(); //messages list
             this.currentUser = null; //user that is connected now
@@ -66,7 +62,7 @@ namespace ChatRoomProject.LogicLayer
             RetrieveNMessages(10);
             List<IMessage> updateList = new List<IMessage>();
           
-                if (sort.Equals("ByNickName"))
+                if (sort.Equals("SortByNickName"))
                     updateList =SortByNickname(ascending);
                 if (sort.Equals("SortByIdNicknameTimestamp"))
                     updateList= SortByIdNicknameTimestamp(ascending);
@@ -75,10 +71,10 @@ namespace ChatRoomProject.LogicLayer
                     //filter- check we need to do both together
             if(filter!=null)
             {
-                if (filter.Equals("SortTimestamp"))
-                    return FilterByGroupId(updateList, groupId);
+                if (filter.Equals("filterByUser"))
+                    return FilterByUser(updateList, groupId, nickName); 
                 else
-                    return FilterByUser(updateList,groupId,nickName);
+                    return FilterByGroupId(updateList, groupId);
             }
             return updateList;
            
@@ -189,40 +185,6 @@ namespace ChatRoomProject.LogicLayer
             this.count_of_new_message = new_messages; //update the count of messages which added to the list
             this.messages = this.messages.OrderBy(m => m.Date).ToList();
         }
-/*
-        //The function returns list of the *** last messages to display without retrieving new messages from server
-        public List<IMessage> DisplayNMessages(int number)
-        {
-            log.Info("The system is displaying the messeges");
-            List<IMessage> display = new List<IMessage>();
-            for (int i = this.messages.Count - 1; i >= 0 & number > 0; i = i - 1)
-            {
-                display.Add(this.messages[i]);
-                number = number - 1;
-            }
-            //We need to reverse the list so the list will be sorted from the oldest message to the newest 
-            display.Reverse();
-            return display;
-        }
-
-        /*The function gets groupId and nickname and returns list of all messages that have been sent from this certain user 
-        *sorted by their timestamp.
-        */
-        /*
-        public List<IMessage> DisplayAllMessagesFromCertainUser(string groupId, string nickname)
-        {
-            log.Info("The system is displaying all messeges from " + groupId + " " + nickname);
-            List<IMessage> display = new List<IMessage>();
-            var users = from msg in this.messages
-                        where msg.GroupID.Equals(groupId) && msg.UserName.Equals(nickname)
-                        select msg;
-            display = users.ToList();
-            return display;
-        }
-        */
-        /*The function gets a string, checks if it is legal. If it is, sends the message content to the server and saves it in 
-         * messages list. If it isn't, throws an exception
-         */
         public void Send(string messageContent)
         {
             if ((Message.CheckValidity(messageContent)))
@@ -256,9 +218,9 @@ namespace ChatRoomProject.LogicLayer
             this.count_of_new_message = num;
         }
 
-        private List<IMessage> SortTimestamp(Boolean assending)
+        private List<IMessage> SortTimestamp(Boolean ascending)
         {
-            if(assending)
+            if(ascending)
             return this.messages;
             else
             {
@@ -268,9 +230,9 @@ namespace ChatRoomProject.LogicLayer
             }
         }
 
-        private List<IMessage> SortByNickname(Boolean assending)
+        private List<IMessage> SortByNickname(Boolean ascending)
         {
-            if (assending)
+            if (ascending)
             {
                 List<IMessage> order_list = this.messages;
                 order_list = order_list.OrderBy(o => o.UserName).ToList();
@@ -283,9 +245,9 @@ namespace ChatRoomProject.LogicLayer
                 return order_list;
             }
         }
-        private List<IMessage> SortByIdNicknameTimestamp(Boolean assending)
+        private List<IMessage> SortByIdNicknameTimestamp(Boolean ascending)
         {
-            if (assending)
+            if (ascending)
             {
                 List<IMessage> order_list = this.messages;
                 order_list.OrderBy(x => x.Id).ThenBy(x => x.UserName).ThenBy(x => x.Date);

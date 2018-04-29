@@ -27,6 +27,8 @@ namespace ChatRoomProject
         private string sort;
         private string filter;
         private bool ascending;
+        private bool[] sortChoses;
+        const int sortOptionNumber = 3;
         private ChatRoom chat;
         private DispatcherTimer dispatcherTimer;
         public ChatRoomW(ChatRoom chat)
@@ -55,26 +57,31 @@ namespace ChatRoomProject
        
         private void inisializeFilterandSorter()
         {
-            ComboBoxItem sortOpAss = new ComboBoxItem();
-            sortOpAss.Content = "assending";
-            sortOrder.Items.Add(sortOpAss);
-            ComboBoxItem sortOpDess = new ComboBoxItem();
-            sortOpDess.Content = "dessending";
-            sortOrder.Items.Add(sortOpDess);
+            ComboBoxItem sortOpAsc = new ComboBoxItem();
+            sortOpAsc.Content = "ascending";
+            sortOrder.Items.Add(sortOpAsc);
+            ComboBoxItem sortOpDes = new ComboBoxItem();
+            sortOpDes.Content = "descending";
+            sortOrder.Items.Add(sortOpDes);
             ComboBoxItem filterOpUser = new ComboBoxItem();
-            filterOpUser.Content = "user";
+            filterOpUser.Content = "filterByUser";
             filterOptions.Items.Add(filterOpUser);
             ComboBoxItem filterOpName = new ComboBoxItem();
-            filterOpName.Content = "user";
+            filterOpName.Content = "filterByName";
             filterOptions.Items.Add(filterOpName);
+            sortChoses = new Boolean[sortOptionNumber];
+            for (int i = 0; i < sortOptionNumber; i++)
+            {
+                sortChoses[i] = false;
+            }
         }
         private void CheckBox_Unchecked_time(object sender, RoutedEventArgs e)
         {
-            
+            sortChoses[0] = false;
         }
         private void CheckBox_checked_time(object sender, RoutedEventArgs e)
         {
-            this.sort = "SortByTimestamp";
+            sortChoses[0] = true;
         }
         private void CheckBox_Unchecked_name(object sender, RoutedEventArgs e)
         {
@@ -94,30 +101,6 @@ namespace ChatRoomProject
         }
         
         
-        private void Button_Click_sort(object sender, RoutedEventArgs e)
-        {
-            try{
-                bool isAssending = (sortOptions.DataContext.ToString().Equals("assending"));
-                if (sortChoses[0] & sortChoses[1] & sortChoses[2])
-                    chat.SortByIdNicknameTimestamp(isAssending);
-                else
-                {
-                    if (sortChoses[0])
-                        chat.SortTimestamp(isAssending);
-                    else if (sortChoses[1])
-                        chat.SortByNickname(isAssending);
-                    else
-                        throw new Exception("didnt choose options to sort by");
-                }
-
-            }
-            catch (Exception error) // TODO add error 
-            {
-                MessageBox.Show("please choose sorting options");
-            }
-
-        }
-
        
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
         {
@@ -141,32 +124,57 @@ namespace ChatRoomProject
             }
         }
 
-        private void Button_Click_FUser(object sender, RoutedEventArgs e)
-        {
-            try {
-                if(!userFilter.Text.Contains(","))
-                    throw new Exception("please choose user to filter by write id,nickname");
-                else
-                {
-                    string[] userData = userFilter.Text.Split(',');
-                    if (!(userData.Length == 2))
-                        throw new Exception("please choose user to filter by write id,nickname");
-                    else
-                        chat.FilterByUser(userData[0], userData[1]);
-                }
-            }
-            catch(Exception error) {
-                MessageBox.Show(error.Message);
-            }
-        }
-
-        private void Button_Click_FId(object sender, RoutedEventArgs e)
+   
+        private void Button_Click_FAS(object sender, RoutedEventArgs e)
         {
             try
             {
-                chat.FilterByGroupId(IdFilter.Text);
+                this.ascending = (sortOptions.DataContext.ToString().Equals("ascending"));
+                if (sortChoses[0] & sortChoses[1] & sortChoses[2])
+                    this.sort = "SortByIdNicknameTimestamp";
+                else
+                {
+                    if (sortChoses[0])
+                        this.sort = "SortByTimestamp";
+                    else if (sortChoses[1])
+                        this.sort = "SortByNickName";
+                    else
+                        throw new Exception("didnt choose options to sort by");
+                }
+
             }
-            catch(Exception error) { MessageBox.Show(error.Message); }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+            try
+            {
+                if (filterOptions.DataContext.ToString().Equals("filterByUser"))
+                {
+                    if (FNickName.Text.Equals("")) 
+                         throw new Exception("please choose user nickname to filter by");
+                    if (FId.Text.Equals(""))
+                        throw new Exception("please choose user Id to filter by");
+                    this.filter = "filterByUser";
+                }
+                if (filterOptions.DataContext.ToString().Equals("filterByName"))
+                {
+
+                    if (FId.Text.Equals(""))
+                        throw new Exception("please choose user Id to filter by");
+                    this.filter = "FilterByGroupId";
+                }
+                else
+                    throw new Exception("please choose filter options");
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+            
+
         }
+
+        
     }
 }

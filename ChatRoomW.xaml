@@ -8,32 +8,32 @@
         Title="ChatRoomW" Height="447.17" Width="797.17">
     <Grid Background="AliceBlue">
         <WrapPanel HorizontalAlignment="Left" Height="100" Margin="348,231,0,0"  Width="100"/>
-        <ScrollBar HorizontalAlignment="Left" Margin="106,10,0,0" VerticalAlignment="Top" Height="367" Width="31"/>
-        <ListView x:Name = "messageVieu" HorizontalAlignment="Left" Height="350" Margin="142,10,0,0" VerticalAlignment="Top" Width="650">
+        <ListView x:Name = "messageVieu" HorizontalAlignment="Left" Height="350" Margin="126,10,-3,0" VerticalAlignment="Top" Width="666">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="messageContent" HorizontalAlignment="Left" Height="36" Margin="310,360,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="472" RenderTransformOrigin="0.504,-0.411" />
-        <Button  x:Name="send" Content="send message" FontSize="22" VerticalContentAlignment="Center" Foreground="Purple"  HorizontalAlignment="Left" Margin="142,360,0,10" Width="163" Click="Button_Click_send" />
-        <Menu Background="BlueViolet" HorizontalAlignment="Left" Height="399" Margin="0,10,0,0" VerticalAlignment="Top" Width="106">
-            <Label x:Name="hellowUserId" Content="hello" FontSize="20"/>
-            <Label x:Name="sortOptions" Content="Sort By:" VerticalContentAlignment="Top" FontSize="20"  Width="96" Height="36" RenderTransformOrigin="0.51,0.083"/>
+        <TextBox x:Name="messageContent" HorizontalAlignment="Left" Height="36" Margin="293,360,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="489" RenderTransformOrigin="0.504,-0.411" />
+        <Button  x:Name="send" Content="send message" FontSize="22" VerticalContentAlignment="Center" Foreground="Purple"  HorizontalAlignment="Left" Margin="126,360,0,10" Width="162" Click="Button_Click_send" />
+        <Menu Background="BlueViolet" HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="121">
+            <Label x:Name="hellowUserId" Content="hello" FontSize="20" Height="36" Width="98" />
+            <Label x:Name="sortOptions" Content="Sort By:" VerticalContentAlignment="Top" FontSize="20"  Width="96" Height="34" RenderTransformOrigin="0.51,0.083"/>
             <ComboBox x:Name="sortOrder" Width="96" />
             <CheckBox Content="Group ID" FontSize="16" Checked="CheckBox_checked_Id" Unchecked="CheckBox_Unchecked_Id"/>
             <CheckBox Content="Nickname" FontSize="16" Checked="CheckBox_checked_name" Unchecked="CheckBox_Unchecked_name"/>
-            <CheckBox Content="Time" FontSize="16" Height="24" Checked="CheckBox_checked_time" Unchecked="CheckBox_Unchecked_time"/>
-           
-            <Label  Content="filter By:" FontSize="20" Width="78"/>
-            <ComboBox x:Name="filterOptions" Width="96" />
+            <CheckBox Content="Time" FontSize="16"  Checked="CheckBox_checked_time" Unchecked="CheckBox_Unchecked_time"/>
+            <Label  Content="filter By:" FontSize="20"   Width="96"  Height="36"/>
+            <ComboBox x:Name="filterOptions" Width="96"  />
+            <Label  Content="insert ID" FontSize="15" Width="82"  />
+            <TextBox x:Name="FId" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96" />
+            <Label  Content="insert name" FontSize="15" Width="96" />
             <TextBox x:Name="FNickName" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
-            <TextBox x:Name="FId" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
-            <Button Content="FilterAndSort" FontSize="14" Width="96" Click="Button_Click_FId" Height="36" Margin="0,7"/>
-            <Button Width="80" Height="60" Click="Button_Click_LogOut" >
+            <Button Content="FilterAndSort" FontSize="14" Width="96" Click="Button_Click_FAS" Height="32"/>
+            <Button Width="40" Height="40" Margin="30,0" Click="Button_Click_LogOut" >
                 <Button.Content>
-                    <Image Source="pictures/logout1.png" Height="60" Width="80" />
+                    <Image Source="pictures/logout1.png" Height="40" Width="40" />
                 </Button.Content>
             </Button>
         </Menu>

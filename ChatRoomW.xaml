@@ -26,14 +26,14 @@
             <CheckBox Content="Nickname" FontSize="16" Checked="CheckBox_checked_name" Unchecked="CheckBox_Unchecked_name"/>
             <CheckBox Content="Time" FontSize="16" Height="24" Checked="CheckBox_checked_time" Unchecked="CheckBox_Unchecked_time"/>
            
-            <Label x:Name="filterOptions" Content="filter By:" FontSize="20" Width="78"/>
-            <Button Content="filter by user" FontSize="14" Width="96" Click="Button_Click_FUser"/>
-            <TextBox x:Name="userFilter" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
-            <Button Content="filter by id" FontSize="14" Width="96" Click="Button_Click_FId"/>
-            <TextBox x:Name="IdFilter" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
-            <Button Width="80" Height="60" Click="Button_Click_LogOut" Margin="3">
+            <Label  Content="filter By:" FontSize="20" Width="78"/>
+            <ComboBox x:Name="filterOptions" Width="96" />
+            <TextBox x:Name="FNickName" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
+            <TextBox x:Name="FId" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
+            <Button Content="FilterAndSort" FontSize="14" Width="96" Click="Button_Click_FId" Height="36" Margin="0,7"/>
+            <Button Width="80" Height="60" Click="Button_Click_LogOut" >
                 <Button.Content>
-                    <Image Source="pictures/logout1.png" Height="60" Width="80"/>
+                    <Image Source="pictures/logout1.png" Height="60" Width="80" />
                 </Button.Content>
             </Button>
         </Menu>

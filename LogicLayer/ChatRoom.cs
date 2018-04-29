@@ -65,26 +65,14 @@ namespace ChatRoomProject.LogicLayer
         {
             RetrieveNMessages(10);
             List<IMessage> updateList = new List<IMessage>();
-            if(ascending)
-            {
+          
                 if (sort.Equals("ByNickName"))
                     updateList =SortByNickname(ascending);
                 if (sort.Equals("SortByIdNicknameTimestamp"))
                     updateList= SortByIdNicknameTimestamp(ascending);
                 if (sort.Equals("SortByTimestamp"))
                     updateList= SortTimestamp(ascending);
-            }
-            else
-            {
-                if (sort.Equals("ByNickName"))
-                    updateList= SortByNickname(ascending);
-                if (sort.Equals("SortByIdNicknameTimestamp"))
-                    updateList= SortByIdNicknameTimestamp(ascending);
-                if (sort.Equals("SortTimestampDescending"))
-                    updateList= SortTimestamp(ascending);
-            }
-
-            //filter- check we need to do both together
+                    //filter- check we need to do both together
             if(filter!=null)
             {
                 if (filter.Equals("SortTimestamp"))

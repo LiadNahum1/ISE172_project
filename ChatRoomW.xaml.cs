@@ -28,8 +28,6 @@ namespace ChatRoomProject
         private string filter;
         private bool ascending;
         private ChatRoom chat;
-        private Boolean[] sortChoses;
-        const int sortOptionNumber = 3;
         private DispatcherTimer dispatcherTimer;
         public ChatRoomW(ChatRoom chat)
         {
@@ -42,7 +40,7 @@ namespace ChatRoomProject
             filter=null;
             ascending=false;
         hellowUserId.Content = ("hii" + chat.getCorrantUser().Nickname());
-            inisializeSorter();
+            inisializeFilterandSorter();
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
@@ -51,31 +49,32 @@ namespace ChatRoomProject
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            List<IMessage> msg = chat.MessageManager(this.ascending, this.filter,this.sort, this.groupId, this.nickName)
+            List<IMessage> msg = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
             messageVieu.ItemsSource = msg;
         }
        
-        private void inisializeSorter()
+        private void inisializeFilterandSorter()
         {
-            ComboBoxItem comboBoxItem1 = new ComboBoxItem();
-            comboBoxItem1.Content = "assending";
-            sortOrder.Items.Add(comboBoxItem1);
-            ComboBoxItem comboBoxItem2 = new ComboBoxItem();
-            comboBoxItem2.Content = "dessending";
-            sortOrder.Items.Add(comboBoxItem2);
-            sortChoses = new Boolean[sortOptionNumber];
-            for (int i = 0; i< sortOptionNumber; i++)
-            {
-                sortChoses[i] = false;
-            }
+            ComboBoxItem sortOpAss = new ComboBoxItem();
+            sortOpAss.Content = "assending";
+            sortOrder.Items.Add(sortOpAss);
+            ComboBoxItem sortOpDess = new ComboBoxItem();
+            sortOpDess.Content = "dessending";
+            sortOrder.Items.Add(sortOpDess);
+            ComboBoxItem filterOpUser = new ComboBoxItem();
+            filterOpUser.Content = "user";
+            filterOptions.Items.Add(filterOpUser);
+            ComboBoxItem filterOpName = new ComboBoxItem();
+            filterOpName.Content = "user";
+            filterOptions.Items.Add(filterOpName);
         }
         private void CheckBox_Unchecked_time(object sender, RoutedEventArgs e)
         {
-            sortChoses[0] = false;
+            
         }
         private void CheckBox_checked_time(object sender, RoutedEventArgs e)
         {
-            sortChoses[0] = true;
+            this.sort = "SortByTimestamp";
         }
         private void CheckBox_Unchecked_name(object sender, RoutedEventArgs e)
         {

@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatRoomProject"
         mc:Ignorable="d"
-        Title="ChatRoomW" Height="447.17" Width="797.17">
+        Title="ChatRoomW" Height="447.17" Width="803.17">
     <Grid Background="AliceBlue">
         <WrapPanel HorizontalAlignment="Left" Height="100" Margin="348,231,0,0"  Width="100"/>
-        <ListView x:Name = "messageVieu" HorizontalAlignment="Left" Height="350" Margin="126,10,-3,0" VerticalAlignment="Top" Width="666">
+        <ListView x:Name = "messageVieu" HorizontalAlignment="Left" Height="350" Margin="126,10,0,0" VerticalAlignment="Top" Width="659">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

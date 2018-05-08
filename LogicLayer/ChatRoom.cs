@@ -51,7 +51,7 @@ namespace ChatRoomProject.LogicLayer
             foreach (string data in messagesData)
             {
                 string[] details = data.Split(',');
-                this.messages.Add(new Message(details[0], details[1], details[2], details[3], details[4], true));
+                this.messages.Add(new Message(details[0], details[1], details[2], details[3], details[4], false));
             }
         }
         //need to update fields sort and filter with setSort every time they change the sort

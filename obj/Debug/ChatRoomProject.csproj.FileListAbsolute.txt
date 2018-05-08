@@ -48,17 +48,9 @@ C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\ChatRoomProjec
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\log4net.xml
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\Newtonsoft.Json.xml
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject.csprojResolveAssemblyReference.cache
-C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomW.g.cs
-C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\Login.g.cs
-C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\MainWindow.g.cs
-C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\Registration.g.cs
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\App.g.cs
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject_MarkupCompile.cache
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject_MarkupCompile.lref
-C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomW.baml
-C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\Login.baml
-C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\MainWindow.baml
-C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\Registration.baml
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject.g.resources
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject.Properties.Resources.resources
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\ChatRoomProject.csproj.GenerateResource.Cache
@@ -97,3 +89,11 @@ C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomP
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\Login.baml
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\MainWindow.baml
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\Registration.baml
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\PresentationLayer\ChatRoomW.g.cs
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\PresentationLayer\Login.g.cs
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\PresentationLayer\MainWindow.g.cs
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\PresentationLayer\Registration.g.cs
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\PresentationLayer\ChatRoomW.baml
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\PresentationLayer\Login.baml
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\PresentationLayer\MainWindow.baml
+C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\obj\Debug\PresentationLayer\Registration.baml

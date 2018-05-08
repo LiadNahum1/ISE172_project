@@ -13,44 +13,37 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ChatRoomProject.LogicLayer;
 
-
-namespace ChatRoomProject
+namespace ChatRoomProject.PresentationLayer
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for Registration.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Registration : Window
     {
         private ChatRoom chat;
-        private const int NUM_GROUPS = 33;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
 
-        public Login(ChatRoom chat)
+        public Registration(ChatRoom chat)
         {
             InitializeComponent();
             this.chat = chat;
-            for (int i = 1; i < NUM_GROUPS; i = i + 1)
-            {
-                ComboBoxItem comboBoxItem = new ComboBoxItem();
-                comboBoxItem.Content = i.ToString();
-                groups.Items.Add(comboBoxItem);
-            }
         }
 
-        private void Login_Click(object sender, RoutedEventArgs e)
+        private void Registrate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                this.chat.Login(groups.SelectedValue.ToString().Split(' ')[1], nicknameContent.Text);
-                log.Info("The user logged in");
-                MessageBox.Show("Hi " + nicknameContent.Text);
-                ChatRoomW chatRoom = new ChatRoomW(this.chat);
-                chatRoom.Show();
+                this.chat.Registration(group.Text, nicknameContent.Text);
+                log.Info("The user registered");
+                MessageBox.Show("You had been registered", "Reagistration", MessageBoxButton.OK, MessageBoxImage.None);
+                MainWindow window = new MainWindow(this.chat);
+                window.Show();
                 this.Close();
+
             }
             catch (Exception err)
             {
-                log.Info("The user faild to log in");
+                log.Info("The user had failed to register");
                 MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -60,13 +53,12 @@ namespace ChatRoomProject
             MainWindow main = new MainWindow(this.chat);
             main.Show();
             this.Close();
-
         }
 
         private void NicknameContent_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-                Login_Click(sender, e);
+                Registrate_Click(sender, e);
         }
     }
 }

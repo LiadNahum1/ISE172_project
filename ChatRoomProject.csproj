@@ -64,7 +64,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ChatRoomW.xaml.cs">
+    <Compile Include="PresentationLayer\ChatRoomW.xaml.cs">
       <DependentUpon>ChatRoomW.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommunicationLayer\Communication.cs" />
@@ -74,15 +74,15 @@
     <Compile Include="LogicLayer\IUser.cs" />
     <Compile Include="LogicLayer\Message.cs" />
     <Compile Include="LogicLayer\User.cs" />
-    <Compile Include="Registration.xaml.cs">
+    <Compile Include="PresentationLayer\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Login.xaml.cs">
+    <Compile Include="PresentationLayer\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="PresentationLayer\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersistentLayer\MessageHandler.cs" />
@@ -118,36 +118,43 @@
     <Resource Include="PersistentLayer\DataUsers.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="pictures\back.png" />
-    <Resource Include="pictures\chat.png" />
-    <Resource Include="pictures\chat2.png" />
-    <Resource Include="pictures\chat3.png" />
-    <Resource Include="pictures\chat4.png" />
-    <Resource Include="pictures\Snowing.gif" />
+    <Resource Include="PresentationLayer\pictures\back.png" />
+    <Resource Include="PresentationLayer\pictures\chat.png" />
+    <Resource Include="PresentationLayer\pictures\chat2.png" />
+    <Resource Include="PresentationLayer\pictures\chat3.png" />
+    <Resource Include="PresentationLayer\pictures\chat4.png" />
+    <Resource Include="PresentationLayer\pictures\Snowing.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ChatRoomW.xaml">
+    <Page Include="PresentationLayer\ChatRoomW.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Login.xaml">
+    <Page Include="PresentationLayer\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="PresentationLayer\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Registration.xaml">
+    <Page Include="PresentationLayer\Registration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="PresentationLayer\" />
+    <Resource Include="PresentationLayer\pictures\logout1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="pictures\logout1.png" />
+    <Resource Include="PresentationLayer\pictures\registration.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PresentationLayer\pictures\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PresentationLayer\pictures\nickname.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

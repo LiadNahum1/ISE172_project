@@ -15,7 +15,7 @@ using System.Timers;
 using ChatRoomProject.LogicLayer;
 using ChatRoomProject.CommunicationLayer;
 using System.Windows.Threading;
-namespace ChatRoomProject
+namespace ChatRoomProject.PresentationLayer
 {
     /// <summary>
     /// Interaction logic for ChatRoomW.xaml
@@ -41,7 +41,7 @@ namespace ChatRoomProject
             sort= "SortByTimestamp";
             filter=null;
             ascending=false;
-        hellowUserId.Content = ("hii" + chat.getCorrantUser().Nickname());
+        hellowUserId.Content = ("hii" + chat.getCurrentUser().Nickname());
             inisializeFilterandSorter();
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;

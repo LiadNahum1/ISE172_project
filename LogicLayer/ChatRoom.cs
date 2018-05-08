@@ -105,7 +105,7 @@ namespace ChatRoomProject.LogicLayer
         {
             return this.users;
         }
-        public IUser getCorrantUser()
+        public IUser getCurrentUser()
         {
             return this.currentUser;
         }

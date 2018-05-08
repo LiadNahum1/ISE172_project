@@ -32,11 +32,9 @@ C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomP
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\bin\Debug\log4net.xml
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\bin\Debug\Newtonsoft.Json.xml
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csprojResolveAssemblyReference.cache
-C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\MainWindow.g.cs
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\App.g.cs
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject_MarkupCompile.cache
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject_MarkupCompile.lref
-C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\MainWindow.baml
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.g.resources
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.Properties.Resources.resources
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csproj.GenerateResource.cache
@@ -44,12 +42,6 @@ C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomP
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.csproj.CopyComplete
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.exe
 C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomProject.pdb
-C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomW.g.cs
-C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\Login.g.cs
-C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\Registration.g.cs
-C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\ChatRoomW.baml
-C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\Login.baml
-C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\Registration.baml
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\ChatRoomProject.exe.config
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\ChatRoomProject.exe
 C:\Users\USER\Desktop\סמסטר ב\מבוא\SE_Project\bin\Debug\ChatRoomProject.pdb
@@ -97,3 +89,11 @@ D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomPro
 D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.csproj.CopyComplete
 D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.exe
 D:\year1\Sim2\IntroToSoftwareE\FinalVersionChat\SE_Project\obj\Debug\ChatRoomProject.pdb
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\ChatRoomW.g.cs
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\Login.g.cs
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\MainWindow.g.cs
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\Registration.g.cs
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\ChatRoomW.baml
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\Login.baml
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\MainWindow.baml
+C:\Users\ליעד\Desktop\סמסטר ב\מבוא להנדסת תכנה\ChatRoomProject\ChatRoomProject\obj\Debug\PresentationLayer\Registration.baml

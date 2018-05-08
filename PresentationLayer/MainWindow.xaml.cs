@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ChatRoomProject.LogicLayer;
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
-namespace ChatRoomProject
+namespace ChatRoomProject.PresentationLayer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -74,6 +74,7 @@
     <Compile Include="LogicLayer\IUser.cs" />
     <Compile Include="LogicLayer\Message.cs" />
     <Compile Include="LogicLayer\User.cs" />
+    <Compile Include="PresentationLayer\ObservableObjectChatRoom.cs" />
     <Compile Include="PresentationLayer\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>

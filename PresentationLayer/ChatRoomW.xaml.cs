@@ -22,6 +22,7 @@ namespace ChatRoomProject.PresentationLayer
     /// </summary>
     public partial class ChatRoomW : Window
     {
+        List<IMessage> messages;
         private string nickName;
         private string groupId;
         private string sort;
@@ -51,8 +52,8 @@ namespace ChatRoomProject.PresentationLayer
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            List<IMessage> msg = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
-            messageVieu.ItemsSource = msg;
+            this.messages = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
+           // messageVieu.ItemsSource = messages;
         }
        
         private void inisializeFilterandSorter()

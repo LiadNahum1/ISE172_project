@@ -51,7 +51,7 @@ namespace ChatRoomProject.LogicLayer
             foreach (string data in messagesData)
             {
                 string[] details = data.Split(',');
-                this.messages.Add(new Message(details[0], details[1], details[2], details[3], details[4], false));
+                this.messages.Add(new Message(details[0], details[1], details[2], details[3], details[4], true));
             }
         }
         //need to update fields sort and filter with setSort every time they change the sort
@@ -77,7 +77,6 @@ namespace ChatRoomProject.LogicLayer
                     return FilterByGroupId(updateList, groupId);
             }
             return updateList;
-           
         }
         
         /*The method registrates a new user to the system. The method first checks if nickname input is legal.

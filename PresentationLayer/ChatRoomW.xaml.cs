@@ -80,32 +80,7 @@ namespace ChatRoomProject.PresentationLayer
                 sortChoses[i] = false;
             }
         }
-        private void CheckBox_Unchecked_time(object sender, RoutedEventArgs e)
-        {
-            sortChoses[0] = false;
-        }
-        private void CheckBox_checked_time(object sender, RoutedEventArgs e)
-        {
-            sortChoses[0] = true;
-        }
-        private void CheckBox_Unchecked_name(object sender, RoutedEventArgs e)
-        {
-            sortChoses[1] = false;
-        }
-        private void CheckBox_checked_name(object sender, RoutedEventArgs e)
-        {
-            sortChoses[1] = true;
-        }
-        private void CheckBox_Unchecked_Id(object sender, RoutedEventArgs e)
-        {
-            sortChoses[2] = false;
-        }
-        private void CheckBox_checked_Id(object sender, RoutedEventArgs e)
-        {
-            sortChoses[2] = true;
-        }
-        
-        
+       
        
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
         {
@@ -186,25 +161,7 @@ namespace ChatRoomProject.PresentationLayer
 
         }
 
-        private void RadioButton_Unchecked_Id(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        private void RadioButton_Unchecked_name(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_Unchecked_time(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_checked_Id(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void RadioButton_checked_name(object sender, RoutedEventArgs e)
         {
@@ -212,6 +169,12 @@ namespace ChatRoomProject.PresentationLayer
         }
 
         private void RadioButton_checked_time(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void RadioButton_checked_allSort(object sender, RoutedEventArgs e)
         {
 
         }

@@ -1,35 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using ChatRoomProject.CommunicationLayer;
 
 namespace ChatRoomProject.PresentationLayer
 {
-    class ObservableObjectChatRoom : INotifyPropertyChanged
+    public class ObservableObjectChatRoom : INotifyPropertyChanged
     {
-        private List<IMessage> messageVieu;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<IMessage> MessageVieu
+        public ObservableObjectChatRoom()
+        {
+            Messages.CollectionChanged += Messages_CollectionChanged;
+        }
+
+        public ObservableCollection<string> Messages { get; } = new ObservableCollection<string>();
+
+        private void Messages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged("Messages");
+        }
+
+        private string messageContent = "";
+        public string MessageContent
         {
             get
             {
-                return messageVieu;
+                return messageContent;
             }
             set
             {
-                messageVieu =ChatRoomW.
+                messageContent = value;
+                OnPropertyChanged("MessageContent");
             }
         }
 
-        public void OnPropertyChanged([CallerMemberName]string propertyName = null)
+      
+        private float sliderTwoWay = 0.0f;
+        public float SliderTwoWay
+        {
+            get
+            {
+                return sliderTwoWay;
+            }
+            set
+            {
+                if (value >= 0.0 && value <= 100.0)
+                {
+                    sliderTwoWay = value;
+                    OnPropertyChanged("SliderTwoWay");
+                }
+            }
+        }
+
+        
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
 
+
+    }
 }

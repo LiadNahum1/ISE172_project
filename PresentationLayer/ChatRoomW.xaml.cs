@@ -32,17 +32,20 @@ namespace ChatRoomProject.PresentationLayer
         const int sortOptionNumber = 3;
         private ChatRoom chat;
         private DispatcherTimer dispatcherTimer;
+        ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
         public ChatRoomW(ChatRoom chat)
         {
+
             InitializeComponent();
-           // messageVieu.ItemsSource = chat.DisplayNMessages(5);
+            // messageVieu.ItemsSource = chat.DisplayNMessages(5);
+            this.DataContext = _main;
             this.chat = chat;
             nickName=null;
             groupId=null;
             sort= "SortByTimestamp";
             filter=null;
             ascending=false;
-        hellowUserId.Content = ("hii" + chat.getCurrentUser().Nickname());
+           // hellowUserId.Content = ("hii" + chat.getCurrentUser().Nickname());
             inisializeFilterandSorter();
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
@@ -52,8 +55,11 @@ namespace ChatRoomProject.PresentationLayer
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            this.messages = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
-           // messageVieu.ItemsSource = messages;
+            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
+            _main.Messages.Clear();
+            foreach (string msg in messagesFromLogic){
+                _main.Messages.Add(msg);
+            }
         }
        
         private void inisializeFilterandSorter()
@@ -176,6 +182,34 @@ namespace ChatRoomProject.PresentationLayer
 
         }
 
-        
+        private void RadioButton_Unchecked_Id(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Unchecked_name(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Unchecked_time(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_checked_Id(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_checked_name(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_checked_time(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

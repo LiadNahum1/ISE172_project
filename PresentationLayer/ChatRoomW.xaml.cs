@@ -22,7 +22,6 @@ namespace ChatRoomProject.PresentationLayer
     /// </summary>
     public partial class ChatRoomW : Window
     {
-        List<IMessage> messages;
         private string nickName;
         private string groupId;
         private string sort;
@@ -64,7 +63,6 @@ namespace ChatRoomProject.PresentationLayer
         {
             ComboBoxItem sortOpAsc = new ComboBoxItem();
             sortOpAsc.Content = "ascending";
-            sortOrder.Items.Add(sortOpAsc);
             ComboBoxItem sortOpDes = new ComboBoxItem();
             sortOpDes.Content = "descending";
             sortOrder.Items.Add(sortOpDes);
@@ -74,14 +72,8 @@ namespace ChatRoomProject.PresentationLayer
             ComboBoxItem filterOpName = new ComboBoxItem();
             filterOpName.Content = "filterByName";
             filterOptions.Items.Add(filterOpName);
-            sortChoses = new Boolean[sortOptionNumber];
-            for (int i = 0; i < sortOptionNumber; i++)
-            {
-                sortChoses[i] = false;
-            }
         }
-       
-       
+      
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
         {
             chat.Logout();
@@ -115,7 +107,8 @@ namespace ChatRoomProject.PresentationLayer
         {
             try
             {
-                this.ascending = (sortOptions.DataContext.ToString().Equals("ascending"));
+                this.ascending = _main.IsAscending.Equals("ascending");
+
                 if (sortChoses[0] & sortChoses[1] & sortChoses[2])
                     this.sort = "SortByIdNicknameTimestamp";
                 else
@@ -135,18 +128,18 @@ namespace ChatRoomProject.PresentationLayer
             }
             try
             {
-                if (filterOptions.DataContext.ToString().Equals("filterByUser"))
+                if (_main.Filter.Equals("filterByUser"))
                 {
-                    if (FNickName.Text.Equals("")) 
+                    if (_main.FNickName.Equals("")) 
                          throw new Exception("please choose user nickname to filter by");
-                    if (FId.Text.Equals(""))
+                    if (_main.FId.Equals(""))
                         throw new Exception("please choose user Id to filter by");
                     this.filter = "filterByUser";
                 }
-                if (filterOptions.DataContext.ToString().Equals("filterByName"))
+                if (_main.Filter.Equals("filterByName"))
                 {
 
-                    if (FId.Text.Equals(""))
+                    if (_main.FId.Equals(""))
                         throw new Exception("please choose user Id to filter by");
                     this.filter = "FilterByGroupId";
                 }
@@ -161,7 +154,25 @@ namespace ChatRoomProject.PresentationLayer
 
         }
 
+        private void RadioButton_Unchecked_Id(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void RadioButton_Unchecked_name(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Unchecked_time(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_checked_Id(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void RadioButton_checked_name(object sender, RoutedEventArgs e)
         {
@@ -169,12 +180,6 @@ namespace ChatRoomProject.PresentationLayer
         }
 
         private void RadioButton_checked_time(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-        private void RadioButton_checked_allSort(object sender, RoutedEventArgs e)
         {
 
         }

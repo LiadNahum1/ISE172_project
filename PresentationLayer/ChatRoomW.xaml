@@ -14,17 +14,17 @@
         <Button  Content="send message" FontSize="22" VerticalContentAlignment="Center" Foreground="Purple"  HorizontalAlignment="Left" Margin="126,360,0,10" Width="162" Click="Button_Click_send" />
         <Menu Background="BlueViolet" HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="121">
             <Label  Content="hello" FontSize="20" Height="36" Width="98" />
-            <Label x:Name="sortOptions" Content="Sort By:" VerticalContentAlignment="Top" FontSize="20"  Width="96" Height="34" RenderTransformOrigin="0.51,0.083"/>
-            <ComboBox x:Name="sortOrder" Width="96" />
+            <Label  Content="Sort By:" VerticalContentAlignment="Top" FontSize="20"  Width="96" Height="34" RenderTransformOrigin="0.51,0.083"/>
+            <ComboBox  x:Name="sortOrder"  Width="96" SelectedValue="{Binding IsAscending}" />
             <RadioButton Content="Timstamp" FontSize="16" Checked="RadioButton_checked_time" />
             <RadioButton Content="Nickname" FontSize="16" Checked="RadioButton_checked_name" />
             <RadioButton Content="id,name,time" FontSize="16"  Checked="RadioButton_checked_allSort" />
             <Label  Content="filter By:" FontSize="20"   Width="96"  Height="36"/>
-            <ComboBox x:Name="filterOptions" Width="96"  />
+            <ComboBox x:Name="filterOptions" Width="96" SelectedValue="{Binding Filter}"  />
             <Label  Content="insert ID" FontSize="15" Width="82"  />
-            <TextBox x:Name="FId" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96" />
+            <TextBox Text="{Binding FId}" Height="22"  TextWrapping="Wrap" VerticalAlignment="Top" Width="96" />
             <Label  Content="insert name" FontSize="15" Width="96" />
-            <TextBox x:Name="FNickName" Height="22"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="96"  />
+            <TextBox  Text="{Binding FNickName}" Height="22"  TextWrapping="Wrap" VerticalAlignment="Top" Width="96"  />
             <Button Content="FilterAndSort" FontSize="14" Width="96" Click="Button_Click_FAS" Height="32"/>
             <Button Width="40" Height="40" Margin="30,0" Click="Button_Click_LogOut" >
                 <Button.Content>
@@ -32,7 +32,7 @@
                 </Button.Content>
             </Button>
         </Menu>
-        <TextBlock x:Name="erors" Foreground="Red" Visibility="Collapsed" />
+        <TextBlock Text="{Binding Error}" Foreground="Red" Visibility="Collapsed" />
 
     </Grid>
 </Window>

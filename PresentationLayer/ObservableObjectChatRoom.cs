@@ -35,7 +35,63 @@ namespace ChatRoomProject.PresentationLayer
             }
         }
 
-      
+        private string fId = "";
+        public string FId
+        {
+            get
+            {
+                return fId;
+            }
+            set
+            {
+                fId = value;
+                OnPropertyChanged("FId");
+            }
+        }
+
+        private string fNickName = "";
+        public string FNickName
+        {
+            get
+            {
+                return fNickName;
+            }
+            set
+            {
+                fNickName = value;
+                OnPropertyChanged("FNickName");
+            }
+        }
+
+
+        private string isAscending = "";
+        public string IsAscending
+        {
+            get
+            {
+                return isAscending;
+            }
+            set
+            {
+                isAscending = value;
+                OnPropertyChanged("IsAscending");
+            }
+        }
+
+        private string filter = "";
+        public string Filter
+        {
+            get
+            {
+                return filter;
+            }
+            set
+            {
+                filter = value;
+                OnPropertyChanged("Filter");
+            }
+        }
+
         private float sliderTwoWay = 0.0f;
         public float SliderTwoWay
         {

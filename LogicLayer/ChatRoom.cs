@@ -57,7 +57,7 @@ namespace ChatRoomProject.LogicLayer
         //need to update fields sort and filter with setSort every time they change the sort
         //return update list sorted by or filter by
         
-        public List<IMessage> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName)
+        public List<String> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName)
         {
             RetrieveNMessages(10);
             List<IMessage> updateList = new List<IMessage>();
@@ -72,13 +72,24 @@ namespace ChatRoomProject.LogicLayer
             if(filter!=null)
             {
                 if (filter.Equals("filterByUser"))
-                    return FilterByUser(updateList, groupId, nickName); 
+                    updateList= FilterByUser(updateList, groupId, nickName); 
                 else
-                    return FilterByGroupId(updateList, groupId);
+                    updateList= FilterByGroupId(updateList, groupId);
             }
-            return updateList;
+            return ConvertToString(updateList);
         }
-        
+
+        private List<String> ConvertToString(List<IMessage> updateList)
+        {
+            List<String> newList =new List<String>();
+            for(int i=0;i<updateList.Count();i++)
+            {
+                newList.Add(updateList[i].ToString());
+            }
+
+            return newList;
+        }
+
         /*The method registrates a new user to the system. The method first checks if nickname input is legal.
          * If it is, the method creats new User instance and adds him to the users list. 
          * If nickname is already been used by the same groupId, the function throws an exception

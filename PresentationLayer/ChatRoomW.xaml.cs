@@ -158,15 +158,6 @@ namespace ChatRoomProject.PresentationLayer
         }
 
 
-        private void RadioButton_Unchecked_name(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_Unchecked_time(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void RadioButton_checked_name(object sender, RoutedEventArgs e)
         {
@@ -178,10 +169,6 @@ namespace ChatRoomProject.PresentationLayer
 
         }
 
-        private void RadioButton_Unchecked_sllSort(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void RadioButton_checked_allSort(object sender, RoutedEventArgs e)
         {

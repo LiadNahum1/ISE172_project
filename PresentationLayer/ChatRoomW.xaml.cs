@@ -37,7 +37,6 @@ namespace ChatRoomProject.PresentationLayer
         {
 
             InitializeComponent();
-            // messageVieu.ItemsSource = chat.DisplayNMessages(5);
             this.DataContext = _main;
             this.chat = chat;
             nickName=null;
@@ -45,7 +44,6 @@ namespace ChatRoomProject.PresentationLayer
             sort= "SortByTimestamp";
             filter=null;
             ascending=false;
-           // hellowUserId.Content = ("hii" + chat.getCurrentUser().Nickname());
             inisializeFilterandSorter();
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
@@ -117,13 +115,19 @@ namespace ChatRoomProject.PresentationLayer
             main.Show();
             this.Close();
         }
-        
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Button_Click_send(sender, e);
+            }
+        }
         private void Button_Click_send(object sender, RoutedEventArgs e)
         {
             try
             {
-                chat.Send(messageContent.Text);
-                messageContent.Text = "";
+                chat.Send(_main.MessageContent);
+                _main.MessageContent = "";
             }
             catch(Exception error)
             {

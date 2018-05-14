@@ -9,12 +9,12 @@ namespace ChatRoomProject.PresentationLayer
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public ObservableCollection<string> Messages { get; } = new ObservableCollection<string>();
         public ObservableObjectChatRoom()
         {
             Messages.CollectionChanged += Messages_CollectionChanged;
         }
-
-        public ObservableCollection<string> Messages { get; } = new ObservableCollection<string>();
+     
 
         private void Messages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

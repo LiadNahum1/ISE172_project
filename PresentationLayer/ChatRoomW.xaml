@@ -10,8 +10,8 @@
     <Grid Background="AliceBlue">
         <WrapPanel HorizontalAlignment="Left" Height="100" Margin="348,231,0,0"  Width="100"/>
         <ListBox ItemsSource="{Binding Messages}"  ScrollViewer.CanContentScroll="True" IsEnabled="True" HorizontalAlignment="Right" Height="332" VerticalAlignment="Top" Width="653" Margin="0,23,10,0" />
-        <TextBox x:Name="messageContent" HorizontalAlignment="Left" Height="36" Margin="293,360,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="489" RenderTransformOrigin="0.504,-0.411" />
-        <Button  x:Name="send" Content="send message" FontSize="22" VerticalContentAlignment="Center" Foreground="Purple"  HorizontalAlignment="Left" Margin="126,360,0,10" Width="162" Click="Button_Click_send" />
+        <TextBox Text="{Binding MessageContent}"  HorizontalAlignment="Left" Height="36" Margin="293,360,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="489" RenderTransformOrigin="0.504,-0.411" KeyDown="TextBox_KeyDown" />
+        <Button  Content="send message" FontSize="22" VerticalContentAlignment="Center" Foreground="Purple"  HorizontalAlignment="Left" Margin="126,360,0,10" Width="162" Click="Button_Click_send" />
         <Menu Background="BlueViolet" HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="121">
             <Label  Content="hello" FontSize="20" Height="36" Width="98" />
             <Label x:Name="sortOptions" Content="Sort By:" VerticalContentAlignment="Top" FontSize="20"  Width="96" Height="34" RenderTransformOrigin="0.51,0.083"/>

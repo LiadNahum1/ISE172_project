@@ -20,11 +20,11 @@
             <RadioButton Content="Nickname" FontSize="16" Checked="RadioButton_checked_name" />
             <RadioButton Content="id,name,time" FontSize="16"  Checked="RadioButton_checked_allSort" />
             <Label  Content="filter By:" FontSize="20"   Width="96"  Height="36"/>
-            <ComboBox x:Name="filterOptions" Width="96" SelectedValue="{Binding Filter}"  />
+            <ComboBox x:Name="filterOptions" Width="96" SelectedValue="{Binding Filter}" />
             <Label  Content="insert ID" FontSize="15" Width="82"  />
             <TextBox Text="{Binding FId}" Height="22"  TextWrapping="Wrap" VerticalAlignment="Top" Width="96" />
-            <Label  Content="insert name" FontSize="15" Width="96" />
-            <TextBox  Text="{Binding FNickName}" Height="22"  TextWrapping="Wrap" VerticalAlignment="Top" Width="96"  />
+            <Label  Content="insert name" FontSize="15" Width="96"  />
+            <TextBox Text="{Binding FNickName}" Height="22"  TextWrapping="Wrap" VerticalAlignment="Top" Width="96"  />
             <Button Content="FilterAndSort" FontSize="14" Width="96" Click="Button_Click_FAS" Height="32"/>
             <Button Width="40" Height="40" Margin="30,0" Click="Button_Click_LogOut" >
                 <Button.Content>

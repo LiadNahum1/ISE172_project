@@ -22,18 +22,20 @@ namespace ChatRoomProject.PresentationLayer
     {
         private ChatRoom chat;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
+        ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
         public Registration(ChatRoom chat)
         {
             InitializeComponent();
             this.chat = chat;
+            this.DataContext = _main; 
         }
 
         private void Registrate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                this.chat.Registration(group.Text, nicknameContent.Text);
+                this.chat.Registration(_main.GroupId, _main.Nickname);
                 log.Info("The user registered");
                 MessageBox.Show("You had been registered", "Reagistration", MessageBoxButton.OK, MessageBoxImage.None);
                 MainWindow window = new MainWindow(this.chat);

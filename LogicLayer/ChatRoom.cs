@@ -96,7 +96,7 @@ namespace ChatRoomProject.LogicLayer
          */
         public void Registration(string groupId, string nickname)
         {
-            if (!CheckIfInputIsEmpty(groupId) || !CheckIfInputIsEmpty(nickname))
+            if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname))
             {
                 throw new Exception(EMPTY_INPUT);
             }
@@ -131,20 +131,20 @@ namespace ChatRoomProject.LogicLayer
             }
             return true;
         }
-        //return false if input is empty 
+        //return true if input is empty 
         private bool CheckIfInputIsEmpty(string str)
         {
-            if (str == "")
+            if (str == null)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname)
         {
-            if (!CheckIfInputIsEmpty(groupId) || !CheckIfInputIsEmpty(nickname))
+            if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname))
             {
                 throw new Exception(EMPTY_INPUT);
             }
@@ -197,7 +197,18 @@ namespace ChatRoomProject.LogicLayer
         }
         public void Send(string messageContent)
         {
-            if ((Message.CheckValidity(messageContent)))
+            if(messageContent == "")
+            {
+                log.Error("The user wrote an illegal message");
+                throw new Exception(EMPTY_INPUT);
+            }
+            if (!Message.CheckValidity(messageContent))
+            {
+
+                log.Error("The user wrote an illegal message");
+                throw new Exception(ILLEGAL_LENGTH_MESSAGE);
+            }
+            else
             {
                 IMessage msg = this.currentUser.Send(messageContent);
                 if (msg == null)
@@ -209,11 +220,6 @@ namespace ChatRoomProject.LogicLayer
                     Message message = new Message(msg, false);
                     this.messages.Add(message);
                 }
-            }
-            else
-            {
-                log.Error("The user wrote an illegal message");
-                throw new Exception(ILLEGAL_LENGTH_MESSAGE);
             }
         }
       
@@ -230,8 +236,10 @@ namespace ChatRoomProject.LogicLayer
 
         private List<IMessage> SortTimestamp(Boolean ascending)
         {
-            if(ascending)
-            return this.messages;
+            if (ascending)
+            {
+                return this.messages;
+            }
             else
             {
                 List<IMessage> order_list = this.messages;

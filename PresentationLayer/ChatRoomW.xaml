@@ -15,12 +15,12 @@
         <Menu Background="BlueViolet" HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="121">
             <Label  Content="hello" FontSize="20" Height="36" Width="98" />
             <Label  Content="Sort By:" VerticalContentAlignment="Top" FontSize="20"  Width="96" Height="34" RenderTransformOrigin="0.51,0.083"/>
-            <ComboBox  x:Name="sortOrder"  Width="96" SelectedValue="{Binding IsAscending}" />
+            <ComboBox  x:Name="sortOrder"  Width="96" Text="{Binding IsAscending}" />
             <RadioButton Content="Timstamp" FontSize="16" Checked="RadioButton_checked_time" />
             <RadioButton Content="Nickname" FontSize="16" Checked="RadioButton_checked_name" />
             <RadioButton Content="id,name,time" FontSize="16"  Checked="RadioButton_checked_allSort" />
             <Label  Content="filter By:" FontSize="20"   Width="96"  Height="36"/>
-            <ComboBox x:Name="filterOptions" Width="96" SelectedValue="{Binding Filter}" />
+            <ComboBox x:Name="filterOptions" Width="96" Text="{Binding Filter}"  />
             <Label  Content="insert ID" FontSize="15" Width="82"  />
             <TextBox Text="{Binding FId}" Height="22"  TextWrapping="Wrap" VerticalAlignment="Top" Width="96" />
             <Label  Content="insert name" FontSize="15" Width="96"  />

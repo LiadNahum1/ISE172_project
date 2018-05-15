@@ -53,6 +53,7 @@ namespace ChatRoomProject.PresentationLayer
             Login loWindow = new Login(this.chat);
             loWindow.Show();
             this.Close();
+
         }
 
         //Event of exit button. Close the program if asked 

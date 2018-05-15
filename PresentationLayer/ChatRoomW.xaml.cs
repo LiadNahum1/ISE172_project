@@ -24,11 +24,10 @@ namespace ChatRoomProject.PresentationLayer
     {
         private string nickName;
         private string groupId;
+        private string currChose;
         private string sort;
         private string filter;
         private bool ascending;
-        private bool[] sortChoses;
-        const int sortOptionNumber = 3;
         private ChatRoom chat;
         private DispatcherTimer dispatcherTimer;
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
@@ -41,8 +40,9 @@ namespace ChatRoomProject.PresentationLayer
             nickName=null;
             groupId=null;
             sort= "SortByTimestamp";
-            filter=null;
-            ascending=false;
+            currChose = "SortByTimestamp";
+            filter =null;
+            ascending= true;
             inisializeFilterandSorter();
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
@@ -52,8 +52,8 @@ namespace ChatRoomProject.PresentationLayer
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
             _main.Messages.Clear();
+            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
             foreach (string msg in messagesFromLogic){
                 _main.Messages.Add(msg);
             }
@@ -67,12 +67,15 @@ namespace ChatRoomProject.PresentationLayer
             ComboBoxItem sortOpDes = new ComboBoxItem();
             sortOpDes.Content = "descending";
             sortOrder.Items.Add(sortOpDes);
+            ComboBoxItem filterOpNone = new ComboBoxItem();
+            filterOpNone.Content = "None";
+            filterOptions.Items.Add(filterOpNone);
             ComboBoxItem filterOpUser = new ComboBoxItem();
             filterOpUser.Content = "filterByUser";
             filterOptions.Items.Add(filterOpUser);
-            ComboBoxItem filterOpName = new ComboBoxItem();
-            filterOpName.Content = "filterByName";
-            filterOptions.Items.Add(filterOpName);
+            ComboBoxItem filterOpId = new ComboBoxItem();
+            filterOpId.Content = "filterById";
+            filterOptions.Items.Add(filterOpId);
         }
       
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
@@ -99,7 +102,7 @@ namespace ChatRoomProject.PresentationLayer
             }
             catch(Exception error)
             {
-                MessageBox.Show(error.Message);
+                MessageBox.Show(error.Message,"Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -109,20 +112,7 @@ namespace ChatRoomProject.PresentationLayer
             try
             {
                 this.ascending = _main.IsAscending.Equals("ascending");
-
-                //TODO
-             /*   if (sortChoses[0] & sortChoses[1] & sortChoses[2])
-                    this.sort = "SortByIdNicknameTimestamp";
-                else
-                {
-                    if (sortChoses[0])
-                        this.sort = "SortByTimestamp";
-                    else if (sortChoses[1])
-                        this.sort = "SortByNickName";
-                    else
-                        throw new Exception("didnt choose options to sort by");
-                }*/
-
+                this.sort = currChose;
             }
             catch (Exception error)
             {
@@ -130,58 +120,62 @@ namespace ChatRoomProject.PresentationLayer
             }
             try
             {
-                if (_main.Filter.Equals("filterByUser"))
+
+                if (_main.Filter == "filterByUser")
                 {
                     if (_main.FNickName.Equals("")) 
-                         throw new Exception("please choose user nickname to filter by");
+                         throw new Exception("Please choose user nickname to filter by");
                     if (_main.FId.Equals(""))
-                        throw new Exception("please choose user Id to filter by");
+                        throw new Exception("Please choose user Id to filter by");
                     else
                     {
                         this.filter = "filterByUser";
                         this.nickName = _main.FNickName;
+                        _main.FNickName = "";
                         this.groupId = _main.FId;
+                        _main.FId = "";
                     }   
                 }
-                if (_main.Filter.Equals("filterByName"))
+                else if (_main.Filter.Equals("filterById"))
                 {
 
                     if (_main.FId.Equals(""))
-                        throw new Exception("please choose user Id to filter by");
+                        throw new Exception("Please choose user Id to filter by");
                     else
                     {
-                        this.filter = "FilterByGroupId";
+                        this.filter = "filterByGroupId";
                         this.groupId = _main.FId;
+                        _main.FId = "";
 
                     }
                 }
-                else
-                    throw new Exception("please choose filter options");
+                else if (_main.Filter == "None")
+                {
+                    this.filter = null; 
+                }
+
+
             }
             catch (Exception error)
             {
-                MessageBox.Show(error.Message);
+                MessageBox.Show(_main.Filter);
+                MessageBox.Show(error.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void RadioButton_checked_Id(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void RadioButton_checked_name(object sender, RoutedEventArgs e)
         {
-
+            currChose = "SortByNickName";
         }
 
         private void RadioButton_checked_time(object sender, RoutedEventArgs e)
         {
-
+            currChose = "SortByTimestamp";
         }
 
         private void RadioButton_checked_allSort(object sender, RoutedEventArgs e)
         {
-
+            currChose = "SortByIdNicknameTimestamp";
         }
 
        

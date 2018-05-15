@@ -23,20 +23,22 @@ namespace ChatRoomProject.PresentationLayer
     {
         private ChatRoom chat;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
+        ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
         public Login(ChatRoom chat)
         {
             InitializeComponent();
             this.chat = chat;
+            this.DataContext = _main; 
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                this.chat.Login(group.Text, nicknameContent.Text);
+                this.chat.Login(_main.GroupId, _main.Nickname);
                 log.Info("The user logged in");
-                MessageBox.Show("Hi " + nicknameContent.Text);
+                MessageBox.Show("Hi " + _main.Nickname);
                 ChatRoomW chatRoom = new ChatRoomW(this.chat);
                 chatRoom.Show();
                 this.Close();

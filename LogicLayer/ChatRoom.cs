@@ -60,15 +60,14 @@ namespace ChatRoomProject.LogicLayer
         public List<String> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName)
         {
             RetrieveNMessages(10);
-            List<IMessage> updateList = new List<IMessage>();
+            List<IMessage> updateList =this.messages;
           
                 if (sort.Equals("SortByNickName"))
-                    updateList =SortByNickname(ascending);
+                    updateList =SortByNickname(updateList,ascending);
                 if (sort.Equals("SortByIdNicknameTimestamp"))
-                    updateList= SortByIdNicknameTimestamp(ascending);
+                    updateList= SortByIdNicknameTimestamp(updateList, ascending);
                 if (sort.Equals("SortByTimestamp"))
-                    updateList= SortTimestamp(ascending);
-                    //filter- check we need to do both together
+                    updateList= SortTimestamp(updateList,ascending);
             if(filter!=null)
             {
                 if (filter.Equals("filterByUser"))
@@ -96,7 +95,7 @@ namespace ChatRoomProject.LogicLayer
          */
         public void Registration(string groupId, string nickname)
         {
-            if (!CheckIfInputIsEmpty(groupId) || !CheckIfInputIsEmpty(nickname))
+            if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname))
             {
                 throw new Exception(EMPTY_INPUT);
             }
@@ -131,20 +130,20 @@ namespace ChatRoomProject.LogicLayer
             }
             return true;
         }
-        //return false if input is empty 
+        //return true if input is empty 
         private bool CheckIfInputIsEmpty(string str)
         {
-            if (str == "")
+            if (str == null)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname)
         {
-            if (!CheckIfInputIsEmpty(groupId) || !CheckIfInputIsEmpty(nickname))
+            if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname))
             {
                 throw new Exception(EMPTY_INPUT);
             }
@@ -172,7 +171,6 @@ namespace ChatRoomProject.LogicLayer
          */
         public void RetrieveNMessages(int number)
         {
-            int new_messages = 0;
             List<IMessage> retrievedMessages = Communication.Instance.GetTenMessages(URL);
             foreach (IMessage msg in retrievedMessages)
             {
@@ -189,15 +187,24 @@ namespace ChatRoomProject.LogicLayer
                 {
                     Message newMessage = new Message(msg, false);
                     this.messages.Add(newMessage);
-                    new_messages++; // add 1 to the count of new messages which added to the list
                 }
             }
-            this.count_of_new_message = new_messages; //update the count of messages which added to the list
             this.messages = this.messages.OrderBy(m => m.Date).ToList();
         }
         public void Send(string messageContent)
         {
-            if ((Message.CheckValidity(messageContent)))
+            if(messageContent == "")
+            {
+                log.Error("The user wrote an illegal message");
+                throw new Exception(EMPTY_INPUT);
+            }
+            if (!Message.CheckValidity(messageContent))
+            {
+
+                log.Error("The user wrote an illegal message");
+                throw new Exception(ILLEGAL_LENGTH_MESSAGE);
+            }
+            else
             {
                 IMessage msg = this.currentUser.Send(messageContent);
                 if (msg == null)
@@ -210,77 +217,57 @@ namespace ChatRoomProject.LogicLayer
                     this.messages.Add(message);
                 }
             }
-            else
-            {
-                log.Error("The user wrote an illegal message");
-                throw new Exception(ILLEGAL_LENGTH_MESSAGE);
-            }
         }
       
 
-        public int getCount_of_new_message()
-        {
-            return this.count_of_new_message;
-        }
-
-        public void setCount_of_new_message(int num)
-        {
-            this.count_of_new_message = num;
-        }
-
-        private List<IMessage> SortTimestamp(Boolean ascending)
-        {
-            if(ascending)
-            return this.messages;
-            else
-            {
-                List<IMessage> order_list = this.messages;
-                order_list.Reverse();
-                return (order_list);
-            }
-        }
-
-        private List<IMessage> SortByNickname(Boolean ascending)
+        private List<IMessage> SortTimestamp(List<IMessage> updatelist,Boolean ascending)
         {
             if (ascending)
             {
-                List<IMessage> order_list = this.messages;
-                order_list = order_list.OrderBy(o => o.UserName).ToList();
-                return order_list;
+                return updatelist;
             }
             else
             {
-                List<IMessage> order_list = this.messages;
-                order_list = order_list.OrderByDescending(o => o.UserName).ToList();
-                return order_list;
+                updatelist.Reverse();
+                return (updatelist);
             }
         }
-        private List<IMessage> SortByIdNicknameTimestamp(Boolean ascending)
+
+        private List<IMessage> SortByNickname(List<IMessage>updatelist, Boolean ascending)
         {
             if (ascending)
             {
-                List<IMessage> order_list = this.messages;
-                order_list.OrderBy(x => x.Id).ThenBy(x => x.UserName).ThenBy(x => x.Date);
-                return order_list;
+                updatelist = updatelist.OrderBy(o => o.UserName).ToList();
+                return updatelist;
+            }
+            else
+            {
+                updatelist =updatelist.OrderByDescending(o => o.UserName).ToList();
+                return updatelist;
+            }
+        }
+        private List<IMessage> SortByIdNicknameTimestamp(List<IMessage> updatelist, Boolean ascending)
+        {
+            if (ascending)
+            {
+                updatelist.OrderBy(x => x.Id).ThenBy(x => x.UserName).ThenBy(x => x.Date);
+                return updatelist;
             }
             else {
-                List<IMessage> order_list = this.messages;
-                order_list.OrderByDescending(x => x.Id).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date);
-                return order_list;
+                updatelist.OrderByDescending(x => x.Id).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date);
+                return updatelist;
             }
         }
         private List<IMessage> FilterByGroupId(List<IMessage> list, String groupId)
         {
-            List<IMessage> filter_list = list;
-            filter_list.Where (x => x.GroupID.Equals(groupId)).ToList();
-            return filter_list;
+            list=list.Where (x => x.GroupID.Equals(groupId)).ToList();
+            return list;
         }
         // filtering by a specific groupId and nickname
         private List<IMessage> FilterByUser(List<IMessage> list,String groupId, String nickname)
         {
-            List<IMessage> filter_list = list;
-            filter_list.Where(x => (x.GroupID.Equals(groupId))&&x.UserName.Equals(nickname)).ToList();
-            return filter_list;
+            list=list.Where(x => (x.GroupID.Equals(groupId))&&x.UserName.Equals(nickname)).ToList();
+            return list;
         }
 
 

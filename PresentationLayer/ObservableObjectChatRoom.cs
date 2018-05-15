@@ -9,6 +9,32 @@ namespace ChatRoomProject.PresentationLayer
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private string groupId = "";
+        public string GroupId
+        {
+            get
+            {
+                return groupId;
+            }
+            set
+            {
+                groupId = value;
+                OnPropertyChanged("GroupId");
+            }
+        }
+        private string nickname = "";
+        public string Nickname
+        {
+            get
+            {
+                return nickname;
+            }
+            set
+            {
+                nickname = value;
+                OnPropertyChanged("Nickname");
+            }
+        }
         public ObservableCollection<string> Messages { get; } = new ObservableCollection<string>();
         public ObservableObjectChatRoom()
         {

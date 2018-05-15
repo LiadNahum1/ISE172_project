@@ -20,8 +20,8 @@ namespace ChatRoomProject.PresentationLayer
     /// </summary>
     public partial class Registration : Window
     {
-        private ChatRoom chat;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
+        private ChatRoom chat;
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
         public Registration(ChatRoom chat)
@@ -31,12 +31,13 @@ namespace ChatRoomProject.PresentationLayer
             this.DataContext = _main; 
         }
 
+        //Call to Registration function in ChatRoom. If there are no problems, open the main window again  
         private void Registrate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 this.chat.Registration(_main.GroupId, _main.Nickname);
-                log.Info("The user registered");
+                log.Info("The user " + _main.GroupId + ":" + _main.Nickname + "registered");
                 MessageBox.Show("You had been registered", "Reagistration", MessageBoxButton.OK, MessageBoxImage.None);
                 MainWindow window = new MainWindow(this.chat);
                 window.Show();
@@ -45,11 +46,17 @@ namespace ChatRoomProject.PresentationLayer
             }
             catch (Exception err)
             {
-                log.Info("The user had failed to register");
+                log.Info("Registration has failed." + err.Message);
                 MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        //Allow user to press enter when finishing writing the nickname in order to registrate
+        private void NicknameContent_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Registrate_Click(sender, e);
+        }
+        //Open the main window and close this one
         private void BackToMain_Click(object sender, RoutedEventArgs e)
         {
             MainWindow main = new MainWindow(this.chat);
@@ -57,10 +64,6 @@ namespace ChatRoomProject.PresentationLayer
             this.Close();
         }
 
-        private void NicknameContent_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-                Registrate_Click(sender, e);
-        }
+    
     }
 }

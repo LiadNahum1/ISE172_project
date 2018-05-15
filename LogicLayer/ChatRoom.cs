@@ -96,12 +96,11 @@ namespace ChatRoomProject.LogicLayer
         public void Registration(string groupId, string nickname)
         {
             if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname))
-            {
+            { 
                 throw new Exception(EMPTY_INPUT);
             }
             if (!IsValidNickname(groupId, nickname))
             {
-                log.Error("Registration failed. The user inserted an invalid nickname");
                 throw new Exception(INVALID_NICKNAME);
             }
             else
@@ -155,7 +154,7 @@ namespace ChatRoomProject.LogicLayer
                     return true;
                 }
             }
-            log.Error("Login failed. The user is not registered");
+
             throw new Exception(INVALID_LOGIN);
         }
 
@@ -191,11 +190,13 @@ namespace ChatRoomProject.LogicLayer
             }
             this.messages = this.messages.OrderBy(m => m.Date).ToList();
         }
+        
+        //Send messages. If empty or more than 150 characters throw an exception. Otherwise, send it and save into messages list
         public void Send(string messageContent)
         {
             if(messageContent == "")
             {
-                log.Error("The user wrote an illegal message");
+                log.Error("The user wrote an empty message");
                 throw new Exception(EMPTY_INPUT);
             }
             if (!Message.CheckValidity(messageContent))
@@ -209,6 +210,7 @@ namespace ChatRoomProject.LogicLayer
                 IMessage msg = this.currentUser.Send(messageContent);
                 if (msg == null)
                 {
+                    log.Error("Communication layer error");
                     throw new Exception("The user couldn't send the message");
                 }
                 else

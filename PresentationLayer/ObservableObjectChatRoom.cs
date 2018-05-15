@@ -90,7 +90,7 @@ namespace ChatRoomProject.PresentationLayer
         }
 
 
-        private string isAscending = "";
+        private string isAscending = "ascending";
         public string IsAscending
         {
             get

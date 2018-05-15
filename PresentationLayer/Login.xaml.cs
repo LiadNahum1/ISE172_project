@@ -21,8 +21,8 @@ namespace ChatRoomProject.PresentationLayer
     /// </summary>
     public partial class Login : Window
     {
-        private ChatRoom chat;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
+        private ChatRoom chat;
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
         public Login(ChatRoom chat)
@@ -32,32 +32,34 @@ namespace ChatRoomProject.PresentationLayer
             this.DataContext = _main; 
         }
 
+        //Call to Login function in ChatRoom. If there are no problems, open the ChatRoom window 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 this.chat.Login(_main.GroupId, _main.Nickname);
-                log.Info("The user logged in");
-                MessageBox.Show("Hi " + _main.Nickname);
+                log.Info("The user " + _main.GroupId + ":" + _main.Nickname + " logged in");
                 ChatRoomW chatRoom = new ChatRoomW(this.chat);
                 chatRoom.Show();
                 this.Close();
             }
             catch (Exception err)
             {
-                log.Info("The user faild to log in");
+                log.Info("Login failed. The user isn't registered");
                 MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        //Open the main window and close this one
         private void BackToMain_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("The user returned to menu");
             MainWindow main = new MainWindow(this.chat);
             main.Show();
             this.Close();
 
         }
-
+        //Allow user to press enter when finishing writing the nickname in order to registrate
         private void NicknameContent_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

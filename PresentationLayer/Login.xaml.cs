@@ -59,11 +59,5 @@ namespace ChatRoomProject.PresentationLayer
             this.Close();
 
         }
-        //Allow user to press enter when finishing writing the nickname in order to registrate
-        private void NicknameContent_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-                Login_Click(sender, e);
-        }
     }
 }

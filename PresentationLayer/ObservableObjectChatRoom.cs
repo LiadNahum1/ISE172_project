@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace ChatRoomProject.PresentationLayer
 {
@@ -118,24 +119,33 @@ namespace ChatRoomProject.PresentationLayer
             }
         }
 
-        private float sliderTwoWay = 0.0f;
-        public float SliderTwoWay
+        private Visibility textNameVisibility = Visibility.Collapsed;
+        public Visibility TextNameVisibility
         {
             get
             {
-                return sliderTwoWay;
+                return textNameVisibility;
             }
             set
             {
-                if (value >= 0.0 && value <= 100.0)
-                {
-                    sliderTwoWay = value;
-                    OnPropertyChanged("SliderTwoWay");
-                }
+                textNameVisibility = value;
+
+                OnPropertyChanged("TextNameVisibility");
             }
         }
-
-        
+        private Visibility nameVisibility = Visibility.Collapsed;
+        public Visibility NameVisibility
+        {
+            get
+            {
+                return nameVisibility;
+            }
+            set
+            {
+                nameVisibility = value;
+                OnPropertyChanged("NameVisibility");
+            }
+        }
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -131,7 +131,7 @@ namespace ChatRoomProject.LogicLayer
         //return true if input is empty 
         private bool CheckIfInputIsEmpty(string str)
         {
-            if (str == null)
+            if (str == null | str=="")
             {
                 return true;
             }
@@ -147,7 +147,7 @@ namespace ChatRoomProject.LogicLayer
             }
             foreach (IUser user in this.users)
             {
-                if (user.GroupID() == groupId && user.Nickname() == nickname)
+                if (user.GroupID().Equals(groupId) && user.Nickname().Equals(nickname))
                 {
                     this.currentUser = user;
                     return true;
@@ -219,22 +219,21 @@ namespace ChatRoomProject.LogicLayer
                 }
             }
         }
-      
 
-        private List<IMessage> SortTimestamp(List<IMessage> updatelist,Boolean ascending)
+
+        public static List<IMessage> SortTimestamp(List<IMessage> updatelist,Boolean ascending)
         {
             if (ascending)
             {
-                return updatelist;
+                return updatelist.OrderBy(o => o.Date).ToList();
             }
             else
             {
-                updatelist.Reverse();
-                return (updatelist);
+                return updatelist.OrderByDescending(o => o.Date).ToList();
             }
         }
 
-        private List<IMessage> SortByNickname(List<IMessage>updatelist, Boolean ascending)
+        public static List<IMessage> SortByNickname(List<IMessage>updatelist, Boolean ascending)
         {
             if (ascending)
             {
@@ -247,30 +246,34 @@ namespace ChatRoomProject.LogicLayer
                 return updatelist;
             }
         }
-        private List<IMessage> SortByIdNicknameTimestamp(List<IMessage> updatelist, Boolean ascending)
+        public static List<IMessage> SortByIdNicknameTimestamp(List<IMessage> updatelist, Boolean ascending)
         {
             if (ascending)
             {
                 return updatelist.OrderBy(x => x.GroupID).ThenBy(x => x.UserName).ThenBy(x => x.Date).ToList();
-              //  return updatelist;
             }
             else {
-                updatelist.OrderByDescending(x => x.GroupID).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date);
-                return updatelist;
+                return updatelist.OrderByDescending(x => x.GroupID).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date).ToList();
+               
             }
         }
-        private List<IMessage> FilterByGroupId(List<IMessage> list, String groupId)
+        public static List<IMessage> FilterByGroupId(List<IMessage> list, String groupId)
         {
             list=list.Where (x => x.GroupID.Equals(groupId)).ToList();
             return list;
         }
         // filtering by a specific groupId and nickname
-        private List<IMessage> FilterByUser(List<IMessage> list,String groupId, String nickname)
+        public static List<IMessage> FilterByUser(List<IMessage> list,String groupId, String nickname)
         {
             list=list.Where(x => (x.GroupID.Equals(groupId))&&x.UserName.Equals(nickname)).ToList();
             return list;
         }
 
+        //
+        public List<IMessage> GetMessages()
+        {
+            return this.messages;
+        }
 
     }
 }

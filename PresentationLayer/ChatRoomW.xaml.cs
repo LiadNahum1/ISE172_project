@@ -46,6 +46,12 @@ namespace ChatRoomProject.PresentationLayer
             filter =null;
             ascending= true;
             inisializeFilterandSorter();
+            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
+            foreach (string msg in messagesFromLogic)
+            {
+                _main.Messages.Add(msg);
+            }
+            _main.Nickname = chat.getCurrentUser().Nickname();
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
@@ -90,15 +96,7 @@ namespace ChatRoomProject.PresentationLayer
             main.Show();
             this.Close();
         }
-        //makes it possible for the user to send a message by pressing enter
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                log.Info("user try to send a message by pressing enter");
-                Button_Click_send(sender, e);
-            }
-        }
+     
         // a functions that occur when the user try to send a message and sends the chatroom the send request 
         private void Button_Click_send(object sender, RoutedEventArgs e)
         {
@@ -150,9 +148,7 @@ namespace ChatRoomProject.PresentationLayer
                         log.Info("the user filtered secsesfully by user ");
                         this.filter = "filterByUser";
                         this.nickName = _main.FNickName;
-                        _main.FNickName = "";
                         this.groupId = _main.FId;
-                        _main.FId = "";
                     }   
                 }
                 else if (_main.Filter.Equals("filterById"))
@@ -168,13 +164,14 @@ namespace ChatRoomProject.PresentationLayer
                         log.Info("the user filtered secsesfully by user id");
                         this.filter = "filterByGroupId";
                         this.groupId = _main.FId;
-                        _main.FId = "";
 
                     }
                 }
                 else if (_main.Filter == "None")
                 {
                     log.Info("the user chose not to filter");
+                    _main.FId = "";
+                    _main.FNickName = "";
                     this.filter = null; 
                 }
 
@@ -204,6 +201,27 @@ namespace ChatRoomProject.PresentationLayer
             currChose = "SortByIdNicknameTimestamp";
         }
 
-       
+
+        private void filterOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //MessageBox.Show(_main.Filter);
+            if (_main.Filter.Equals("filterByUser"))
+            {
+              
+                _main.NameVisibility = Visibility.Visible;
+                _main.TextNameVisibility = Visibility.Visible;
+               // MessageBox.Show(_main.TextNameVisibility.ToString());
+            }
+            if (_main.Filter.Equals("filterById"))
+            {
+                _main.NameVisibility = Visibility.Collapsed;
+                _main.TextNameVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+
+            }
+        }
+
     }
 }

@@ -250,11 +250,11 @@ namespace ChatRoomProject.LogicLayer
         {
             if (ascending)
             {
-                updatelist.OrderBy(x => x.Id).ThenBy(x => x.UserName).ThenBy(x => x.Date);
-                return updatelist;
+                return updatelist.OrderBy(x => x.GroupID).ThenBy(x => x.UserName).ThenBy(x => x.Date).ToList();
+              //  return updatelist;
             }
             else {
-                updatelist.OrderByDescending(x => x.Id).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date);
+                updatelist.OrderByDescending(x => x.GroupID).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date);
                 return updatelist;
             }
         }

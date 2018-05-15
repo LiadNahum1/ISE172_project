@@ -15,6 +15,7 @@ using System.Timers;
 using ChatRoomProject.LogicLayer;
 using ChatRoomProject.CommunicationLayer;
 using System.Windows.Threading;
+using log4net;
 namespace ChatRoomProject.PresentationLayer
 {
     /// <summary>
@@ -30,10 +31,11 @@ namespace ChatRoomProject.PresentationLayer
         private bool ascending;
         private ChatRoom chat;
         private DispatcherTimer dispatcherTimer;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
         public ChatRoomW(ChatRoom chat)
         {
-
+            log.Info("user entered chat room");
             InitializeComponent();
             this.DataContext = _main;
             this.chat = chat;
@@ -50,6 +52,7 @@ namespace ChatRoomProject.PresentationLayer
             dispatcherTimer.Start();
 
         }
+        //this is a timer that risponsilble for updating  the new messages from the server every two soconds
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             _main.Messages.Clear();
@@ -58,7 +61,7 @@ namespace ChatRoomProject.PresentationLayer
                 _main.Messages.Add(msg);
             }
         }
-       
+       // a help function that inisialize the choose boxeses that will appear on the application with the sorting and filter options
         private void inisializeFilterandSorter()
         {
             ComboBoxItem sortOpAsc = new ComboBoxItem();
@@ -77,58 +80,74 @@ namespace ChatRoomProject.PresentationLayer
             filterOpId.Content = "filterById";
             filterOptions.Items.Add(filterOpId);
         }
-      
+      //the function tells the chat room that the user logged out and close the chet room page
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
         {
+            log.Info("user exit chat room");
             chat.Logout();
             this.dispatcherTimer.Stop();// user logged out
             MainWindow main = new MainWindow(this.chat);
             main.Show();
             this.Close();
         }
+        //makes it possible for the user to send a message by pressing enter
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
+                log.Info("user try to send a message by pressing enter");
                 Button_Click_send(sender, e);
             }
         }
+        // a functions that occur when the user try to send a message and sends the chatroom the send request 
         private void Button_Click_send(object sender, RoutedEventArgs e)
         {
             try
             {
+                log.Info("user try to send a message");
                 chat.Send(_main.MessageContent);
                 _main.MessageContent = "";
             }
             catch(Exception error)
             {
+                log.Error("user send an illigal message");
                 MessageBox.Show(error.Message,"Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-   
+   //this function accur when the user press the filter and sort buttons 
         private void Button_Click_FAS(object sender, RoutedEventArgs e)
         {
+            //this will check the sort options
             try
             {
                 this.ascending = _main.IsAscending.Equals("ascending");
                 this.sort = currChose;
+                log.Info("the yser choose" + _main.IsAscending +"and" + this.sort +"order to sort by");
             }
             catch (Exception error)
             {
+                log.Error("the system faild to get user choise");
                 MessageBox.Show(error.Message);
             }
+            //the will check the user choise of filter
             try
             {
-
                 if (_main.Filter == "filterByUser")
                 {
-                    if (_main.FNickName.Equals("")) 
-                         throw new Exception("Please choose user nickname to filter by");
+                    if (_main.FNickName.Equals(""))
+                    {
+                        log.Error("the user didnt choose a filter name for the user");
+                        throw new Exception("Please choose user nickname to filter by");
+                    }
                     if (_main.FId.Equals(""))
+                    {
+                        log.Error("the user didnt choose a filter Id for the user");
                         throw new Exception("Please choose user Id to filter by");
+                    }
                     else
                     {
+                        log.Info("the user filtered secsesfully by user ");
                         this.filter = "filterByUser";
                         this.nickName = _main.FNickName;
                         _main.FNickName = "";
@@ -140,9 +159,13 @@ namespace ChatRoomProject.PresentationLayer
                 {
 
                     if (_main.FId.Equals(""))
+                    {
+                        log.Error("the user didnt choose a filter id");
                         throw new Exception("Please choose user Id to filter by");
+                    }
                     else
                     {
+                        log.Info("the user filtered secsesfully by user id");
                         this.filter = "filterByGroupId";
                         this.groupId = _main.FId;
                         _main.FId = "";
@@ -151,6 +174,7 @@ namespace ChatRoomProject.PresentationLayer
                 }
                 else if (_main.Filter == "None")
                 {
+                    log.Info("the user chose not to filter");
                     this.filter = null; 
                 }
 
@@ -162,7 +186,9 @@ namespace ChatRoomProject.PresentationLayer
                 MessageBox.Show(error.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /*the next three functions will handel the user choise of sorting order
+         * and will save the current choise until he/she will press filter and sort
+        */
         private void RadioButton_checked_name(object sender, RoutedEventArgs e)
         {
             currChose = "SortByNickName";

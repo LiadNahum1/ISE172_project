@@ -61,7 +61,6 @@ namespace ChatRoomProject.LogicLayer
         {
             RetrieveNMessages(10);
             List<IMessage> updateList =this.messages;
-          
                 if (sort.Equals("SortByNickName"))
                     updateList =SortByNickname(updateList,ascending);
                 if (sort.Equals("SortByIdNicknameTimestamp"))
@@ -77,7 +76,7 @@ namespace ChatRoomProject.LogicLayer
             }
             return ConvertToString(updateList);
         }
-
+        //this function convert the Imessage messages to string in order to send them rightfully to the presentation
         private List<String> ConvertToString(List<IMessage> updateList)
         {
             List<String> newList =new List<String>();

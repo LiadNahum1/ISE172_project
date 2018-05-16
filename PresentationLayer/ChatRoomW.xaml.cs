@@ -41,10 +41,10 @@ namespace ChatRoomProject.PresentationLayer
             this.chat = chat;
             nickName=null;
             groupId=null;
-            sort= "SortByTimestamp";
-            currChose = "SortByTimestamp";
-            filter =null;
-            ascending= true;
+            sort= "SortByTimestamp"; //default
+            currChose = "SortByTimestamp";//default
+            filter =null; //default
+            ascending = true;//default
             inisializeFilterandSorter();
             List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
             foreach (string msg in messagesFromLogic)
@@ -55,15 +55,16 @@ namespace ChatRoomProject.PresentationLayer
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
-            dispatcherTimer.Start();
+            dispatcherTimer.Start(); //TimerBegin
 
         }
         //this is a timer that risponsilble for updating  the new messages from the server every two soconds
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             _main.Messages.Clear();
-            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
-            foreach (string msg in messagesFromLogic){
+            // update list of messages sorted and filtered according to the requirements of the user
+            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName); 
+            foreach (string msg in messagesFromLogic){ 
                 _main.Messages.Add(msg);
             }
         }
@@ -91,7 +92,7 @@ namespace ChatRoomProject.PresentationLayer
         {
             log.Info("user exit chat room");
             chat.Logout();
-            this.dispatcherTimer.Stop();// user logged out
+            this.dispatcherTimer.Stop();// user logged out and timer Stop
             MainWindow main = new MainWindow(this.chat);
             main.Show();
             this.Close();

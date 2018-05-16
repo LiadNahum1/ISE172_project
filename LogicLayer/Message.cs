@@ -44,8 +44,7 @@ namespace ChatRoomProject.LogicLayer
         {
             this.id = message.Id;
             this.nickname = message.UserName;
-            this.groupId = message.GroupID;
-            this.date = message.Date;
+            this.groupId = message.GroupID;            this.date = message.Date;
             this.messageContent = message.MessageContent;
             if (!isRestored)
                 Save();
@@ -78,7 +77,7 @@ namespace ChatRoomProject.LogicLayer
 
         public override string ToString()
         {
-            return "Group:" + this.groupId + ",Nickname:" + this.nickname + " (" + this.date + "): " + this.messageContent + " (Message GUID:" + this.id + ")";
+            return "Group:" + this.groupId + ",Nickname:" + this.nickname + " (" +TimeZoneInfo.ConvertTime(this.date,TimeZoneInfo.Utc,TimeZoneInfo.Local) + "): " + this.messageContent + " (Message GUID:" + this.id + ")";
         }
     }
 }

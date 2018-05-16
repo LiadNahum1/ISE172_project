@@ -269,6 +269,7 @@ namespace ChatRoomProject.LogicLayer
         public static List<IMessage> FilterByGroupId(List<IMessage> list, String groupId)
         {
             list=list.Where (x => x.GroupID.Equals(groupId)).ToList();
+
             return list;
         }
         //input: list of Imessages, groupID and nickname

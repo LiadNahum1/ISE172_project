@@ -13,6 +13,8 @@ namespace ChatRoomProject.LogicLayer.Tests
     public class ChatRoomTests
     {
 
+
+
         [TestMethod()]
         public void SortByNicknameAscTest() // Ascending
         {
@@ -75,7 +77,10 @@ namespace ChatRoomProject.LogicLayer.Tests
             expectedlist.Add(f);
             for (int i = 0; i < expectedlist.Count(); i++)
                 Assert.AreEqual(expectedlist.ElementAt(i), resultlist.ElementAt(i));
-   }
+
+
+
+        }
         [TestMethod()]
         public void SortByTimeStampDscTest() // Ascending
         {

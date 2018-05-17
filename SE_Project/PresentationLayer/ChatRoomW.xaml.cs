@@ -19,8 +19,10 @@ using log4net;
 namespace ChatRoomProject.PresentationLayer
 {
     /// <summary>
-    /// Interaction logic for ChatRoomW.xaml
-    /// </summary>
+    /// Chat Room Window - this class will be the main chat room.
+    /// here the user can see the messages, write new ones,
+    /// and organize the messages according to his wish. 
+    /// /// </summary>
     public partial class ChatRoomW : Window
     {
         private string nickName;
@@ -55,10 +57,10 @@ namespace ChatRoomProject.PresentationLayer
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
-            dispatcherTimer.Start(); //TimerBegin
+            //            dispatcherTimer.Start(); //TimerBegin
 
         }
-        //this is a timer that risponsilble for updating  the new messages from the server every two soconds
+        //this is a timer that responsible for updating  the new messages from the server every two seconds
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             _main.Messages.Clear();
@@ -71,21 +73,11 @@ namespace ChatRoomProject.PresentationLayer
        // a help function that inisialize the choose boxeses that will appear on the application with the sorting and filter options
         private void inisializeFilterandSorter()
         {
-            ComboBoxItem sortOpAsc = new ComboBoxItem();
-            sortOpAsc.Content = "ascending";
-            sortOrder.Items.Add(sortOpAsc);
-            ComboBoxItem sortOpDes = new ComboBoxItem();
-            sortOpDes.Content = "descending";
-            sortOrder.Items.Add(sortOpDes);
-            ComboBoxItem filterOpNone = new ComboBoxItem();
-            filterOpNone.Content = "None";
-            filterOptions.Items.Add(filterOpNone);
-            ComboBoxItem filterOpUser = new ComboBoxItem();
-            filterOpUser.Content = "filterByUser";
-            filterOptions.Items.Add(filterOpUser);
-            ComboBoxItem filterOpId = new ComboBoxItem();
-            filterOpId.Content = "filterById";
-            filterOptions.Items.Add(filterOpId);
+            _main.SortOp.Add("ascending");
+            _main.SortOp.Add("descending");
+            _main.FilterOp.Add("None");
+            _main.FilterOp.Add("filterByUser");
+            _main.FilterOp.Add("filterById");
         }
       //the function tells the chat room that the user logged out and close the chet room page
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
@@ -114,7 +106,8 @@ namespace ChatRoomProject.PresentationLayer
             }
         }
 
-   //this function accur when the user press the filter and sort buttons 
+        //this function occur when the user press the filter and sort buttons
+        //and sends the chat room the new order and filter that the user now wants to use.
         private void Button_Click_FAS(object sender, RoutedEventArgs e)
         {
             //this will check the sort options
@@ -202,7 +195,7 @@ namespace ChatRoomProject.PresentationLayer
             currChose = "SortByIdNicknameTimestamp";
         }
 
-
+        //this will get the users current filtering choice and display him the place to enter the filter details.
         private void filterOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_main.Filter.Equals("filterByUser"))

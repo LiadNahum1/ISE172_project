@@ -17,7 +17,8 @@ using ChatRoomProject.LogicLayer;
 namespace ChatRoomProject.PresentationLayer
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Login Window - this class will ask the client  for the login details,
+    /// and send them for the logic layer for validation 
     /// </summary>
     public partial class Login : Window
     {

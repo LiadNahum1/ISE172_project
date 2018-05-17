@@ -37,17 +37,28 @@ namespace ChatRoomProject.PresentationLayer
             }
         }
         public ObservableCollection<string> Messages { get; } = new ObservableCollection<string>();
+        public ObservableCollection<string> SortOp { get; } = new ObservableCollection<string>();
+        public ObservableCollection<string> FilterOp { get; } = new ObservableCollection<string>();
         public ObservableObjectChatRoom()
         {
             Messages.CollectionChanged += Messages_CollectionChanged;
+            SortOp.CollectionChanged += SortOp_CollectionChanged;
+            FilterOp.CollectionChanged += FilterOp_CollectionChanged;
         }
      
-
         private void Messages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnPropertyChanged("Messages");
         }
+        private void SortOp_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged("SortOp");
+        }
 
+        private void FilterOp_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged("FilterOp");
+        }
         private string messageContent = "";
         public string MessageContent
         {

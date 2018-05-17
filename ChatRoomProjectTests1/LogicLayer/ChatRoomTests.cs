@@ -14,10 +14,10 @@ namespace ChatRoomProject.LogicLayer.Tests
     {
 
         [TestMethod()]
-        public void SortByNicknameAscTest() // Ascending
+        public void SortByNicknameTest() // Ascending and Descending
         {
+            //arrange
             List<IMessage> listToCheck = new List<IMessage>();
-
             Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));
             Message b = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "f", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));
             Message c = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "c", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));
@@ -30,32 +30,50 @@ namespace ChatRoomProject.LogicLayer.Tests
             listToCheck.Add(d);
             listToCheck.Add(e);
             listToCheck.Add(f);
-            List<IMessage> resultlist = new List<IMessage>();
-            resultlist = ChatRoom.SortByNickname(listToCheck, true); //Ascending sort of nicknames
+            List<IMessage> resultlistAsc = new List<IMessage>();
+            
+            List<IMessage> expectedlistAsc = new List<IMessage>();
+            expectedlistAsc.Add(e);
+            expectedlistAsc.Add(d);
+            expectedlistAsc.Add(c);
+            expectedlistAsc.Add(a);
+            expectedlistAsc.Add(b);
+            expectedlistAsc.Add(f);
+          
+            List<IMessage> resultlistDesc = new List<IMessage>();
+            List<IMessage> expectedlistDesc = new List<IMessage>();
+            expectedlistDesc.Add(f);
+            expectedlistDesc.Add(b);
+            expectedlistDesc.Add(a);
+            expectedlistDesc.Add(c);
+            expectedlistDesc.Add(d);
+            expectedlistDesc.Add(e);
 
-            List<IMessage> expectedlist = new List<IMessage>();
-            expectedlist.Add(e);
-            expectedlist.Add(d);
-            expectedlist.Add(c);
-            expectedlist.Add(a);
-            expectedlist.Add(b);
-            expectedlist.Add(f);
-            for (int i = 0; i < expectedlist.Count(); i++)
-                Assert.AreEqual(expectedlist.ElementAt(i), resultlist.ElementAt(i));
+            //act
+            resultlistAsc = ChatRoom.SortByNickname(listToCheck, true); //Ascending sort of nicknames
+            resultlistDesc = ChatRoom.SortByNickname(listToCheck, false); //Descending sort of nicknames
 
-            Assert.AreNotEqual(ChatRoom.SortByNickname(new List<IMessage>(), true),resultlist);
+            //assert
+            for (int i = 0; i < expectedlistAsc.Count(); i++)
+                Assert.AreEqual(expectedlistAsc.ElementAt(i), resultlistAsc.ElementAt(i));
+            for (int i = 0; i < expectedlistDesc.Count(); i++)
+                Assert.AreEqual(expectedlistDesc.ElementAt(i), resultlistDesc.ElementAt(i));
+
+            Assert.AreNotEqual(ChatRoom.SortByNickname(new List<IMessage>(), false),resultlistDesc);
+            Assert.AreNotEqual(ChatRoom.SortByNickname(new List<IMessage>(), true), resultlistAsc);
         }
 
         [TestMethod()]
-        public void SortByTimeStampAscTest() // Ascending
+        public void SortByTimeStampTest()// Ascending 
         {
+            //arrange
             List<IMessage> listToCheck = new List<IMessage>();
 
-            Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:04 AM", "hii", true));//a
-            Message b = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "f", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));//b
+            Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "6/16/2018 10:29:04 AM", "hii", true));//a
+            Message b = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "f", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "6/16/2017 10:29:02 AM", "hii", true));//b
             Message c = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "c", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:07 AM", "hii", true));//c
-            Message d = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "b", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:03 AM", "hii", true));//d
-            Message e = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "a", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:01 AM", "hii", true));//e
+            Message d = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "b", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/18/2018 10:29:03 AM", "hii", true));//d
+            Message e = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "a", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2017 10:29:01 AM", "hii", true));//e
             Message f = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "z", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:08 AM", "hii", true));//f  
             listToCheck.Add(a);
             listToCheck.Add(b);
@@ -63,85 +81,106 @@ namespace ChatRoomProject.LogicLayer.Tests
             listToCheck.Add(d);
             listToCheck.Add(e);
             listToCheck.Add(f);
-            List<IMessage> resultlist = new List<IMessage>();
-            resultlist = ChatRoom.SortTimestamp(listToCheck, true); //Ascending
-
-            List<IMessage> expectedlist = new List<IMessage>();
-            expectedlist.Add(e); 
-            expectedlist.Add(b);
-            expectedlist.Add(d);
-            expectedlist.Add(a);
-            expectedlist.Add(c);
-            expectedlist.Add(f);
-            for (int i = 0; i < expectedlist.Count(); i++)
-                Assert.AreEqual(expectedlist.ElementAt(i), resultlist.ElementAt(i));
-   }
+            List<IMessage> resultlistAcs = new List<IMessage>();
+            
+            List<IMessage> expectedlistAcs = new List<IMessage>();
+            expectedlistAcs.Add(e);
+            expectedlistAcs.Add(b);
+            expectedlistAcs.Add(c);
+            expectedlistAcs.Add(f);
+            expectedlistAcs.Add(d);
+            expectedlistAcs.Add(a);
+            //act
+            resultlistAcs = ChatRoom.SortTimestamp(listToCheck, true); //Ascending
+            //assert
+            for (int i = 0; i < expectedlistAcs.Count(); i++)
+                Assert.AreEqual(expectedlistAcs.ElementAt(i), resultlistAcs.ElementAt(i));
+            Assert.AreNotEqual(ChatRoom.SortByNickname(new List<IMessage>(), true), resultlistAcs);
+        }
         [TestMethod()]
-        public void SortByTimeStampDscTest() // Ascending
-        {
+        public void SortByIdNicknameTimestamp() // Ascending and Descending
+        {              //arrange
             List<IMessage> listToCheck = new List<IMessage>();
-
-            Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:04 AM", "hii", true));//a
-            Message b = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "f", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));//b
-            Message c = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "c", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:07 AM", "hii", true));//c
-            Message d = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "b", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:03 AM", "hii", true));//d
-            Message e = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "a", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:01 AM", "hii", true));//e
-            Message f = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "z", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:08 AM", "hii", true));//f  
+            Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "1", "5/16/2018 10:29:02 AM", "hii", true));
+            Message b = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "1", "5/16/2018 10:30:45 AM", "hii", true));
+            Message c = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "c", "1", "5/16/2018 11:29:02 AM", "hii", true));
+            Message d = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "b", "2", "5/18/2018 10:29:02 AM", "hii", true));
+            Message e = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "a", "2", "5/16/2018 10:29:02 AM", "hii", true));
+            Message f = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "a", "2", "5/16/2017 10:29:02 AM", "hii", true));
             listToCheck.Add(a);
             listToCheck.Add(b);
             listToCheck.Add(c);
             listToCheck.Add(d);
             listToCheck.Add(e);
             listToCheck.Add(f);
-            List<IMessage> resultlist = new List<IMessage>();
-            resultlist = ChatRoom.SortTimestamp(listToCheck, false); //Descending sort of timeStamp
+            List<IMessage> resultlistAsc = new List<IMessage>();
 
-            List<IMessage> expectedlist = new List<IMessage>();
-            expectedlist.Add(f);
-            expectedlist.Add(c);
-            expectedlist.Add(a);
-            expectedlist.Add(d);
-            expectedlist.Add(b);
-            expectedlist.Add(e);
-            for (int i = 0; i < expectedlist.Count(); i++)
-                Assert.AreEqual(expectedlist.ElementAt(i), resultlist.ElementAt(i));
+            List<IMessage> expectedlistAsc = new List<IMessage>();
+            expectedlistAsc.Add(c);
+            expectedlistAsc.Add(a);
+            expectedlistAsc.Add(b);
+            expectedlistAsc.Add(f);
+            expectedlistAsc.Add(e);
+            expectedlistAsc.Add(d);
 
-              
+            List<IMessage> resultlistDesc = new List<IMessage>();
+            List<IMessage> expectedlistDesc = new List<IMessage>();
+            expectedlistDesc.Add(d);
+            expectedlistDesc.Add(e);
+            expectedlistDesc.Add(f);
+            expectedlistDesc.Add(b);
+            expectedlistDesc.Add(a);
+            expectedlistDesc.Add(c);
+
+            //act
+            resultlistAsc = ChatRoom.SortByIdNicknameTimestamp(listToCheck, true); //Ascending sort of nicknames
+            resultlistDesc = ChatRoom.SortByIdNicknameTimestamp(listToCheck, false); //Descending sort of nicknames
+
+            //assert
+            for (int i = 0; i < expectedlistAsc.Count(); i++)
+                Assert.AreEqual(expectedlistAsc.ElementAt(i), resultlistAsc.ElementAt(i));
+            for (int i = 0; i < expectedlistDesc.Count(); i++)
+                Assert.AreEqual(expectedlistDesc.ElementAt(i), resultlistDesc.ElementAt(i));
+
+            Assert.AreNotEqual(ChatRoom.SortByIdNicknameTimestamp(new List<IMessage>(), false), resultlistDesc);
+            Assert.AreNotEqual(ChatRoom.SortByIdNicknameTimestamp(new List<IMessage>(), true), resultlistAsc);
+
+
         }
 
-
-
-
         [TestMethod()]
-        public void SortByNickNameTestDes()
-        {
-            List<IMessage> listToCheck = new List<IMessage>();
+        
+            public void SortByTimeStampDescTest() //Descending 
+            {
+                //arrange
+                List<IMessage> listToCheck = new List<IMessage>();
 
-            Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));
-            Message b = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "f", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));
-            Message c = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "c", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));
-            Message d = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "b", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));
-            Message e = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "a", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));
-            Message f = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "z", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:02 AM", "hii", true));
-            listToCheck.Add(a);
-            listToCheck.Add(b);
-            listToCheck.Add(c);
-            listToCheck.Add(d);
-            listToCheck.Add(e);
-            listToCheck.Add(f);
-            List<IMessage> resultlist = new List<IMessage>();
-            resultlist = ChatRoom.SortByNickname(listToCheck, false); //Descending Sort of nicknames
+                Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "6/16/2018 10:29:04 AM", "hii", true));//a
+                Message b = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "f", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "6/16/2017 10:29:02 AM", "hii", true));//b
+                Message c = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "c", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:07 AM", "hii", true));//c
+                Message d = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "b", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/18/2018 10:29:03 AM", "hii", true));//d
+                Message e = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "a", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2017 10:29:01 AM", "hii", true));//e
+                Message f = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "z", "8c1f2400-8fee-423d-a7e4-7fe06b775f52", "5/16/2018 10:29:08 AM", "hii", true));//f  
+                listToCheck.Add(a);
+                listToCheck.Add(b);
+                listToCheck.Add(c);
+                listToCheck.Add(d);
+                listToCheck.Add(e);
+                listToCheck.Add(f);
+                List<IMessage> resultlistDesc = new List<IMessage>();
+            List<IMessage> expectedlistDesc = new List<IMessage>();
+            expectedlistDesc.Add(a);
+            expectedlistDesc.Add(d);
+            expectedlistDesc.Add(f);
+            expectedlistDesc.Add(c);
+            expectedlistDesc.Add(b);
+            expectedlistDesc.Add(e);
+            resultlistDesc = ChatRoom.SortTimestamp(listToCheck, false); //Descending sort of timeStamp
+            //assert
+            for (int i = 0; i < expectedlistDesc.Count(); i++)
+            Assert.AreEqual(expectedlistDesc.ElementAt(i), resultlistDesc.ElementAt(i));
+            Assert.AreNotEqual(ChatRoom.SortByNickname(new List<IMessage>(), false), resultlistDesc);
 
-            List<IMessage> expectedlist = new List<IMessage>();
-            expectedlist.Add(f);
-            expectedlist.Add(b);
-            expectedlist.Add(a);
-            expectedlist.Add(c);
-            expectedlist.Add(d);
-            expectedlist.Add(e);
-
-            for (int i = 0; i < expectedlist.Count(); i++)
-                Assert.AreEqual(expectedlist.ElementAt(i), resultlist.ElementAt(i));
         }
 
         [TestMethod()]

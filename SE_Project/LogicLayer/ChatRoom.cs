@@ -8,6 +8,10 @@ using ChatRoomProject.CommunicationLayer;
 using System.Timers;
 namespace ChatRoomProject.LogicLayer
 {
+    /// <summary>
+    /// this class will get the data from the presentation layer make it ordered,
+    /// validate it and sending it to the persistent layer for saving and restoring
+    /// </summary>
     public class ChatRoom : IChatRoom
     {
         //fields
@@ -15,8 +19,8 @@ namespace ChatRoomProject.LogicLayer
         private List<IUser> users;
         private List<IMessage> messages;
         private IUser currentUser;
-        //  public const string URL = " http://ise172.ise.bgu.ac.il:80";
-        public const string URL = "http://192.168.43.73:80";
+          public const string URL = "http://ise172.ise.bgu.ac.il:80";
+       // public const string URL = "http://192.168.43.73:80";
         private int count_of_new_message;
         //useful error messages
         const string INVALID_NICKNAME = "Invalid nickname. \nYou insert a nickname that is already used in your group";
@@ -79,8 +83,8 @@ namespace ChatRoomProject.LogicLayer
             return ConvertToString(updateList); //convert the update list of Imessages to string
         }
 
-        //this function convert the Imessage messages to string in order to send them 
-        //rightfully to the presentation
+        /*this function convert the Imessage messages to string in order to send them 
+        *rightfully to the presentation*/
         public static List<String> ConvertToString(List<IMessage> updateList)
         {
             List<String> newList =new List<String>();

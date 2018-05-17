@@ -9,6 +9,7 @@ using ChatRoomProject.PersistentLayer;
 
 namespace ChatRoomProject.LogicLayer
 {
+     
     public class Message : IMessage
     {
         //fields
@@ -25,7 +26,7 @@ namespace ChatRoomProject.LogicLayer
           * If the message is restored there is no need to save it in persistent layer.
           * If it isn't, we will save its details in files. 
           */
-        public Message(string id, string nickname, string groupId, string date, string messageContent, bool isRestored)
+    public Message(string id, string nickname, string groupId, string date, string messageContent, bool isRestored)
         {
             this.id = new Guid(id);
             this.nickname = nickname;

@@ -17,7 +17,8 @@ using ChatRoomProject.LogicLayer;
 namespace ChatRoomProject.PresentationLayer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// this will be the first class that the client can see
+    /// from here they will be able to move for the other window,and enter as users 
     /// </summary>
     public partial class MainWindow : Window
     {

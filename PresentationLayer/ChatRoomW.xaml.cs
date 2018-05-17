@@ -205,7 +205,6 @@ namespace ChatRoomProject.PresentationLayer
 
         private void filterOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show(_main.Filter);
             if (_main.Filter.Equals("filterByUser"))
             {
                 _main.IDVisibility = Visibility.Visible;

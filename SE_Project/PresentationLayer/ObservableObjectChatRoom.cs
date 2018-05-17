@@ -114,10 +114,38 @@ namespace ChatRoomProject.PresentationLayer
             }
             set
             {
-                filter = value;
+                filter = value.Split(' ')[value.Split(' ').Length -1];
                 OnPropertyChanged("Filter");
             }
         }
+
+        private Visibility textIDVisibility = Visibility.Hidden;
+        public Visibility TextIDVisibility
+        {
+            get
+            {
+                return textIDVisibility;
+            }
+            set
+            {
+                textIDVisibility = value;
+                OnPropertyChanged("TextIDVisibility");
+            }
+        }
+        private Visibility idVisibility = Visibility.Hidden;
+        public Visibility IDVisibility
+        {
+            get
+            {
+                return idVisibility;
+            }
+            set
+            {
+                idVisibility = value;
+                OnPropertyChanged("IDVisibility");
+            }
+        }
+
 
         private Visibility textNameVisibility = Visibility.Hidden;
         public Visibility TextNameVisibility

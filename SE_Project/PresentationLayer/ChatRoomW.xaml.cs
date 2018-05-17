@@ -205,19 +205,24 @@ namespace ChatRoomProject.PresentationLayer
 
         private void filterOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show(_main.Filter);
             if (_main.Filter.Equals("filterByUser"))
             {
+                _main.IDVisibility = Visibility.Visible;
+                _main.TextIDVisibility = Visibility.Visible;
                 _main.NameVisibility = Visibility.Visible;
                 _main.TextNameVisibility = Visibility.Visible;
             }
-            if (_main.Filter.Equals("filterById"))
+            else if (_main.Filter.Equals("filterById"))
             {
+                _main.IDVisibility = Visibility.Visible;
+                _main.TextIDVisibility = Visibility.Visible;
                 _main.NameVisibility = Visibility.Hidden;
                 _main.TextNameVisibility = Visibility.Hidden;
             }
             else
             {
+                _main.IDVisibility = Visibility.Hidden;
+                _main.TextIDVisibility = Visibility.Hidden;
                 _main.NameVisibility = Visibility.Hidden;
                 _main.TextNameVisibility = Visibility.Hidden;
             }

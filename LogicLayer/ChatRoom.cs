@@ -60,7 +60,7 @@ namespace ChatRoomProject.LogicLayer
         //if the user is interested.
         public List<String> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName)
         {
-            RetrieveNMessages(10); // update the new messages from the server
+           // RetrieveNMessages(10); // update the new messages from the server
             List<IMessage> updateList =this.messages;
                 if (sort.Equals("SortByNickName"))
                     updateList =SortByNickname(updateList,ascending);

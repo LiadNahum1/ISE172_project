@@ -119,7 +119,7 @@ namespace ChatRoomProject.PresentationLayer
             }
         }
 
-        private Visibility textNameVisibility = Visibility.Collapsed;
+        private Visibility textNameVisibility = Visibility.Hidden;
         public Visibility TextNameVisibility
         {
             get
@@ -129,11 +129,10 @@ namespace ChatRoomProject.PresentationLayer
             set
             {
                 textNameVisibility = value;
-
                 OnPropertyChanged("TextNameVisibility");
             }
         }
-        private Visibility nameVisibility = Visibility.Collapsed;
+        private Visibility nameVisibility = Visibility.Hidden;
         public Visibility NameVisibility
         {
             get

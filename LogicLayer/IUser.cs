@@ -9,8 +9,13 @@ namespace ChatRoomProject.LogicLayer
 {
     public interface IUser
     {
+        /*return the groupId of the user*/
         string GroupID();
+        /*return the nickname of the user*/
         string Nickname();
+        /*Call Persistenet Layer's function in order to save user's details in the system files*/
+        void Save();
+        /*The function gets a string of a message content and sends it to the server. Recieves an IMessage from server and returns it. */
         IMessage Send(string messageContent);
 
     }

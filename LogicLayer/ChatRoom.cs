@@ -15,8 +15,7 @@ namespace ChatRoomProject.LogicLayer
         private List<IUser> users;
         private List<IMessage> messages;
         private IUser currentUser;
-        public const string URL = "http://192.168.43.73:80";
-      //  public const string URL = " http://se172.ise.bgu.ac.il:80";
+        public const string URL = " http://ise172.ise.bgu.ac.il:80";
         private int count_of_new_message;
         //useful error messages
         const string INVALID_NICKNAME = "Invalid nickname. \nYou insert a nickname that is already used in your group";

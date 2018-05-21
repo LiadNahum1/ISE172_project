@@ -201,16 +201,19 @@ namespace ChatRoomProject.LogicLayer
         //Otherwise, send it and save into messages list
         public void Send(string messageContent)
         {
-            if(messageContent == "")//empty message
-            {
-                log.Error("The user wrote an empty message");
-                throw new Exception(EMPTY_INPUT);
-            }
+           
             if (!Message.CheckValidity(messageContent))
             {
-
-                log.Error("The user wrote an illegal message");
-                throw new Exception(ILLEGAL_LENGTH_MESSAGE);
+                if (messageContent == "")//empty message
+                {
+                    log.Error("The user wrote an empty message");
+                    throw new Exception(EMPTY_INPUT);
+                }
+                else
+                {
+                    log.Error("The user wrote an illegal message");
+                    throw new Exception(ILLEGAL_LENGTH_MESSAGE);
+                }
             }
             else
             {

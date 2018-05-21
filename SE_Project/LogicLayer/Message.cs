@@ -68,12 +68,15 @@ namespace ChatRoomProject.LogicLayer
             MessageHandler.SaveToFile(this.id, this.nickname, this.groupId, this.date, this.messageContent);
         }
 
-        //Static function checks the validity of a message content. If the string is above 150 characters, returns false. 
+        /*Static function checks the validity of a message content. 
+          If the string is empty or above 150 characters, returns false.
+        */
         public static bool CheckValidity(string content)
         {
-            if (content.Length > MAX_LENGTH)
+            if (content.Length == 0 | content.Length > MAX_LENGTH)
                 return false;
-            return true;
+            else
+             return true;
         }
 
         public override string ToString()

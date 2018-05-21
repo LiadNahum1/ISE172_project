@@ -57,7 +57,7 @@ namespace ChatRoomProject.PresentationLayer
             this.dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
-            //            dispatcherTimer.Start(); //TimerBegin
+            dispatcherTimer.Start(); //TimerBegin
 
         }
         //this is a timer that responsible for updating  the new messages from the server every two seconds

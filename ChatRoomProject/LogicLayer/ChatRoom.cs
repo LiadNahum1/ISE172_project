@@ -26,6 +26,7 @@ namespace ChatRoomProject.LogicLayer
         const string INVALID_NICKNAME = "Invalid nickname. \nYou insert a nickname that is already used in your group";
         const string EMPTY_INPUT = "Please insert data";
         const string INVALID_LOGIN = "Must register first";
+        const string INVALID_GROUPID = "Group Id must be an integer";
         const string ILLEGAL_LENGTH_MESSAGE = "Illegal length message. Must be under 150 characters";
 
         //constructor
@@ -95,7 +96,7 @@ namespace ChatRoomProject.LogicLayer
             return newList;
         }
 
-        /*The method registrates a new user to the system. The method first checks if nickname input is legal.
+        /*The method registrates a new user to the system. The method first checks if nickname and groupId input is legal.
          * If it is, the method creats new User instance and adds him to the users list. 
          * If nickname is already been used by the same groupId, the function throws an exception
          */
@@ -108,6 +109,10 @@ namespace ChatRoomProject.LogicLayer
             if (!IsValidNickname(groupId, nickname))
             {
                 throw new Exception(INVALID_NICKNAME);
+            }
+            if (!IsValidGroupID(groupId))
+            {
+                throw new Exception(INVALID_GROUPID);
             }
             else
             {
@@ -134,6 +139,20 @@ namespace ChatRoomProject.LogicLayer
                     return false;
             }
             return true;
+        }
+
+        /*Check if groupID is an integer*/ 
+        private bool IsValidGroupID(string groupId)
+        {
+            try
+            {
+                int group = int.Parse(groupId);
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false; 
+            }
         }
         //return true if input is empty 
         private bool CheckIfInputIsEmpty(string str)
@@ -188,7 +207,7 @@ namespace ChatRoomProject.LogicLayer
                         break;
                     }
                 }
-                if (!isAlreadySaved)
+                if (!isAlreadySaved & IsValidGroupID(msg.GroupID))
                 {
                     Message newMessage = new Message(msg, false);
                     this.messages.Add(newMessage);
@@ -265,10 +284,10 @@ namespace ChatRoomProject.LogicLayer
         {
             if (ascending)
             {
-                return updatelist.OrderBy(x => x.GroupID).ThenBy(x => x.UserName).ThenBy(x => x.Date).ToList();
+                return updatelist.OrderBy(x => int.Parse(x.GroupID)).ThenBy(x => x.UserName).ThenBy(x => x.Date).ToList();
             }
-            else { // ascending
-                return updatelist.OrderByDescending(x => x.GroupID).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date).ToList();
+            else { // descending
+                return updatelist.OrderByDescending(x => int.Parse(x.GroupID)).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date).ToList();
                 }
         }
         //input: list of Imessages and groupID

@@ -173,7 +173,6 @@ namespace ChatRoomProject.PresentationLayer
             }
             catch (Exception error)
             {
-                MessageBox.Show(_main.Filter);
                 MessageBox.Show(error.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

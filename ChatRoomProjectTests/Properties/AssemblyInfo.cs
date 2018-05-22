@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ChatRoomProjectTests1")]
+[assembly: AssemblyTitle("ChatRoomProjectTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ChatRoomProjectTests1")]
+[assembly: AssemblyProduct("ChatRoomProjectTests")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("694c855b-8f7d-49ec-ad75-f004b3c37495")]
+[assembly: Guid("b1ed14bd-a776-4d7b-b4b9-117def1e92bb")]
 
 // Version information for an assembly consists of the following four values:
 //

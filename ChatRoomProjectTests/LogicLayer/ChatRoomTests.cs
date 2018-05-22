@@ -38,7 +38,7 @@ namespace ChatRoomProject.LogicLayer.Tests
             expectedlistAsc.Add(a);
             expectedlistAsc.Add(b);
             expectedlistAsc.Add(f);
-          
+
             List<IMessage> resultlistDesc = new List<IMessage>();
             List<IMessage> expectedlistDesc = new List<IMessage>();
             expectedlistDesc.Add(f);
@@ -60,7 +60,7 @@ namespace ChatRoomProject.LogicLayer.Tests
         }
 
         [TestMethod()]
-        public void SortByTimeStampTest() 
+        public void SortByTimeStampTest()
         {
             List<IMessage> listToCheck = new List<IMessage>();
 
@@ -69,7 +69,7 @@ namespace ChatRoomProject.LogicLayer.Tests
             Message c = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "c", "3", "5/16/2018 10:29:07 AM", "hii", true));
             Message d = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "b", "4", "5/18/2018 10:29:03 AM", "hii", true));
             Message e = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "a", "5", "5/16/2017 10:29:01 AM", "hii", true));
-            Message f = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "z", "6", "5/16/2018 10:29:08 AM", "hii", true));  
+            Message f = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "z", "6", "5/16/2018 10:29:08 AM", "hii", true));
             listToCheck.Add(a);
             listToCheck.Add(b);
             listToCheck.Add(c);
@@ -106,8 +106,8 @@ namespace ChatRoomProject.LogicLayer.Tests
                 Assert.AreEqual(expectedlistDesc.ElementAt(i), resultlistDesc.ElementAt(i));
         }
         [TestMethod()]
-        public void SortByIdNicknameTimestamp() 
-        {              
+        public void SortByIdNicknameTimestamp()
+        {
             //arrange
             List<IMessage> listToCheck = new List<IMessage>();
             Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "1", "5/16/2018 10:29:02 AM", "hii", true));
@@ -144,7 +144,7 @@ namespace ChatRoomProject.LogicLayer.Tests
             expectedlistDesc.Add(c);
 
             //act
-            resultlistAsc = ChatRoom.SortByIdNicknameTimestamp(listToCheck, true); 
+            resultlistAsc = ChatRoom.SortByIdNicknameTimestamp(listToCheck, true);
             resultlistDesc = ChatRoom.SortByIdNicknameTimestamp(listToCheck, false);
 
             //assert
@@ -223,26 +223,26 @@ namespace ChatRoomProject.LogicLayer.Tests
         {
             List<IMessage> listToCheck = new List<IMessage>();
 
-           Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "1", "5/16/2018 10:29:02 AM", "hii", true));
-           Message b = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "f", "2", "5/16/2018 10:29:02 AM", "hii", true));
-           Message c = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "c", "1", "5/16/2018 10:29:02 AM", "hii", true));
-            
-           listToCheck.Add(a);
-           listToCheck.Add(b);
-           listToCheck.Add(c);
-           List<string> resultlist = new List<string>();
-           resultlist = ChatRoom.ConvertToString(listToCheck);
-           
-           List<string> expectedlist = new List<string>();
-           string ao = "Group:1,Nickname:e (5/16/2018 1:29:02 PM): hii (Message GUID:8c1f2400-8fee-423d-a7e4-7fe06b775f52)";
-           string bo = "Group:2,Nickname:f (5/16/2018 1:29:02 PM): hii (Message GUID:8c1f2400-8fee-423d-a7e4-7fe06b775f52)";
-           string co = "Group:1,Nickname:c (5/16/2018 1:29:02 PM): hii (Message GUID:8c1f2400-8fee-423d-a7e4-7fe06b775f52)";
-           expectedlist.Add(ao);
-           expectedlist.Add(bo);
-           expectedlist.Add(co);
-        
-           for (int i = 0; i < expectedlist.Count(); i++)
-               Assert.AreEqual(expectedlist.ElementAt(i), resultlist.ElementAt(i));
+            Message a = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "e", "1", "5/16/2018 10:29:02 AM", "hii", true));
+            Message b = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "f", "2", "5/16/2018 10:29:02 AM", "hii", true));
+            Message c = (new Message("8c1f2400-8fee-423d-a7e4-7fe06b775f52", "c", "1", "5/16/2018 10:29:02 AM", "hii", true));
+
+            listToCheck.Add(a);
+            listToCheck.Add(b);
+            listToCheck.Add(c);
+            List<string> resultlist = new List<string>();
+            resultlist = ChatRoom.ConvertToString(listToCheck);
+
+            List<string> expectedlist = new List<string>();
+            string ao = "Group:1,Nickname:e (5/16/2018 1:29:02 PM): hii (Message GUID:8c1f2400-8fee-423d-a7e4-7fe06b775f52)";
+            string bo = "Group:2,Nickname:f (5/16/2018 1:29:02 PM): hii (Message GUID:8c1f2400-8fee-423d-a7e4-7fe06b775f52)";
+            string co = "Group:1,Nickname:c (5/16/2018 1:29:02 PM): hii (Message GUID:8c1f2400-8fee-423d-a7e4-7fe06b775f52)";
+            expectedlist.Add(ao);
+            expectedlist.Add(bo);
+            expectedlist.Add(co);
+
+            for (int i = 0; i < expectedlist.Count(); i++)
+                Assert.AreEqual(expectedlist.ElementAt(i), resultlist.ElementAt(i));
         }
     }
 }

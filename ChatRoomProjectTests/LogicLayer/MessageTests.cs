@@ -21,7 +21,7 @@ namespace ChatRoomProject.LogicLayer.Tests
             //act
             //check empty message - false
             messageContent = "";
-            expected = false; 
+            expected = false;
             isValidity = Message.CheckValidity(messageContent);
             //assert
             Assert.AreEqual(expected, isValidity);
@@ -34,7 +34,7 @@ namespace ChatRoomProject.LogicLayer.Tests
 
             //check message with 150 characters - true
             messageContent = "";
-            for (int i=0; i<150; i = i + 1)
+            for (int i = 0; i < 150; i = i + 1)
             {
                 messageContent = messageContent + "t";
             }

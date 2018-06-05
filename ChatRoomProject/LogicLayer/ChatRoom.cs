@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ChatRoomProject.PersistentLayer;
-using ChatRoomProject.CommunicationLayer;
+using ChatRoomProject.DataAccess;
+
 using System.Timers;
 namespace ChatRoomProject.LogicLayer
 {
@@ -19,9 +19,7 @@ namespace ChatRoomProject.LogicLayer
         private List<IUser> users;
         private List<IMessage> messages;
         private IUser currentUser;
-          public const string URL = "http://ise172.ise.bgu.ac.il:80";
-       // public const string URL = "http://192.168.43.73:80";
-        private int count_of_new_message;
+        private MessageHandler messageHandler;
         //useful error messages
         const string INVALID_NICKNAME = "Invalid nickname. \nYou insert a nickname that is already used in your group";
         const string EMPTY_INPUT = "Please insert data";
@@ -35,30 +33,14 @@ namespace ChatRoomProject.LogicLayer
             this.users = new List<IUser>(); //users list
             this.messages = new List<IMessage>(); //messages list
             this.currentUser = null; //user that is connected now
-            this.count_of_new_message = 0;
+            this.messageHandler = new MessageHandler();
         }
 
         /*The method restores the users and the messages that had been saved in the system files from previous use */
         public void Start()
         {
             log.Info("The system starts now");
-            log.Info("The system is restorig the users ");
-            //restoring the users list
-            List<String> usersData = UserHandler.RestoreUsers();
-            foreach (string data in usersData)
-            {
-                string[] details = data.Split(',');
-                this.users.Add(new User(details[0], details[1], true));
-            }
-
-            log.Info("The system is restorig the messeges");
-            //restoring the messages list
-            List<String> messagesData = MessageHandler.RestoreMessages();
-            foreach (string data in messagesData)
-            {
-                string[] details = data.Split(',');
-                this.messages.Add(new Message(details[0], details[1], details[2], details[3], details[4], true));
-            }
+            this.messages = messageHandler.RetrieveMessages();
         }
         //This is done every two seconds by reading from the timer.
         //This returns an updated list of messages that are organized according to
@@ -66,7 +48,7 @@ namespace ChatRoomProject.LogicLayer
         //if the user is interested.
         public List<String> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName)
         {
-            RetrieveNMessages(10); // update the new messages from the server
+            RetrieveMessages(); // update the new messages from the data base
             List<IMessage> updateList =this.messages;
                 if (sort.Equals("SortByNickName"))
                     updateList =SortByNickname(updateList,ascending);
@@ -141,6 +123,7 @@ namespace ChatRoomProject.LogicLayer
             return true;
         }
 
+
         /*Check if groupID is an integer*/ 
         private bool IsValidGroupID(string groupId)
         {
@@ -190,32 +173,27 @@ namespace ChatRoomProject.LogicLayer
             this.currentUser = null;
         }
 
-        /*The function retrieves 10 last messages from server. The function adds only the new messages to the messages list
+        /*The function retrieves the new messages from server.(up to 200) The function adds only the new messages to the messages list
          * sorted by their timestamp. The head of the list points to the oldest message.
          */
-        public void RetrieveNMessages(int number)
+        public void RetrieveMessages()
         {
-            List<IMessage> retrievedMessages = Communication.Instance.GetTenMessages(URL);
-            foreach (IMessage msg in retrievedMessages)
+            this.messages.AddRange(messageHandler.RetrieveMessages());
+            this.messages = this.messages.OrderBy(m => m.Date).ToList();
+            LegalSizeOfMessagesList();
+        }
+        /*Keep the size of the message list no more than 200*/
+        public void LegalSizeOfMessagesList()
+        {
+            if(this.messages.Count > 200)
             {
-                bool isAlreadySaved = false;
-                foreach (IMessage savedMsg in this.messages)
+                int gap = this.messages.Count - 200;
+                for(int i=0; i <gap; i = i + 1)
                 {
-                    if (savedMsg.Id.Equals(msg.Id))
-                    {
-                        isAlreadySaved = true;
-                        break;
-                    }
-                }
-                if (!isAlreadySaved & IsValidGroupID(msg.GroupID))
-                {
-                    Message newMessage = new Message(msg, false);
-                    this.messages.Add(newMessage);
+                    this.messages.RemoveAt(0);
                 }
             }
-            this.messages = this.messages.OrderBy(m => m.Date).ToList();
         }
-
         //Send messages. If empty or more than 150 characters throw an exception.
         //Otherwise, send it and save into messages list
         public void Send(string messageContent)
@@ -244,7 +222,7 @@ namespace ChatRoomProject.LogicLayer
                 }
                 else
                 {
-                    Message message = new Message(msg, false);
+                    Message message = new Message(msg);
                     this.messages.Add(message);
                 }
             }
@@ -284,10 +262,10 @@ namespace ChatRoomProject.LogicLayer
         {
             if (ascending)
             {
-                return updatelist.OrderBy(x => int.Parse(x.GroupID)).ThenBy(x => x.UserName).ThenBy(x => x.Date).ToList();
+                return updatelist.OrderBy(x => x.GroupID).ThenBy(x => x.UserName).ThenBy(x => x.Date).ToList();
             }
             else { // descending
-                return updatelist.OrderByDescending(x => int.Parse(x.GroupID)).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date).ToList();
+                return updatelist.OrderByDescending(x => x.GroupID).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date).ToList();
                 }
         }
         //input: list of Imessages and groupID

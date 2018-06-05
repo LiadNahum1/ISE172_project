@@ -64,12 +64,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CommunicationLayer\Communication.cs" />
-    <Compile Include="CommunicationLayer\IMessage.cs" />
+    <Compile Include="DataAccess\IMessage.cs" />
+    <Compile Include="DataAccess\GroupFilter.cs" />
+    <Compile Include="DataAccess\IQueryAction.cs" />
+    <Compile Include="DataAccess\MessageHandler.cs" />
+    <Compile Include="DataAccess\NicknameFilter.cs" />
+    <Compile Include="DataAccess\UserHandler.cs" />
     <Compile Include="LogicLayer\ChatRoom.cs" />
     <Compile Include="LogicLayer\IChatRoom.cs" />
     <Compile Include="LogicLayer\IUser.cs" />
-    <Compile Include="LogicLayer\Message.cs" />
+    <Compile Include="DataAccess\Message.cs" />
     <Compile Include="LogicLayer\User.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,5 +148,6 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

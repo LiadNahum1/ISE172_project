@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ChatRoomProject.PersistentLayer;
-using ChatRoomProject.CommunicationLayer;
 
 namespace ChatRoomProject.LogicLayer
 {

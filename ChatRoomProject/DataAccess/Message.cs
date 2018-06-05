@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ChatRoomProject.CommunicationLayer;
-using ChatRoomProject.PersistentLayer;
 
-
-namespace ChatRoomProject.LogicLayer
+namespace ChatRoomProject.DataAccess
 {
      
     public class Message : IMessage
@@ -15,10 +12,10 @@ namespace ChatRoomProject.LogicLayer
         //fields
         private Guid id;
         private string nickname;
-        private string groupId;
+        private int groupId;
         private DateTime date;
         private string messageContent;
-        const int MAX_LENGTH = 150;
+        const int MAX_LENGTH = 100;
 
         /* constructor 
           * gets strings: id, nickname, groupId, date and message content and a boolean value isRestored which indicates whether the current
@@ -26,29 +23,25 @@ namespace ChatRoomProject.LogicLayer
           * If the message is restored there is no need to save it in persistent layer.
           * If it isn't, we will save its details in files. 
           */
-    public Message(string id, string nickname, string groupId, string date, string messageContent, bool isRestored)
+    public Message(Guid id, string nickname, int groupId, DateTime date, string messageContent)
         {
-            this.id = new Guid(id);
+            this.id = id;
             this.nickname = nickname;
             this.groupId = groupId;
-            this.date = DateTime.Parse(date);
+            this.date = date;
             this.messageContent = messageContent;
-            if (!isRestored)
-                Save();
         }
 
         /*constructor
          * gets IMessage and a boolean value. Build the Message instance from the fields of the IMessage.
          * If the message is not restored, saves it in files.
          */
-        public Message(IMessage message, bool isRestored)
+        public Message(IMessage message)
         {
             this.id = message.Id;
             this.nickname = message.UserName;
             this.groupId = message.GroupID;            this.date = message.Date;
             this.messageContent = message.MessageContent;
-            if (!isRestored)
-                Save();
         }
        
         //implements IMessage
@@ -60,12 +53,12 @@ namespace ChatRoomProject.LogicLayer
 
         string IMessage.MessageContent { get { return this.messageContent; } }
 
-        public string GroupID { get { return this.groupId; } }
+        public int GroupID { get { return this.groupId; } }
 
         //Save message's details in the system files 
         public void Save()
         {
-            MessageHandler.SaveToFile(this.id, this.nickname, this.groupId, this.date, this.messageContent);
+            //MessageHandler.SaveToFile(this.id, this.nickname, this.groupId, this.date, this.messageContent);
         }
 
         /*Static function checks the validity of a message content. 

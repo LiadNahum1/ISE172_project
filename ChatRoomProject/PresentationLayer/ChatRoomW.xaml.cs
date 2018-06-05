@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Timers;
 using ChatRoomProject.LogicLayer;
-using ChatRoomProject.CommunicationLayer;
 using System.Windows.Threading;
 using log4net;
 namespace ChatRoomProject.PresentationLayer

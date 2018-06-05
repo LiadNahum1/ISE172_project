@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ChatRoomProject.CommunicationLayer;
-
+using ChatRoomProject.DataAccess;
 namespace ChatRoomProject.LogicLayer
 {
     public interface IUser

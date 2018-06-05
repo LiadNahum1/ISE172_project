@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ChatRoomProject.CommunicationLayer;
-
 namespace ChatRoomProject.LogicLayer
 {
     public interface IChatRoom
@@ -23,7 +21,7 @@ namespace ChatRoomProject.LogicLayer
         /*The function retrieves 10 last messages from server. The function adds only the new messages to the messages list
         * The head of the list points to the oldest message.
         */
-        void RetrieveNMessages(int number);
+        void RetrieveMessages();
         /*Send messages. If empty or more than 150 characters throw an exception.
         Otherwise, send it and save into messages list*/
         void Send(string messageContent);

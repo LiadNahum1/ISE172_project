@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChatRoomProject.CommunicationLayer
+namespace ChatRoomProject.DataAccess
 {
     public interface IMessage
     {
@@ -8,7 +8,7 @@ namespace ChatRoomProject.CommunicationLayer
         string UserName { get; }
         DateTime Date { get; }
         string MessageContent { get; }
-        string GroupID { get; }
+        int GroupID { get; }
         string ToString();
     }
 }

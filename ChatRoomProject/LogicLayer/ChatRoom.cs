@@ -19,13 +19,15 @@ namespace ChatRoomProject.LogicLayer
         private List<IUser> users;
         private List<IMessage> messages;
         private IUser currentUser;
-        private MessageHandler messageHandler;
+
         //useful error messages
         const string INVALID_NICKNAME = "Invalid nickname. \nYou insert a nickname that is already used in your group";
         const string EMPTY_INPUT = "Please insert data";
         const string INVALID_LOGIN = "Must register first";
         const string INVALID_GROUPID = "Group Id must be an integer";
-        const string ILLEGAL_LENGTH_MESSAGE = "Illegal length message. Must be under 150 characters";
+        const string INVALID_PASSWORD = "Letters and numbers only, 4 <= length <= 16";
+        const string WRONG_PASSWORD = "Wrong password";
+        const string ILLEGAL_LENGTH_MESSAGE = "Illegal length message. Must be under 100 characters";
 
         //constructor
         public ChatRoom()
@@ -33,14 +35,13 @@ namespace ChatRoomProject.LogicLayer
             this.users = new List<IUser>(); //users list
             this.messages = new List<IMessage>(); //messages list
             this.currentUser = null; //user that is connected now
-            this.messageHandler = new MessageHandler();
         }
 
         /*The method restores the users and the messages that had been saved in the system files from previous use */
         public void Start()
         {
             log.Info("The system starts now");
-            this.messages = messageHandler.RetrieveMessages();
+            this.messages = MessageHandler.RetrieveMessages();
         }
         //This is done every two seconds by reading from the timer.
         //This returns an updated list of messages that are organized according to
@@ -82,23 +83,28 @@ namespace ChatRoomProject.LogicLayer
          * If it is, the method creats new User instance and adds him to the users list. 
          * If nickname is already been used by the same groupId, the function throws an exception
          */
-        public void Registration(string groupId, string nickname)
+       public void Registration(string groupId, string nickname, string password)
         {
-            if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname))
+            if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname)|| CheckIfInputIsEmpty(password))
             { 
                 throw new Exception(EMPTY_INPUT);
-            }
-            if (!IsValidNickname(groupId, nickname))
-            {
-                throw new Exception(INVALID_NICKNAME);
             }
             if (!IsValidGroupID(groupId))
             {
                 throw new Exception(INVALID_GROUPID);
             }
+            if (!IsValidNickname(groupId, nickname))
+            {
+                throw new Exception(INVALID_NICKNAME);
+            }
+          
+            if (!IsValidPassword(password))
+            {
+                throw new Exception(INVALID_PASSWORD);
+            }
             else
             {
-                this.users.Add(new User(groupId, nickname, false));
+                this.users.Add(new User(groupId, nickname ,password));
             }
         }
 
@@ -115,16 +121,32 @@ namespace ChatRoomProject.LogicLayer
          */
         private bool IsValidNickname(string groupId, string nickname)
         {
-            foreach (IUser user in this.users)
+            return UserHandler.IsValidNickname(groupId, nickname);
+          /*  foreach (IUser user in this.users)
             {
                 if (user.GroupID().Equals(groupId) && user.Nickname().Equals(nickname))
                     return false;
             }
-            return true;
+            return true;*/
+        }
+
+        /*Check if password is legal. Need to be consisted only from letters and numbers and
+         *  4 <= length <= 16"*/
+        private bool IsValidPassword(string password)
+        {
+            if (password.Length < 4 | password.Length > 16)
+                return false;
+            password = password.ToLower();
+           for(int i=0; i<password.Length; i = i + 1)
+            {
+                if (!(password[i]>= '0' & password[i]<='9') |(password[i]>='a' & password[i]<='z'))
+                    return false;
+            }
+            return true; 
         }
 
 
-        /*Check if groupID is an integer*/ 
+        /*Check if groupID is an integer*/
         private bool IsValidGroupID(string groupId)
         {
             try
@@ -148,22 +170,30 @@ namespace ChatRoomProject.LogicLayer
         }
 
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
-        public bool Login(string groupId, string nickname)
+        public bool Login(string groupId, string nickname, string password)
         {
             if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname))
             {
                 throw new Exception(EMPTY_INPUT);
             }
-            foreach (IUser user in this.users)
+            else if(!UserHandler.IsValidNickname(groupId, nickname))
             {
-                if (user.GroupID().Equals(groupId) && user.Nickname().Equals(nickname))
-                {
-                    this.currentUser = user;
-                    return true;
-                }
+                throw new Exception(INVALID_LOGIN); //user wasnt found
             }
-
-            throw new Exception(INVALID_LOGIN);
+            else if (!UserHandler.IsValidPassword(groupId, nickname, password))
+            {
+                throw new Exception(WRONG_PASSWORD);
+            }
+            else
+                return true; 
+            /* foreach (IUser user in this.users)
+             {
+                 if (user.GroupID().Equals(groupId) && user.Nickname().Equals(nickname))
+                 {
+                     this.currentUser = user;
+                     return true;
+                 }
+             }*/
         }
 
         //Logout the current user
@@ -178,7 +208,7 @@ namespace ChatRoomProject.LogicLayer
          */
         public void RetrieveMessages()
         {
-            this.messages.AddRange(messageHandler.RetrieveMessages());
+            this.messages.AddRange(MessageHandler.RetrieveMessages());
             this.messages = this.messages.OrderBy(m => m.Date).ToList();
             LegalSizeOfMessagesList();
         }
@@ -214,17 +244,7 @@ namespace ChatRoomProject.LogicLayer
             }
             else
             {
-                IMessage msg = this.currentUser.Send(messageContent);
-                if (msg == null)
-                {
-                    log.Error("Communication layer error");
-                    throw new Exception("The user couldn't send the message");
-                }
-                else
-                {
-                    Message message = new Message(msg);
-                    this.messages.Add(message);
-                }
+                this.currentUser.Send(messageContent);
             }
         }
 

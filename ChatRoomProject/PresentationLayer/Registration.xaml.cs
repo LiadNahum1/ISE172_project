@@ -36,7 +36,7 @@ namespace ChatRoomProject.PresentationLayer
         {
             try
             {
-                this.chat.Registration(_main.GroupId, _main.Nickname);
+                this.chat.Registration(_main.GroupId, _main.Nickname, _main.Password);
                 log.Info("The user " + _main.GroupId + ":" + _main.Nickname + "registered");
                 MessageBox.Show("You had been registered", "Reagistration", MessageBoxButton.OK, MessageBoxImage.None);
                 MainWindow window = new MainWindow(this.chat);

@@ -9,7 +9,7 @@ namespace ChatRoomProject.PersistentLayer
 {
     public class UserHandler
     {
-        public static void SaveToFile(string nickname, string groupId)
+        /*public static void SaveToFile(string nickname, string groupId)
         {
             string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             startupPath += "\\PersistentLayer\\DataUsers.txt";
@@ -37,7 +37,7 @@ namespace ChatRoomProject.PersistentLayer
         public static List<string> groupIDs()
         {
             throw new NotImplementedException();
-        }
+        }*/
 
     }
 }

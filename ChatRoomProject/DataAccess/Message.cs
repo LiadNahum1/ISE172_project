@@ -23,7 +23,16 @@ namespace ChatRoomProject.DataAccess
           * If the message is restored there is no need to save it in persistent layer.
           * If it isn't, we will save its details in files. 
           */
-    public Message(Guid id, string nickname, int groupId, DateTime date, string messageContent)
+    public Message(string nickname, int groupId, string messageContent)
+        {
+            this.id = new Guid();
+            this.nickname = nickname;
+            this.groupId = groupId;
+            this.date = DateTime.Now.ToUniversalTime();
+            this.messageContent = messageContent;
+        }
+
+        public Message(Guid id,string nickname, int groupId, DateTime date, string messageContent)
         {
             this.id = id;
             this.nickname = nickname;
@@ -32,18 +41,6 @@ namespace ChatRoomProject.DataAccess
             this.messageContent = messageContent;
         }
 
-        /*constructor
-         * gets IMessage and a boolean value. Build the Message instance from the fields of the IMessage.
-         * If the message is not restored, saves it in files.
-         */
-        public Message(IMessage message)
-        {
-            this.id = message.Id;
-            this.nickname = message.UserName;
-            this.groupId = message.GroupID;            this.date = message.Date;
-            this.messageContent = message.MessageContent;
-        }
-       
         //implements IMessage
         Guid IMessage.Id { get { return this.id; } }
 

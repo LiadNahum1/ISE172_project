@@ -38,7 +38,7 @@ namespace ChatRoomProject.PresentationLayer
         {
             try
             {
-                this.chat.Login(_main.GroupId, _main.Nickname);
+                this.chat.Login(_main.GroupId, _main.Nickname, _main.Password);
                 log.Info("The user " + _main.GroupId + ":" + _main.Nickname + " logged in");
                 ChatRoomW chatRoom = new ChatRoomW(this.chat);
                 chatRoom.Show();

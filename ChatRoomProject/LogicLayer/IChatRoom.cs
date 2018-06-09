@@ -9,13 +9,13 @@ namespace ChatRoomProject.LogicLayer
     {
         /*The method restores the users and the messages that had been saved in the system files from previous use */
         void Start();
-        /*The method registrates a new user to the system. The method first checks if nickname input is legal.
-         * If it is, the method creats new User instance and adds him to the users list. 
+        /*The method registrates a new user to the system. The method first checks if nickname, groupId and password inputs are legal.
+         * If they are, the method creats new User instance and adds him to the users list. 
          * If nickname is already been used by the same groupId, the function throws an exception
          */
-        void Registration(string groupId, string nickname);
+        void Registration(string groupId, string nickname, string password);
         /*Check if the user is registered. If he is, returns true. Otherwise, returns false.*/
-        bool Login(string groupId, string nickname);
+        bool Login(string groupId, string nickname, string password);
         /*Logout the current user which is connected now*/
         void Logout();
         /*The function retrieves 10 last messages from server. The function adds only the new messages to the messages list

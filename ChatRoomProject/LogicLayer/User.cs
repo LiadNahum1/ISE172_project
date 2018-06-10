@@ -15,14 +15,16 @@ namespace ChatRoomProject.LogicLayer
         private string nickname;
         private string password; 
         private static string SALT = "1337";
+        private MessageHandler message_handler;
 
         /*constructor
          * gets groupId, nickname and boolean value isRestored which indicates whether the current user details are restored from dataBase or
          * the user is a new one. If the user is restored there is no need to save him in persistent layer because he is already saved.
          * If he isn't, we will save his details in Data Base. 
          */
-        public User(string groupID, string nickname,string password)
+        public User(string groupID, string nickname,string password, MessageHandler message_handler)
         {
+            this.message_handler = message_handler;
             this.userId = new Guid();
             this.groupID = groupID;
             this.nickname = nickname;
@@ -67,7 +69,7 @@ namespace ChatRoomProject.LogicLayer
         public void Send(string messageContent)
         {
             IMessage msg = new Message(Nickname(), int.Parse(GroupID()), messageContent);
-            MessageHandler.InsertNewMessage(UserID(), msg);          
+            message_handler.InsertNewMessage(UserID(), msg);          
         }
 
         public override string ToString()

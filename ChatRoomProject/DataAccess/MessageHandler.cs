@@ -102,17 +102,18 @@ namespace ChatRoomProject.DataAccess
                 {
                     if (isStart) // first retrieve
                     {
-                        sql_query = "SELECT TOP 200 * FROM [dbo].[Messages] order by DateTime;"; // todo check ascending or descending
+                        sql_query = "SELECT TOP 200 * FROM [dbo].[Messages] order by SendTime;"; // todo check ascending or descending
                         command = new SqlCommand(sql_query, connection);
                         isStart = false;
                     }
                     else// not the first retrieve
                     {
                         sql_query = "SELECT TOP 200 * FROM [dbo].[Messages] WHERE [SendTime]>@last_date order by DateTime;"; //TODO no more than 200
+                        SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.Text, 20);
+                        command.Parameters.Add(last_date); // todo check
                         command = new SqlCommand(sql_query, connection);
-                        command.Parameters.Add(last_date); 
                     }
-                
+
                 }
                 else // there are filters
                 {
@@ -122,11 +123,11 @@ namespace ChatRoomProject.DataAccess
                          sql=filters.ElementAt(i).execute(sql)+" AND";
                     }
                     sql = sql.Substring(0, sql.Length-4); // delete the last " AND"
-                    sql += " order by time DateTime"; //todo check the name in the table
+                    sql += " order by time SendTime"; //todo check the name in the table
                     command = new SqlCommand(sql_query, connection);
                 }
                 data_reader = command.ExecuteReader();
-                while (data_reader.Read())
+                while (data_reader.Read()) // todo- check if we need to add !=null
                 {
                     IMessage message = CreateNewMessage(data_reader);
                     newMessages.Add(message);

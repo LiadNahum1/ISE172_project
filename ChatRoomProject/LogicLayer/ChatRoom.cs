@@ -117,7 +117,7 @@ namespace ChatRoomProject.LogicLayer
             }
             else
             {
-                this.users.Add(new User(groupId, nickname ,password));
+                this.users.Add(new User(groupId, nickname ,password,message_handler));
             }
         }
 
@@ -221,7 +221,7 @@ namespace ChatRoomProject.LogicLayer
          */
         public void RetrieveMessages()
         {
-            this.messages.AddRange(MessageHandler.RetrieveMessages());
+            this.messages.AddRange(message_handler.RetrieveMessages());
             this.messages = this.messages.OrderBy(m => m.Date).ToList();
             LegalSizeOfMessagesList();
         }

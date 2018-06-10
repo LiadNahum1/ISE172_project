@@ -36,19 +36,6 @@ namespace ChatRoomProject.PresentationLayer
                 OnPropertyChanged("Nickname");
             }
         }
-        private string password;
-        public string Password
-        {
-            get
-            {
-                return password;
-            }
-            set
-            {
-                password = value.ToString();
-                OnPropertyChanged("Password");
-            }
-        }
         public ObservableCollection<string> Messages { get; } = new ObservableCollection<string>();
         public ObservableCollection<string> SortOp { get; } = new ObservableCollection<string>();
         public ObservableCollection<string> FilterOp { get; } = new ObservableCollection<string>();

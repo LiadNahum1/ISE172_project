@@ -44,7 +44,7 @@
         <TextBlock Text="Nickname" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="6" FontSize="30"   Margin="29,0,90,0"/>
         <TextBox Text="{Binding Nickname}" FontSize="20" Grid.Column="4" Grid.Row="6" Grid.ColumnSpan="2" />
         <TextBlock Text="Password" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="8" FontSize="30"   Margin="34,0,85,0"/>
-        <PasswordBox DataContext="Password" MaxLength="16" FontSize="20" Grid.Column="4" Grid.Row="8" Grid.ColumnSpan="2" />
+        <PasswordBox DataContext="Password" MaxLength="16" FontSize="20" Grid.Column="4" Grid.Row="8" Grid.ColumnSpan="2" PasswordChanged = "PasswordBox_PasswordChanged" />
         <Button Content=" Login " FontSize="30" Background="AliceBlue"  Grid.Column="4" Grid.Row="9"  Click=" Login_Click" Grid.ColumnSpan="2" Margin="33,10,58,18" Grid.RowSpan="2" />
         <Image Source="pictures/group.png" Grid.Column="6"  Grid.Row="4" />
         <Image Source="pictures/nickname.png" Grid.Column="6"  Grid.Row="6"/>

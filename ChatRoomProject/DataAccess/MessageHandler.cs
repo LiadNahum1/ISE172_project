@@ -68,7 +68,6 @@ namespace ChatRoomProject.DataAccess
             {
                 log.Error("Writing into Data Base failed");
             }
-            Console.ReadKey();
         }
         public IMessage CreateNewMessage(SqlDataReader data_reader)
         {
@@ -80,12 +79,12 @@ namespace ChatRoomProject.DataAccess
                 date = data_reader.GetDateTime(2); //2 is the coloumn index of the date. There are such               
                 guid = data_reader.GetGuid(0);
             }
-            int userId = data_reader.GetInt16(1); //TODO: check 
+            int userId = data_reader.GetInt32(1); //TODO: check 
             //get Nickname and GroupId //    
-            String sql_query1 = "SELECT [Group_Id], [Nickname] FROM [dbo].[Users] WHERE [Id] =" + userId;
+            String sql_query1 = "SELECT [Group_Id], [Nickname] FROM [dbo].[Users] WHERE [Id]=" + userId + ";";
             SqlCommand command1 = new SqlCommand(sql_query1, connection);
             SqlDataReader data_reader1 = command1.ExecuteReader();
-            int groupId = data_reader1.GetInt16(0);
+            int groupId = data_reader1.GetInt32(0);
             String nickname = data_reader1.GetString(1);
             IMessage message = new Message(guid, nickname, groupId, date, data_reader.GetString(3));
             return message;
@@ -111,7 +110,7 @@ namespace ChatRoomProject.DataAccess
                 {
                     if (isStart) // first retrieve
                     {
-                        sql_query = "SELECT TOP 200 * FROM [dbo].[Messages] order by SendTime;"; // todo check ascending or descending
+                        sql_query = "SELECT TOP 200 * FROM [dbo].[Messages] order by [SendTime];"; // todo check ascending or descending
                         command = new SqlCommand(sql_query, connection);
                         isStart = false;
                     }

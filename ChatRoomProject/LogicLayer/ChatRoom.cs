@@ -149,10 +149,10 @@ namespace ChatRoomProject.LogicLayer
         {
             if (password.Length < 4 | password.Length > 16)
                 return false;
-            password = password.ToLower();
+           password = password.ToLower();
            for(int i=0; i<password.Length; i = i + 1)
             {
-                if (!(password[i]>= '0' & password[i]<='9') |(password[i]>='a' & password[i]<='z'))
+                if (!((password[i]>= '0' & password[i]<='9') |(password[i]>='a' & password[i]<='z')))
                     return false;
             }
             return true; 

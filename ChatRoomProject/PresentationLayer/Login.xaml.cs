@@ -24,21 +24,29 @@ namespace ChatRoomProject.PresentationLayer
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
         private ChatRoom chat;
+        private string password;
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
         public Login(ChatRoom chat)
         {
             InitializeComponent();
             this.chat = chat;
-            this.DataContext = _main; 
+            this.password = "";
+            this.DataContext = _main;
+        }
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+
+        {
+            PasswordBox pb = sender as PasswordBox;
+            this.password = pb.Password;
         }
 
-        //Call to Login function in ChatRoom. If there are no problems, open the ChatRoom window 
-        private void Login_Click(object sender, RoutedEventArgs e)
+            //Call to Login function in ChatRoom. If there are no problems, open the ChatRoom window 
+            private void Login_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                this.chat.Login(_main.GroupId, _main.Nickname, _main.Password);
+                this.chat.Login(_main.GroupId, _main.Nickname, this.password);
                 log.Info("The user " + _main.GroupId + ":" + _main.Nickname + " logged in");
                 ChatRoomW chatRoom = new ChatRoomW(this.chat);
                 chatRoom.Show();

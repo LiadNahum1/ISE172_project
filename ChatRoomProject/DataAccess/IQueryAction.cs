@@ -8,5 +8,6 @@ namespace ChatRoomProject.DataAccess
 {
     interface IQueryAction
     {
+        String execute(String query); // build sql statement 
     }
 }

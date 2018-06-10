@@ -15,6 +15,7 @@ namespace ChatRoomProject.LogicLayer
     public class ChatRoom : IChatRoom
     {
         //fields
+        private MessageHandler message_handler;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
         private List<IUser> users;
         private List<IMessage> messages;
@@ -32,6 +33,7 @@ namespace ChatRoomProject.LogicLayer
         //constructor
         public ChatRoom()
         {
+            this.message_handler = new MessageHandler();
             this.users = new List<IUser>(); //users list
             this.messages = new List<IMessage>(); //messages list
             this.currentUser = null; //user that is connected now
@@ -41,7 +43,7 @@ namespace ChatRoomProject.LogicLayer
         public void Start()
         {
             log.Info("The system starts now");
-            this.messages = MessageHandler.RetrieveMessages();
+            messages = message_handler.RetrieveMessages();
         }
         //This is done every two seconds by reading from the timer.
         //This returns an updated list of messages that are organized according to
@@ -49,21 +51,32 @@ namespace ChatRoomProject.LogicLayer
         //if the user is interested.
         public List<String> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName)
         {
-            RetrieveMessages(); // update the new messages from the data base
-            List<IMessage> updateList =this.messages;
-                if (sort.Equals("SortByNickName"))
-                    updateList =SortByNickname(updateList,ascending);
-                if (sort.Equals("SortByIdNicknameTimestamp"))
-                    updateList= SortByIdNicknameTimestamp(updateList, ascending);
-                if (sort.Equals("SortByTimestamp"))
-                    updateList= SortTimestamp(updateList,ascending);
-            if(filter!=null) // if the user chose to filter the messages 
+            List<IMessage> updateList = this.messages;
+            if (filter != null) // if the user chose to filter the messages 
             {
                 if (filter.Equals("filterByUser"))
-                    updateList= FilterByUser(updateList, groupId, nickName); 
+                {
+                    message_handler.AddNicknameFilter(nickName);
+                    message_handler.AddGroupFilter(Int32.Parse(groupId));
+                }
                 else // FilterByGroupID
-                    updateList= FilterByGroupId(updateList, groupId);
+                    message_handler.AddGroupFilter(Int32.Parse(groupId));
+                updateList = message_handler.RetrieveMessages(); // filter list
             }
+            else // no filter so update the list of messages
+            {
+                message_handler.ClearFilters(); // delete all the filters
+                this.messages.AddRange(message_handler.RetrieveMessages()); // update the new messages from the data base
+                updateList = this.messages;
+            }
+            
+            if (sort.Equals("SortByNickName"))
+                updateList =SortByNickname(updateList,ascending);
+            if (sort.Equals("SortByIdNicknameTimestamp"))
+                updateList= SortByIdNicknameTimestamp(updateList, ascending);
+            if (sort.Equals("SortByTimestamp"))
+                updateList= SortTimestamp(updateList,ascending);
+           
             return ConvertToString(updateList); //convert the update list of Imessages to string
         }
 

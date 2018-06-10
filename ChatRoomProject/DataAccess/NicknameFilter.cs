@@ -13,5 +13,11 @@ namespace ChatRoomProject.DataAccess
         {
             this.nickname = nickname;
         }
+
+        public string execute(string query)
+        {
+            String concat = query +String.Format( " [nickname]={0}",nickname); //todo check name in table
+            return concat;
+        }
     }
 }

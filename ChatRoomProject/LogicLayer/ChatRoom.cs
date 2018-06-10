@@ -181,7 +181,23 @@ namespace ChatRoomProject.LogicLayer
             }
             return false;
         }
-
+        public bool CanEdit(string lastMessage)
+        {
+            int startIndex = lastMessage.IndexOf(':');
+            int endIndex = lastMessage.IndexOf(',');
+            int length = endIndex - startIndex + 1;
+            int gruopId = int.Parse(lastMessage.Substring(startIndex, length));
+             startIndex = lastMessage.Substring(endIndex+1).IndexOf(',');
+             endIndex = lastMessage.IndexOf('(');
+             length = endIndex - startIndex + 1;
+            string nickname =lastMessage.Substring(startIndex, length);
+            return (int.Parse(this.currentUser.GroupID()) == gruopId & this.currentUser.Nickname() == nickname); 
+        }
+        public void EditMessage (string newMessage ,string lastMessageGuid) {
+           
+                this.Send(newMessage);
+            message_handler.DeleteByGuid(lastMessageGuid);
+        }
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname, string password)
         {

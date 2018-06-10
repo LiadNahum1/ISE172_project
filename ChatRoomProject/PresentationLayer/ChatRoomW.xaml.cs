@@ -219,6 +219,9 @@ namespace ChatRoomProject.PresentationLayer
             }
         }
 
-      
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string lastmessage = _main.LastMessageContent;
+        }
     }
 }

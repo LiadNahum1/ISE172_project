@@ -90,6 +90,15 @@ namespace ChatRoomProject.DataAccess
             IMessage message = new Message(guid, nickname, groupId, date, data_reader.GetString(3));
             return message;
         }
+        public void DeleteByGuid(string messageGuid)
+        {
+            connection.Open();
+            log.Info("connected to: " + server_address);
+            SqlCommand Command = new SqlCommand(
+              "DELETE FROM [dbo].[Messages] WHERE Guid='@word'" +connection);
+            Command.Parameters.AddWithValue("@word", messageGuid);
+            Command.ExecuteNonQuery();
+        }
         public List<IMessage> RetrieveMessages()
         {
             List<IMessage> newMessages = new List<IMessage>();

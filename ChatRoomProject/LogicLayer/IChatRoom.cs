@@ -18,10 +18,7 @@ namespace ChatRoomProject.LogicLayer
         bool Login(string groupId, string nickname, string password);
         /*Logout the current user which is connected now*/
         void Logout();
-        /*The function retrieves 10 last messages from server. The function adds only the new messages to the messages list
-        * The head of the list points to the oldest message.
-        */
-        void RetrieveMessages();
+       
         /*Send messages. If empty or more than 150 characters throw an exception.
         Otherwise, send it and save into messages list*/
         void Send(string messageContent);

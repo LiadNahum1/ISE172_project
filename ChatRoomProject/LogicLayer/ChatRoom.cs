@@ -43,7 +43,7 @@ namespace ChatRoomProject.LogicLayer
         public void Start()
         {
             log.Info("The system starts now");
-            messages = message_handler.RetrieveMessages();
+            messages = message_handler.RetrieveMessages(true);
         }
         //This is done every two seconds by reading from the timer.
         //This returns an updated list of messages that are organized according to
@@ -51,23 +51,53 @@ namespace ChatRoomProject.LogicLayer
         //if the user is interested.
         public List<String> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName , bool ispressed)
         {
-            List<IMessage> updateList = this.messages;
-            if (filter != null) // if the user chose to filter the messages 
+            List<IMessage> updateList = new List<IMessage>();
+            if (ispressed)
             {
-                if (filter.Equals("filterByUser"))
+                this.messages.Clear();
+                if (filter != null) // if the user chose to filter the messages 
                 {
-                    message_handler.AddNicknameFilter(nickName);
-                    message_handler.AddGroupFilter(Int32.Parse(groupId));
+                    if (filter.Equals("filterByUser"))
+                    {
+                        message_handler.AddNicknameFilter(nickName);
+                        message_handler.AddGroupFilter(Int32.Parse(groupId));
+                    }
+                    else // FilterByGroupID
+                        message_handler.AddGroupFilter(Int32.Parse(groupId));
+                    updateList = message_handler.RetrieveMessages(ispressed); // filter list
+                    this.messages = updateList;
                 }
-                else // FilterByGroupID
-                    message_handler.AddGroupFilter(Int32.Parse(groupId));
-                updateList = message_handler.RetrieveMessages(); // filter list
+
+                else // no filter so update the list of messages
+                {
+                    message_handler.ClearFilters(); // delete all the filters
+                    this.messages = (message_handler.RetrieveMessages(ispressed)); // update the new messages from the data base
+                    updateList = this.messages;
+                }
             }
-            else // no filter so update the list of messages
+            else // not the first time of the same sort/filter
             {
-                message_handler.ClearFilters(); // delete all the filters
-                this.messages.AddRange(message_handler.RetrieveMessages()); // update the new messages from the data base
                 updateList = this.messages;
+                if (filter != null) // if the user chose to filter the messages 
+                {
+                    if (filter.Equals("filterByUser"))
+                    {
+                        message_handler.AddNicknameFilter(nickName);
+                        message_handler.AddGroupFilter(Int32.Parse(groupId));
+                    }
+                    else // FilterByGroupID
+                    {
+                        message_handler.AddGroupFilter(Int32.Parse(groupId));
+                    }
+                    updateList.AddRange( message_handler.RetrieveMessages(ispressed)); // filter list
+                    this.messages = updateList;
+                }
+
+                else // no filter so update the list of messages
+                {
+                    updateList.AddRange(message_handler.RetrieveMessages(ispressed)); // concat the new messages from the data base
+                    this.messages=updateList;
+                }
             }
             
             if (sort.Equals("SortByNickName"))
@@ -76,7 +106,8 @@ namespace ChatRoomProject.LogicLayer
                 updateList= SortByIdNicknameTimestamp(updateList, ascending);
             if (sort.Equals("SortByTimestamp"))
                 updateList= SortTimestamp(updateList,ascending);
-           
+
+            updateList= LegalSizeOfMessagesList(updateList); // id there are more than 200 messag
             return ConvertToString(updateList); //convert the update list of Imessages to string
         }
 
@@ -233,32 +264,24 @@ namespace ChatRoomProject.LogicLayer
             this.currentUser = null;
         }
 
-        /*The function retrieves the new messages from server.(up to 200) The function adds only the new messages to the messages list
-         * sorted by their timestamp. The head of the list points to the oldest message.
-         */
-        public void RetrieveMessages()
-        {
-            this.messages.AddRange(message_handler.RetrieveMessages());
-            this.messages = this.messages.OrderBy(m => m.Date).ToList();
-            LegalSizeOfMessagesList();
-        }
         /*Keep the size of the message list no more than 200*/
-        public void LegalSizeOfMessagesList()
+        public List<IMessage> LegalSizeOfMessagesList(List<IMessage> list )
         {
-            if(this.messages.Count > 200)
+            if(list.Count > 200)
             {
-                int gap = this.messages.Count - 200;
+                int gap =list.Count - 200;
                 for(int i=0; i <gap; i = i + 1)
                 {
-                    this.messages.RemoveAt(0);
+                    list.RemoveAt(0);
                 }
             }
+            return list;
         }
+
         //Send messages. If empty or more than 150 characters throw an exception.
         //Otherwise, send it and save into messages list
         public void Send(string messageContent)
-        {
-           
+        {           
             if (!Message.CheckValidity(messageContent))
             {
                 if (messageContent == "")//empty message
@@ -318,24 +341,6 @@ namespace ChatRoomProject.LogicLayer
                 return updatelist.OrderByDescending(x => x.GroupID).ThenByDescending(x => x.UserName).ThenByDescending(x => x.Date).ToList();
                 }
         }
-        //input: list of Imessages and groupID
-        //output:list of Imessages which include only the messages of the specific groupID
-        public static List<IMessage> FilterByGroupId(List<IMessage> list, String groupId)
-        {
-            list=list.Where (x => x.GroupID.Equals(groupId)).ToList();
-
-            return list;
-        }
-        //input: list of Imessages, groupID and nickname
-        //output:list of Imessages which include only the messages of the specific user
-        public static List<IMessage> FilterByUser(List<IMessage> list,String groupId, String nickname)
-        {
-            list=list.Where(x => (x.GroupID.Equals(groupId))&&x.UserName.Equals(nickname)).ToList();
-            return list;
-        }
-
-        
-       
 
     }
 }

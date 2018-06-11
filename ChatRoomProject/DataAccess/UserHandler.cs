@@ -24,22 +24,23 @@ namespace ChatRoomProject.DataAccess
         private static SqlDataReader data_reader;
         private static string SALT = "1337";
 
-        public static void InsertNewUser(Guid id, string groupId, string nickname, string password)
+        public static void InsertNewUser(Guid id, string nickname, string groupId, string password)
         {
             try
             {
-                connection.Open();
+                //connection.Open();
                 command = new SqlCommand(null, connection);
                 // Create and prepare an SQL statement.
                 command.CommandText =
                     "INSERT INTO Users ([Id],[Group_Id],[Nickname],[Password]) " +
                     "VALUES (@id, @group_Id,@nickname,@password)";
                 SqlParameter id_param = new SqlParameter(@"id", SqlDbType.Text, 20);
-                SqlParameter group_Id_param = new SqlParameter(@"group_Id", SqlDbType.Text, 20);
+                SqlParameter group_Id_param = new SqlParameter(@"group_Id", SqlDbType.Int, 20);
                 SqlParameter nickname_param = new SqlParameter(@"nickname", SqlDbType.Text, 20);
                 SqlParameter password_param = new SqlParameter(@"password", SqlDbType.Text, 20);
-                id_param.Value = int.Parse(id.ToString());
-                group_Id_param.Value = groupId;
+
+                id_param.Value = id.ToString();
+                group_Id_param.Value = int.Parse(groupId);
                 nickname_param.Value = nickname;
                 password_param.Value = hashing.GetHashString(password + SALT); //salt to password
                 command.Parameters.Add(id_param);
@@ -53,6 +54,7 @@ namespace ChatRoomProject.DataAccess
                 command.Dispose();
                 connection.Close();
                 Console.WriteLine($"ExecuteNonQuery in SqlCommand executed!! {num_rows_changed.ToString()} row was changes\\inserted");
+
             }
             catch (Exception ex)
             {

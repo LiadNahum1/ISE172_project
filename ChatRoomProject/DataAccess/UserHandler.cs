@@ -24,26 +24,24 @@ namespace ChatRoomProject.DataAccess
         private static SqlDataReader data_reader;
         private static string SALT = "1337";
 
-        public static void InsertNewUser(Guid id, string nickname, string groupId, string password)
+        public static void InsertNewUser(string nickname, string groupId, string password)
         {
             try
             {
-                //connection.Open();
+                connection.Open();
                 command = new SqlCommand(null, connection);
                 // Create and prepare an SQL statement.
                 command.CommandText =
-                    "INSERT INTO Users ([Id],[Group_Id],[Nickname],[Password]) " +
-                    "VALUES (@id, @group_Id,@nickname,@password)";
-                SqlParameter id_param = new SqlParameter(@"id", SqlDbType.Text, 20);
-                SqlParameter group_Id_param = new SqlParameter(@"group_Id", SqlDbType.Int, 20);
-                SqlParameter nickname_param = new SqlParameter(@"nickname", SqlDbType.Text, 20);
-                SqlParameter password_param = new SqlParameter(@"password", SqlDbType.Text, 20);
-
-                id_param.Value = id.ToString();
+                    "INSERT INTO [Users] ([Group_Id],[Nickname],[Password]) " +
+                    "VALUES (@group_Id,@nickname,@password)";
+                SqlParameter group_Id_param = new SqlParameter(@"group_Id", SqlDbType.Int, 32);
+                SqlParameter nickname_param = new SqlParameter(@"nickname", SqlDbType.Char, 8);
+                SqlParameter password_param = new SqlParameter(@"password", SqlDbType.Char, 64);
+  
                 group_Id_param.Value = int.Parse(groupId);
                 nickname_param.Value = nickname;
                 password_param.Value = hashing.GetHashString(password + SALT); //salt to password
-                command.Parameters.Add(id_param);
+                log.Info("password" + hashing.GetHashString(password + SALT));
                 command.Parameters.Add(group_Id_param);
                 command.Parameters.Add(nickname_param);
                 command.Parameters.Add(password_param);
@@ -51,6 +49,7 @@ namespace ChatRoomProject.DataAccess
                 // Call Prepare after setting the Commandtext and Parameters.
                 command.Prepare();
                 int num_rows_changed = command.ExecuteNonQuery();
+               // data_reader.Close();
                 command.Dispose();
                 connection.Close();
                 Console.WriteLine($"ExecuteNonQuery in SqlCommand executed!! {num_rows_changed.ToString()} row was changes\\inserted");
@@ -94,26 +93,27 @@ namespace ChatRoomProject.DataAccess
 
         public static IUser CreateUserInstance(SqlDataReader data_reader)
         {
-            return new User((int)data_reader.GetValue(0), data_reader.GetString(1), data_reader.GetString(2), data_reader.GetString(3));
+            return new User(data_reader.GetString(1), data_reader.GetString(2), data_reader.GetString(3));
         }
-
+        /*registration*/
         public static bool IsValidNickname(string groupId, string nickname)
         {
             try
             {
                 connection.Open();
                 log.Info("connected to: " + server_address);
-                sql_query = "SELECT * FROM [dbo].[Users] WHERE [Group_Id]=" + int.Parse(groupId) + " AND [Nickname]=" + nickname+ ";";
+                sql_query = "SELECT [Group_Id], [Nickname] FROM [dbo].[Users] WHERE [Group_Id]=" + int.Parse(groupId) + " AND [Nickname]='" + nickname+ "';";
                 command = new SqlCommand(sql_query, connection);
                 data_reader = command.ExecuteReader();
+                bool result = false;
                 if (!data_reader.Read())
                 {
-                    return true;  
+                    result = true;  
                 }
                 data_reader.Close();
                 command.Dispose();
                 connection.Close();
-                return false;
+                return result;
             }
             catch (Exception ex)
             {
@@ -127,19 +127,21 @@ namespace ChatRoomProject.DataAccess
             try
             {
                 connection.Open();
+                String hashedPassword = hashing.GetHashString(password + SALT);
                 log.Info("connected to: " + server_address);
-                sql_query = "SELECT * FROM [dbo].[Users] WHERE [Group_Id]=" + groupId + " AND [Nickname]=" + nickname
-                    + "[Password]=" + (password+SALT) + ";";
+                sql_query = "SELECT * FROM [dbo].[Users] WHERE [Group_Id]=" + groupId + " AND [Nickname]='" + nickname+"'"
+                    + "AND [Password]='" + hashedPassword + "';";
                 command = new SqlCommand(sql_query, connection);
                 data_reader = command.ExecuteReader();
+                bool result = true; 
                 if (!data_reader.Read())
                 {
-                    return false;
+                    result = false;
                 }
                 data_reader.Close();
                 command.Dispose();
                 connection.Close();
-                return true;
+                return result;
             }
             catch (Exception ex)
             {

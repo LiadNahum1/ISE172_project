@@ -233,11 +233,11 @@ namespace ChatRoomProject.LogicLayer
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname, string password)
         {
-            if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname))
+            if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname) || CheckIfInputIsEmpty(password))
             {
                 throw new Exception(EMPTY_INPUT);
             }
-            else if(!UserHandler.IsValidNickname(groupId, nickname))
+            else if(UserHandler.IsValidNickname(groupId, nickname))
             {
                 throw new Exception(INVALID_LOGIN); //user wasnt found
             }

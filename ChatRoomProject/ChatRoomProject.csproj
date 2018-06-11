@@ -78,8 +78,6 @@
     <Compile Include="LogicLayer\User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PersistentLayer\MessageHandler.cs" />
-    <Compile Include="PersistentLayer\UserHandler.cs" />
     <Compile Include="PresentationLayer\ChatRoomW.xaml.cs" />
     <Compile Include="PresentationLayer\EditMessage.xaml.cs">
       <DependentUpon>EditMessage.xaml</DependentUpon>
@@ -116,10 +114,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="PersistentLayer\DataMessages.txt" />
-    <Resource Include="PersistentLayer\DataUsers.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="PresentationLayer\pictures\back.png" />

@@ -22,7 +22,7 @@ namespace ChatRoomProject.PresentationLayer
     /// </summary>
     public partial class Login : Window
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("Login.cs");
         private ChatRoom chat;
         private string password;
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();

@@ -25,7 +25,7 @@ namespace ChatRoomProject.DataAccess
           */
     public Message(string nickname, int groupId, string messageContent)
         {
-            this.id = new Guid();
+            this.id = Guid.NewGuid();
             this.nickname = nickname;
             this.groupId = groupId;
             this.date = DateTime.Now.ToUniversalTime();

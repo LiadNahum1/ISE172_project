@@ -10,11 +10,9 @@ namespace ChatRoomProject.LogicLayer
     public class User : IUser
     {
         //fields
-        private Guid userId; 
         private string groupID;
         private string nickname;
         private string password; 
-        private static string SALT = "1337";
         private MessageHandler message_handler;
 
         /*constructor
@@ -24,26 +22,21 @@ namespace ChatRoomProject.LogicLayer
          */
         public User(string groupID, string nickname,string password, MessageHandler message_handler)
         {
-            this.message_handler = message_handler;
-            this.userId = new Guid();
+            this.message_handler = message_handler;;
             this.groupID = groupID;
             this.nickname = nickname;
-            this.password = password + SALT;
+            this.password = password;
             //Check if he is already in?? or maybe dont need to
             SaveIntoDataBase();
         }
         /*restore from DataBase*/
-        public User(int id, string groupID, string nickname, string password)
+        public User(string groupID, string nickname, string password)
         {
-            this.userId = new Guid(id.ToString());
             this.groupID = groupID;
             this.nickname = nickname;
-            this.password = password + SALT;
+            this.password = password;
         }
-        public Guid UserID()
-        {
-            return this.userId;
-        }
+       
         public string Password()
         {
             return this.password;
@@ -60,7 +53,7 @@ namespace ChatRoomProject.LogicLayer
         //Save user's details in the data base
         public void SaveIntoDataBase()
         {
-            UserHandler.InsertNewUser(UserID(),Nickname(), GroupID(), Password());
+            UserHandler.InsertNewUser(Nickname(), GroupID(), Password());
         }
 
         
@@ -69,7 +62,7 @@ namespace ChatRoomProject.LogicLayer
         public void Send(string messageContent)
         {
             IMessage msg = new Message(Nickname(), int.Parse(GroupID()), messageContent);
-            message_handler.InsertNewMessage(UserID(), msg);          
+            message_handler.InsertNewMessage(msg);          
         }
 
         public override string ToString()

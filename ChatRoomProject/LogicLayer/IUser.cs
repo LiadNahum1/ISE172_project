@@ -8,7 +8,6 @@ namespace ChatRoomProject.LogicLayer
 {
     public interface IUser
     {
-        Guid UserID();
         string Password();
         /*return the groupId of the user*/
         string GroupID();

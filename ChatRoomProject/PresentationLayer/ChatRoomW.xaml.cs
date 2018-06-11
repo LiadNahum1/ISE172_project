@@ -30,6 +30,7 @@ namespace ChatRoomProject.PresentationLayer
         private string sort;
         private string filter;
         private bool ascending;
+        private bool isPressed;
         private ChatRoom chat;
         private DispatcherTimer dispatcherTimer;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -42,6 +43,7 @@ namespace ChatRoomProject.PresentationLayer
             this.chat = chat;
             nickName=null;
             groupId=null;
+            this.isPressed = false;
             sort= "SortByTimestamp"; //default
             currChose = "SortByTimestamp";//default
             filter =null; //default
@@ -64,7 +66,8 @@ namespace ChatRoomProject.PresentationLayer
         {
             _main.Messages.Clear();
             // update list of messages sorted and filtered according to the requirements of the user
-            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName); 
+            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName , this.isPressed);
+            this.isPressed = false;
             foreach (string msg in messagesFromLogic){ 
                 _main.Messages.Add(msg);
             }
@@ -167,7 +170,7 @@ namespace ChatRoomProject.PresentationLayer
                     _main.FNickName = "";
                     this.filter = null; 
                 }
-
+                this.isPressed = true;
 
             }
             catch (Exception error)
@@ -221,7 +224,8 @@ namespace ChatRoomProject.PresentationLayer
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //string lastmessage = _main.LastMessageContent;
+            string lastmessage = _main.LastMessageContent;
+
         }
     }
 }

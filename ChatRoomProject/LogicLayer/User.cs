@@ -33,9 +33,9 @@ namespace ChatRoomProject.LogicLayer
             SaveIntoDataBase();
         }
         /*restore from DataBase*/
-        public User(Guid id, string groupID, string nickname, string password)
+        public User(int id, string groupID, string nickname, string password)
         {
-            this.userId = new Guid();
+            this.userId = new Guid(id.ToString());
             this.groupID = groupID;
             this.nickname = nickname;
             this.password = password + SALT;

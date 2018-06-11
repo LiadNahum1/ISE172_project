@@ -22,7 +22,8 @@ namespace ChatRoomProject.DataAccess
         private static SqlCommand command;
         private static SqlDataReader data_reader;
         private IList<IQueryAction> filters = new List<IQueryAction>();
-        private DateTime last_date;
+        private static DateTime lastDate;
+        private const int MAX_MESSAGES = 200;
         
         public void ClearFilters() { filters.Clear(); }
         public void AddGroupFilter(int groupId)
@@ -69,26 +70,7 @@ namespace ChatRoomProject.DataAccess
                 log.Error("Writing into Data Base failed");
             }
         }
-        public IMessage CreateNewMessage(SqlDataReader data_reader)
-        {
-            //date AND guid
-            DateTime date = new DateTime();
-            Guid guid = new Guid();
-            if (!data_reader.IsDBNull(0) & !data_reader.IsDBNull(2))
-            {
-                date = data_reader.GetDateTime(2); //2 is the coloumn index of the date. There are such               
-                guid = data_reader.GetGuid(0);
-            }
-            int userId = data_reader.GetInt32(1); //TODO: check 
-            //get Nickname and GroupId //    
-            String sql_query1 = "SELECT [Group_Id], [Nickname] FROM [dbo].[Users] WHERE [Id]=" + userId + ";";
-            SqlCommand command1 = new SqlCommand(sql_query1, connection);
-            SqlDataReader data_reader1 = command1.ExecuteReader();
-            int groupId = data_reader1.GetInt32(0);
-            String nickname = data_reader1.GetString(1);
-            IMessage message = new Message(guid, nickname, groupId, date, data_reader.GetString(3));
-            return message;
-        }
+
         public void DeleteByGuid(string messageGuid)
         {
             connection.Open();
@@ -98,26 +80,32 @@ namespace ChatRoomProject.DataAccess
             Command.Parameters.AddWithValue("@word", messageGuid);
             Command.ExecuteNonQuery();
         }
+
         public List<IMessage> RetrieveMessages()
         {
             List<IMessage> newMessages = new List<IMessage>();
-
             try
             {
                 connection.Open();
                 log.Info("connected to: " + server_address);
                 if (filters.Count == 0) // no filters 
                 {
+                    
                     if (isStart) // first retrieve
                     {
-                        sql_query = "SELECT TOP 200 * FROM [dbo].[Messages] order by [SendTime];"; // todo check ascending or descending
+                        
+                        sql_query = "SELECT TOP " + MAX_MESSAGES +" [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users]" +
+                            "on [Messages].[User_Id]=[Users].[Id]  order by [SendTime];";
+                       // todo check ascending or descending
                         command = new SqlCommand(sql_query, connection);
                         isStart = false;
                     }
                     else// not the first retrieve
                     {
-                        sql_query = "SELECT TOP 200 * FROM [dbo].[Messages] WHERE [SendTime]>@last_date order by DateTime;"; //TODO no more than 200
+                        sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users]" +
+                            "on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime]>@last_date order by DateTime;"; //TODO no more than 200
                         SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.Text, 20);
+                        last_date.Value = lastDate; 
                         command.Parameters.Add(last_date); // todo check
                         command = new SqlCommand(sql_query, connection);
                     }
@@ -125,24 +113,38 @@ namespace ChatRoomProject.DataAccess
                 }
                 else // there are filters
                 {
-                    String sql = "SELECT TOP 200 * FROM[dbo].[Messages] WHERE";
+                    String sql = "SELECT TOP " + MAX_MESSAGES + " * FROM[dbo].[Messages] WHERE";
                     for(int i = 0; i < filters.Count; i++)
                     {
                          sql=filters.ElementAt(i).execute(sql)+" AND";
                     }
                     sql = sql.Substring(0, sql.Length-4); // delete the last " AND"
-                    sql += " order by time SendTime"; //todo check the name in the table
+                    sql += " order by [SendTime] "; //todo check the name in the table
                     command = new SqlCommand(sql_query, connection);
                 }
                 data_reader = command.ExecuteReader();
                 while (data_reader.Read()) // todo- check if we need to add !=null
                 {
-                    IMessage message = CreateNewMessage(data_reader);
-                    newMessages.Add(message);
-                }
-                if(filters.Count!=0) // save the last date only if there are no filters
-                    last_date = newMessages.ElementAt(newMessages.Count - 1).Date;  //save the last date
+                    //date AND guid
+                    DateTime date = new DateTime();
+                    Guid guid = new Guid();
+                    if (!data_reader.IsDBNull(0) & !data_reader.IsDBNull(1))
+                    {
 
+                        date = data_reader.GetDateTime(1); //2 is the coloumn index of the date. There are such               
+                        guid = Guid.Parse(data_reader.GetString(0));
+                    }
+                    string msgContent = data_reader.GetString(2);
+                    int groupId = (int)data_reader.GetValue(3);
+                    string nickname = data_reader.GetString(4);
+
+                    IMessage message = new Message(guid, nickname, groupId,date, msgContent);
+                    newMessages.Add(message);
+                    log.Info(message.ToString());
+                    
+                }
+                if (filters.Count!=0) // save the last date only if there are no filters
+                    last_date = newMessages.ElementAt(newMessages.Count - 1).Date;  //save the last date
                 data_reader.Close();
                 command.Dispose();
                 connection.Close();

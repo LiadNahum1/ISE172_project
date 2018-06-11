@@ -49,7 +49,7 @@ namespace ChatRoomProject.LogicLayer
         //This returns an updated list of messages that are organized according to
         //the data that the operation receives: sort type, sort order and filter 
         //if the user is interested.
-        public List<String> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName)
+        public List<String> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName , bool ispressed)
         {
             List<IMessage> updateList = this.messages;
             if (filter != null) // if the user chose to filter the messages 
@@ -196,7 +196,7 @@ namespace ChatRoomProject.LogicLayer
         public void EditMessage (string newMessage ,string lastMessageGuid) {
            
                 this.Send(newMessage);
-            message_handler.DeleteByGuid(lastMessageGuid);
+                message_handler.DeleteByGuid(lastMessageGuid);
         }
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname, string password)

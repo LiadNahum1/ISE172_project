@@ -42,15 +42,13 @@ namespace ChatRoomProject.DataAccess
         }
 
         //implements IMessage
-        Guid IMessage.Id { get { return this.id; } }
 
-        string IMessage.UserName { get { return this.nickname; } }
 
-        DateTime IMessage.Date { get { return this.date; } }
-
-        string IMessage.MessageContent { get { return this.messageContent; } }
-
-        public int GroupID { get { return this.groupId; } }
+        public Guid Id { get { return this.id; } set { this.id = value; } }
+        public string UserName { get { return this.nickname; } set { this.nickname = value; } }
+        public DateTime Date { get { return this.date; } set { this.date = value; } }
+        public string MessageContent { get { return this.messageContent; } set { this.messageContent = value; } }
+        int IMessage.GroupID { get { return this.groupId; } set { this.groupId = value; }}
 
         //Save message's details in the system files 
         public void Save()

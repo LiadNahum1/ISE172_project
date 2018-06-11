@@ -4,11 +4,11 @@ namespace ChatRoomProject.DataAccess
 {
     public interface IMessage
     {
-        Guid Id { get; }
-        string UserName { get; }
-        DateTime Date { get; }
-        string MessageContent { get; }
-        int GroupID { get; }
+        Guid Id { get; set; }
+        string UserName { get; set; }
+        DateTime Date { get; set; }
+        string MessageContent { get; set; }
+        int GroupID { get; set; }
         string ToString();
     }
 }

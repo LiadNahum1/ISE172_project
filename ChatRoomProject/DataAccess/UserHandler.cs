@@ -11,7 +11,7 @@ namespace ChatRoomProject.DataAccess
 {
     class UserHandler
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("MessageHandler.cs");
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("UserHandler.cs");
        // private bool isStart;
         private static string sql_query = null;
         private static string server_address = "ise172.ise.bgu.ac.il,1433\\DB_LAB";
@@ -38,7 +38,7 @@ namespace ChatRoomProject.DataAccess
                 SqlParameter group_Id_param = new SqlParameter(@"group_Id", SqlDbType.Text, 20);
                 SqlParameter nickname_param = new SqlParameter(@"nickname", SqlDbType.Text, 20);
                 SqlParameter password_param = new SqlParameter(@"password", SqlDbType.Text, 20);
-                id_param.Value = int.Parse(id.ToString()) ;
+                id_param.Value = int.Parse(id.ToString());
                 group_Id_param.Value = groupId;
                 nickname_param.Value = nickname;
                 password_param.Value = hashing.GetHashString(password + SALT); //salt to password
@@ -85,13 +85,14 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Reading from Data Base failed");
+                log.Error(ex.ToString());
                 return null;
             }
         }
 
         public static IUser CreateUserInstance(SqlDataReader data_reader)
         {
-            return new User(data_reader.GetGuid(0), data_reader.GetString(1), data_reader.GetString(2), data_reader.GetString(3));
+            return new User((int)data_reader.GetValue(0), data_reader.GetString(1), data_reader.GetString(2), data_reader.GetString(3));
         }
 
         public static bool IsValidNickname(string groupId, string nickname)
@@ -100,7 +101,7 @@ namespace ChatRoomProject.DataAccess
             {
                 connection.Open();
                 log.Info("connected to: " + server_address);
-                sql_query = "SELECT * FROM [dbo].[Users] WHERE [Group_Id]=" + groupId + " AND [Nickname]=" + nickname+ ";";
+                sql_query = "SELECT * FROM [dbo].[Users] WHERE [Group_Id]=" + int.Parse(groupId) + " AND [Nickname]=" + nickname+ ";";
                 command = new SqlCommand(sql_query, connection);
                 data_reader = command.ExecuteReader();
                 if (!data_reader.Read())
@@ -115,6 +116,7 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Reading from Data Base failed");
+                log.Error(ex.ToString());
                 return true;
             }
         }

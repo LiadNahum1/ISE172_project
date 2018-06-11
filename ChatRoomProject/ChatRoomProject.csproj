@@ -81,6 +81,9 @@
     <Compile Include="PersistentLayer\MessageHandler.cs" />
     <Compile Include="PersistentLayer\UserHandler.cs" />
     <Compile Include="PresentationLayer\ChatRoomW.xaml.cs" />
+    <Compile Include="PresentationLayer\EditMessage.xaml.cs">
+      <DependentUpon>EditMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PresentationLayer\ListBox.cs" />
     <Compile Include="PresentationLayer\Login.xaml.cs" />
     <Compile Include="PresentationLayer\MainWindow.xaml.cs" />
@@ -133,6 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="PresentationLayer\ChatRoomW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PresentationLayer\EditMessage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

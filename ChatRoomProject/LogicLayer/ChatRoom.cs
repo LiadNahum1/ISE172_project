@@ -193,10 +193,11 @@ namespace ChatRoomProject.LogicLayer
             string nickname =lastMessage.Substring(startIndex, length);
             return (int.Parse(this.currentUser.GroupID()) == gruopId & this.currentUser.Nickname() == nickname); 
         }
-        public void EditMessage (string newMessage ,string lastMessageGuid) {
+        public void EditMessage (string newMessage ,string lastMessage) {
            
                 this.Send(newMessage);
-                message_handler.DeleteByGuid(lastMessageGuid);
+            lastMessage.Substring(lastMessage.Length - 32, 32);
+            message_handler.DeleteByGuid(lastMessage);
         }
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname, string password)

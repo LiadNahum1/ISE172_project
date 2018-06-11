@@ -144,7 +144,7 @@ namespace ChatRoomProject.DataAccess
                     
                 }
                 if (filters.Count!=0) // save the last date only if there are no filters
-                    last_date = newMessages.ElementAt(newMessages.Count - 1).Date;  //save the last date
+                    lastDate = newMessages.ElementAt(newMessages.Count - 1).Date;  //save the last date
                 data_reader.Close();
                 command.Dispose();
                 connection.Close();

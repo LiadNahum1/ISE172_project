@@ -59,6 +59,19 @@ namespace ChatRoomProject.PresentationLayer
         {
             OnPropertyChanged("FilterOp");
         }
+        private string newMessageContent = "";
+        public string NewMessageContent
+        {
+            get
+            {
+                return newMessageContent;
+            }
+            set
+            {
+                newMessageContent = value;
+                OnPropertyChanged("NewMessageContent");
+            }
+        }
         private string lastMessageContent = "";
         public string LastMessageContent
         {

@@ -49,7 +49,7 @@ namespace ChatRoomProject.PresentationLayer
             filter =null; //default
             ascending = true;//default
             inisializeFilterandSorter();
-            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName);
+            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName , this.isPressed);
             foreach (string msg in messagesFromLogic)
             {
                 _main.Messages.Add(msg);
@@ -225,7 +225,15 @@ namespace ChatRoomProject.PresentationLayer
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string lastmessage = _main.LastMessageContent;
-
+            if (!this.chat.CanEdit(lastmessage)) {
+                log.Error("user try to eddit illegal message");
+                MessageBox.Show("this is not your message so you cant eddit it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                EditMessage editWindow = new EditMessage(this.chat ,lastmessage);
+                editWindow.Show();
+            }
         }
     }
 }

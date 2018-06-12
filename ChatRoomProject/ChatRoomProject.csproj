@@ -64,7 +64,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataAccess\hashing.cs" />
+    <Compile Include="LogicLayer\hashing.cs" />
     <Compile Include="LogicLayer\IMessage.cs" />
     <Compile Include="DataAccess\GroupFilter.cs" />
     <Compile Include="DataAccess\IQueryAction.cs" />

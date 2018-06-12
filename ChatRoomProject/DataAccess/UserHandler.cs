@@ -34,7 +34,7 @@ namespace ChatRoomProject.DataAccess
             this.connetion_string = $"Data Source={server_address};Initial Catalog={database_name };User ID={user_name};Password={password}";
             this.connection = new SqlConnection(connetion_string);
         }
-        public void InsertNewUser(string nickname, int groupId, string password)
+        public void InsertNewUser(IUser user)
         {
             try
             {
@@ -48,10 +48,9 @@ namespace ChatRoomProject.DataAccess
                 SqlParameter nickname_param = new SqlParameter(@"nickname", SqlDbType.Char, 8);
                 SqlParameter password_param = new SqlParameter(@"password", SqlDbType.Char, 64);
   
-                group_Id_param.Value = groupId;
-                nickname_param.Value = nickname;
-                password_param.Value = hashing.GetHashString(password + SALT); //salt to password
-                log.Info("password" + hashing.GetHashString(password + SALT));
+                group_Id_param.Value = user.GroupID();
+                nickname_param.Value = user.Nickname();
+                password_param.Value = user.Password(); //To check!!!
                 command.Parameters.Add(group_Id_param);
                 command.Parameters.Add(nickname_param);
                 command.Parameters.Add(password_param);

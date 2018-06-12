@@ -152,10 +152,13 @@ namespace ChatRoomProject.LogicLayer
             {
                 IUser user = new User(int.Parse(groupId), nickname, password);
                 this.users.Add(user);
-                user_handler.InsertNewUser(user.Nickname(), user.GroupID(), user.Password());
+                user_handler.InsertNewUser(user);
             }
         }
-
+        public string HashedPassword(string password)
+        {
+            return hashing.GetHashString(password);
+        }
         public List<IUser> getUsers()
         {
             return this.users;
@@ -174,7 +177,7 @@ namespace ChatRoomProject.LogicLayer
 
         /*Check if password is legal. Need to be consisted only from letters and numbers and
          *  4 <= length <= 16"*/
-        private bool IsValidPassword(string password)
+        public bool IsValidPassword(string password)
         {
             if (password.Length < 4 | password.Length > 16)
                 return false;

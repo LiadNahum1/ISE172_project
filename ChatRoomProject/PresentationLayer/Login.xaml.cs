@@ -24,33 +24,43 @@ namespace ChatRoomProject.PresentationLayer
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("Login.cs");
         private ChatRoom chat;
-        private string password;
+        private string hashedPassword;
+        private bool validation; 
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
         public Login(ChatRoom chat)
         {
             InitializeComponent();
             this.chat = chat;
-            this.password = "";
+            this.hashedPassword = "";
             this.DataContext = _main;
         }
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
 
         {
             PasswordBox pb = sender as PasswordBox;
-            this.password = pb.Password;
+            if (chat.IsValidPassword(pb.Password))
+            {
+                this.validation = true;
+                this.hashedPassword = chat.HashedPassword(pb.Password);
+            }
+            else
+                this.validation = false; 
         }
 
-            //Call to Login function in ChatRoom. If there are no problems, open the ChatRoom window 
-            private void Login_Click(object sender, RoutedEventArgs e)
+        //Call to Login function in ChatRoom. If there are no problems, open the ChatRoom window 
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                this.chat.Login(_main.GroupId, _main.Nickname, this.password);
-                log.Info("The user " + _main.GroupId + ":" + _main.Nickname + " logged in");
-                ChatRoomW chatRoom = new ChatRoomW(this.chat);
-                chatRoom.Show();
-                this.Close();
+                if (this.validation)
+                {
+                    this.chat.Login(_main.GroupId, _main.Nickname, this.hashedPassword);
+                    log.Info("The user " + _main.GroupId + ":" + _main.Nickname + " logged in");
+                    ChatRoomW chatRoom = new ChatRoomW(this.chat);
+                    chatRoom.Show();
+                    this.Close();
+                }
             }
             catch (Exception err)
             {

@@ -22,21 +22,28 @@ namespace ChatRoomProject.PresentationLayer
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
         private ChatRoom chat;
-        private string password;
+        private string hashedPassword;
+        private bool validation; 
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
         public Registration(ChatRoom chat)
         {
             InitializeComponent();
             this.chat = chat;
-            this.password = "";
+            this.hashedPassword = "";
             this.DataContext = _main; 
         }
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
 
         {
             PasswordBox pb = sender as PasswordBox;
-            this.password = pb.Password;
+            if (chat.IsValidPassword(pb.Password))
+            {
+                this.validation = true;
+                this.hashedPassword = chat.HashedPassword(pb.Password);
+            }
+            else
+                this.validation = false;
         }
 
 
@@ -45,12 +52,19 @@ namespace ChatRoomProject.PresentationLayer
         {
             try
             {
-                this.chat.Registration(_main.GroupId, _main.Nickname, this.password);
-                log.Info("The user " + _main.GroupId + ":" + _main.Nickname + "registered");
-                MessageBox.Show("You had been registered", "Reagistration", MessageBoxButton.OK, MessageBoxImage.None);
-                MainWindow window = new MainWindow(this.chat);
-                window.Show();
-                this.Close();
+                if (this.validation)
+                {
+                    this.chat.Registration(_main.GroupId, _main.Nickname, this.hashedPassword);
+                    log.Info("The user " + _main.GroupId + ":" + _main.Nickname + "registered");
+                    MessageBox.Show("You had been registered", "Reagistration", MessageBoxButton.OK, MessageBoxImage.None);
+                    MainWindow window = new MainWindow(this.chat);
+                    window.Show();
+                    this.Close();
+                }
+                else
+                {
+                    throw new Exception("Password not valid");
+                }
 
             }
             catch (Exception err)

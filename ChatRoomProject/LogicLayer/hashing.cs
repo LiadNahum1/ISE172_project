@@ -2,7 +2,7 @@
 using System.Text;
 using System.Security.Cryptography;
 
-namespace ChatRoomProject.DataAccess
+namespace ChatRoomProject.LogicLayer
 {
     class hashing
     {

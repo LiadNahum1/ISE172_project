@@ -199,8 +199,12 @@ namespace ChatRoomProject.LogicLayer
         }
         public bool CanEdit(IMessage lastMessage)
         {
-           
-            return (this.currentUser.GroupID().Equals(lastMessage.GroupID) & this.currentUser.Nickname().Equals(lastMessage.UserName)); 
+           if(lastMessage != null)
+            return (this.currentUser.GroupID().Equals(lastMessage.GroupID) & this.currentUser.Nickname().Equals(lastMessage.UserName));
+            else
+            {
+                return false;
+            }
         }
         public void EditMessage (string newMessage ,IMessage lastMessage) {
             messages.Remove(lastMessage);

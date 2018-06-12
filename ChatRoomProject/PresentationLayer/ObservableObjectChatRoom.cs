@@ -73,7 +73,7 @@ namespace ChatRoomProject.PresentationLayer
                 OnPropertyChanged("NewMessageContent");
             }
         }
-        private IMessage lastMessage;
+        private IMessage lastMessage = new Message("1",1,"");
         public IMessage LastMessage
         {
             get

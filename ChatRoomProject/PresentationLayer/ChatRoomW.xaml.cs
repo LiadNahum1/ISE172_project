@@ -1,20 +1,10 @@
-﻿using System;
+﻿using ChatRoomProject.LogicLayer;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Timers;
-using ChatRoomProject.LogicLayer;
 using System.Windows.Threading;
-using log4net;
 namespace ChatRoomProject.PresentationLayer
 {
     /// <summary>
@@ -226,17 +216,15 @@ namespace ChatRoomProject.PresentationLayer
         private void ListBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             IMessage lastmessage = _main.LastMessage;
-            if (!this.chat.CanEdit(lastmessage))
-            {
-                log.Error("user try to eddit illegal message");
+
+            if (!chat.CanEdit(lastmessage))
                 MessageBox.Show("this is not your message so you cant eddit it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
             else
             {
-                EditMessage editWindow = new EditMessage(this.chat, lastmessage);
-                editWindow.Show();
+                EditMessage edit = new EditMessage(chat, lastmessage);
+                edit.Show();
             }
-
+           
         }
     }
 }

@@ -9,7 +9,7 @@
         Title="ChatRoomW" Height="450" Width="800" ResizeMode="NoResize">
     <Grid Background="AliceBlue">
         <WrapPanel HorizontalAlignment="Left" Height="100" Margin="348,231,0,0"  Width="100"/>
-        <ListBox   ItemsSource="{Binding Messages}" w:ListBox.AutoScroll="True" SelectedItem ="{Binding LastMessage}" ScrollViewer.CanContentScroll="True" IsEnabled="True" HorizontalAlignment="Right" Height="332" VerticalAlignment="Top" Width="653" Margin="0,23,8,0" SelectionChanged="ListBox_SelectionChanged_1" />
+        <ListBox   ItemsSource="{Binding Messages}" w:ListBox.AutoScroll="True" SelectedItem ="{Binding LastMessage}" ScrollViewer.CanContentScroll="True" IsEnabled="True" HorizontalAlignment="Right" Height="332" VerticalAlignment="Top" Width="653" Margin="0,23,8,0"  SelectionChanged="ListBox_SelectionChanged_1" />
         <TextBox Text="{Binding MessageContent}"  HorizontalAlignment="Left" Height="36" Margin="293,360,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="489" RenderTransformOrigin="0.504,-0.411" />
         <Button  Content="send message" FontSize="22" VerticalContentAlignment="Center" Foreground="Purple"  HorizontalAlignment="Left" Margin="131,360,0,10" Width="157" Click="Button_Click_send" />
         <Menu Background="BlueViolet" HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="121">

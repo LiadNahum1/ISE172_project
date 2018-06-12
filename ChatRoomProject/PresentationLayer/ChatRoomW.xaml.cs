@@ -66,9 +66,9 @@ namespace ChatRoomProject.PresentationLayer
         {
             _main.Messages.Clear();
             // update list of messages sorted and filtered according to the requirements of the user
-            List<string> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName , this.isPressed);
+            List<IMessage> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName , this.isPressed);
             this.isPressed = false;
-            foreach (string msg in messagesFromLogic){ 
+            foreach (IMessage msg in messagesFromLogic){ 
                 _main.Messages.Add(msg);
             }
         }

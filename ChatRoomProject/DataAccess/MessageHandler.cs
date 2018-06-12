@@ -43,7 +43,6 @@ namespace ChatRoomProject.DataAccess
         }
         public void AddNicknameFilter(string nickName)
         {
-
             filters.Add(new NicknameFilter(nickName));
         }
         public  void InsertNewMessage(IMessage msg)
@@ -86,9 +85,10 @@ namespace ChatRoomProject.DataAccess
             connection.Open();
             log.Info("connected to: " + server_address);//to continu
             SqlCommand Command = new SqlCommand(
-              "UPDATE [dbo].[Messages] Body ='@content',Date=  WHERE Guid='@id'" + connection);
+              "UPDATE [dbo].[Messages] Body ='@content',Date= '@date' WHERE Guid='@id'" + connection);
             Command.Parameters.AddWithValue("@id", messageGuid);
             Command.Parameters.AddWithValue("@content", messageGuid);
+            Command.Parameters.AddWithValue("@date", DateTime.Now.ToUniversalTime());
             Command.ExecuteNonQuery();
         }
 
@@ -106,7 +106,7 @@ namespace ChatRoomProject.DataAccess
                     {
 
                         sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users]" +
-                            "on [Messages].[User_Id]=[Users].[Id]  order by [SendTime];";
+                            "on [Messages].[User_Id]=[Users].[Id]  order by [SendTime] DESC;";
                         // todo check ascending or descending
                         command = new SqlCommand(sql_query, connection);
                         isStart = false;
@@ -142,7 +142,7 @@ namespace ChatRoomProject.DataAccess
                         {
                             sql = filters.ElementAt(i).execute(sql) + " AND";
                         }
-                        sql += " [SendTime]>'" + lastDate + "' order by [SendTime];";
+                        sql += " [SendTime]>'" + lastDate + "' order by [SendTime] DESC;";
                         //SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
                         //last_date.Value = lastDate;
                       //  command.Parameters.AddWithValue()

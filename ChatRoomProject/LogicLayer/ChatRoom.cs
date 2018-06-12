@@ -51,7 +51,7 @@ namespace ChatRoomProject.LogicLayer
         //This returns an updated list of messages that are organized according to
         //the data that the operation receives: sort type, sort order and filter 
         //if the user is interested.
-        public List<String> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName , bool ispressed)
+        public List<IMessage> MessageManager(bool ascending, string filter,string sort, string groupId,string nickName , bool ispressed)
         {
             List<IMessage> updateList = new List<IMessage>();
             if (ispressed)
@@ -110,20 +110,9 @@ namespace ChatRoomProject.LogicLayer
                 updateList= SortTimestamp(updateList,ascending);
 
             updateList= LegalSizeOfMessagesList(updateList); // id there are more than 200 messag
-            return ConvertToString(updateList); //convert the update list of Imessages to string
+            return updateList; 
         }
-
-        /*this function convert the Imessage messages to string in order to send them 
-        *rightfully to the presentation*/
-        public static List<String> ConvertToString(List<IMessage> updateList)
-        {
-            List<String> newList =new List<String>();
-            for(int i=0;i<updateList.Count();i++)
-            {
-                newList.Add(updateList[i].ToString());
-            }
-            return newList;
-        }
+        
 
         /*The method registrates a new user to the system. The method first checks if nickname and groupId input is legal.
          * If it is, the method creats new User instance and adds him to the users list. 
@@ -210,23 +199,14 @@ namespace ChatRoomProject.LogicLayer
             }
             return false;
         }
-        public bool CanEdit(string lastMessage)
+        public bool CanEdit(IMessage lastMessage)
         {
-            int startIndex = lastMessage.IndexOf(':');
-            int endIndex = lastMessage.IndexOf(',');
-            int length = endIndex - startIndex + 1;
-            int gruopId = int.Parse(lastMessage.Substring(startIndex, length));
-             startIndex = lastMessage.Substring(endIndex+1).IndexOf(',');
-             endIndex = lastMessage.IndexOf('(');
-             length = endIndex - startIndex + 1;
-            string nickname =lastMessage.Substring(startIndex, length);
-            return (this.currentUser.GroupID() == gruopId & this.currentUser.Nickname() == nickname); 
-        }
-        public void EditMessage (string newMessage ,string lastMessage) {
            
-                this.Send(newMessage);
-            lastMessage.Substring(lastMessage.Length - 32, 32);
-            message_handler.DeleteByGuid(lastMessage);
+            return (this.currentUser.GroupID().Equals(lastMessage.GroupID) & this.currentUser.Nickname().Equals(lastMessage.UserName)); 
+        }
+        public void EditMessage (string newMessage ,IMessage lastMessage) {
+            messages.Remove(lastMessage);
+            message_handler.EditByGuid(newMessage ,lastMessage.Id.ToString());
         }
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname, string password)

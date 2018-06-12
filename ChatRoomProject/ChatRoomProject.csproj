@@ -65,7 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataAccess\hashing.cs" />
-    <Compile Include="DataAccess\IMessage.cs" />
+    <Compile Include="LogicLayer\IMessage.cs" />
     <Compile Include="DataAccess\GroupFilter.cs" />
     <Compile Include="DataAccess\IQueryAction.cs" />
     <Compile Include="DataAccess\MessageHandler.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="LogicLayer\ChatRoom.cs" />
     <Compile Include="LogicLayer\IChatRoom.cs" />
     <Compile Include="LogicLayer\IUser.cs" />
-    <Compile Include="DataAccess\Message.cs" />
+    <Compile Include="LogicLayer\Message.cs" />
     <Compile Include="LogicLayer\User.cs" />
   </ItemGroup>
   <ItemGroup>

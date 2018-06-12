@@ -16,6 +16,7 @@ namespace ChatRoomProject.LogicLayer
     {
         //fields
         private MessageHandler message_handler;
+        private UserHandler user_handler; 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
         private List<IUser> users;
         private List<IMessage> messages;
@@ -34,6 +35,7 @@ namespace ChatRoomProject.LogicLayer
         public ChatRoom()
         {
             this.message_handler = new MessageHandler();
+            this.user_handler = new UserHandler();
             this.users = new List<IUser>(); //users list
             this.messages = new List<IMessage>(); //messages list
             this.currentUser = null; //user that is connected now
@@ -148,7 +150,9 @@ namespace ChatRoomProject.LogicLayer
             }
             else
             {
-                this.users.Add(new User(groupId, nickname ,password,message_handler));
+                IUser user = new User(int.Parse(groupId), nickname, password);
+                this.users.Add(user);
+                user_handler.InsertNewUser(user.Nickname(), user.GroupID(), user.Password());
             }
         }
 
@@ -165,13 +169,7 @@ namespace ChatRoomProject.LogicLayer
          */
         private bool IsValidNickname(string groupId, string nickname)
         {
-            return UserHandler.IsValidNickname(groupId, nickname);
-          /*  foreach (IUser user in this.users)
-            {
-                if (user.GroupID().Equals(groupId) && user.Nickname().Equals(nickname))
-                    return false;
-            }
-            return true;*/
+            return this.user_handler.IsValidNickname(groupId, nickname);
         }
 
         /*Check if password is legal. Need to be consisted only from letters and numbers and
@@ -222,7 +220,7 @@ namespace ChatRoomProject.LogicLayer
              endIndex = lastMessage.IndexOf('(');
              length = endIndex - startIndex + 1;
             string nickname =lastMessage.Substring(startIndex, length);
-            return (int.Parse(this.currentUser.GroupID()) == gruopId & this.currentUser.Nickname() == nickname); 
+            return (this.currentUser.GroupID() == gruopId & this.currentUser.Nickname() == nickname); 
         }
         public void EditMessage (string newMessage ,string lastMessage) {
            
@@ -237,17 +235,17 @@ namespace ChatRoomProject.LogicLayer
             {
                 throw new Exception(EMPTY_INPUT);
             }
-            else if (UserHandler.IsValidNickname(groupId, nickname))
+            else if (this.user_handler.IsValidNickname(groupId, nickname))
             {
                 throw new Exception(INVALID_LOGIN); //user wasnt found
             }
-            else if (!UserHandler.IsValidPassword(groupId, nickname, password))
+            else if (!this.user_handler.IsValidPassword(groupId, nickname, password))
             {
                 throw new Exception(WRONG_PASSWORD);
             }
             else
             {
-                this.currentUser = UserHandler.RetrieveUser(int.Parse(groupId), nickname, password);
+                this.currentUser = this.user_handler.RetrieveUser(int.Parse(groupId), nickname, password);
                 return true;
             }
         }
@@ -292,7 +290,8 @@ namespace ChatRoomProject.LogicLayer
             }
             else
             {
-                this.currentUser.Send(messageContent);
+                message_handler.InsertNewMessage(new Message(this.currentUser.Nickname(), this.currentUser.GroupID(), messageContent));
+                
             }
         }
 

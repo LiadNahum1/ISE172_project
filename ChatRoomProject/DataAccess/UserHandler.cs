@@ -12,19 +12,29 @@ namespace ChatRoomProject.DataAccess
     class UserHandler
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("UserHandler.cs");
-       // private bool isStart;
-        private static string sql_query = null;
-        private static string server_address = "ise172.ise.bgu.ac.il,1433\\DB_LAB";
-        private static string database_name = "MS3";
-        private static string user_name = "publicUser";
-        private static string password = "isANerd";
-        private static string connetion_string = $"Data Source={server_address};Initial Catalog={database_name };User ID={user_name};Password={password}";
-        private static SqlConnection connection = new SqlConnection(connetion_string);
-        private static SqlCommand command;
-        private static SqlDataReader data_reader;
+        // private bool isStart;
+        private string sql_query;
+        private string server_address;
+        private string database_name;
+        private string user_name;
+        private string password;
+        private string connetion_string;
+        private SqlConnection connection;
+        private SqlCommand command;
+        private SqlDataReader data_reader;
         private static string SALT = "1337";
 
-        public static void InsertNewUser(string nickname, string groupId, string password)
+        public UserHandler()
+        {
+            this.sql_query = null;
+            this.server_address = "ise172.ise.bgu.ac.il,1433\\DB_LAB";
+            this.database_name = "MS3";
+            this.user_name = "publicUser";
+            this.password = "isANerd";
+            this.connetion_string = $"Data Source={server_address};Initial Catalog={database_name };User ID={user_name};Password={password}";
+            this.connection = new SqlConnection(connetion_string);
+        }
+        public void InsertNewUser(string nickname, int groupId, string password)
         {
             try
             {
@@ -38,7 +48,7 @@ namespace ChatRoomProject.DataAccess
                 SqlParameter nickname_param = new SqlParameter(@"nickname", SqlDbType.Char, 8);
                 SqlParameter password_param = new SqlParameter(@"password", SqlDbType.Char, 64);
   
-                group_Id_param.Value = int.Parse(groupId);
+                group_Id_param.Value = groupId;
                 nickname_param.Value = nickname;
                 password_param.Value = hashing.GetHashString(password + SALT); //salt to password
                 log.Info("password" + hashing.GetHashString(password + SALT));
@@ -62,7 +72,7 @@ namespace ChatRoomProject.DataAccess
             }
             //Console.ReadKey();
         }
-        public static List<IUser> RetrieveUsers()
+        public List<IUser> RetrieveUsers()
         {
             List<IUser> users = new List<IUser>();
             try
@@ -91,7 +101,7 @@ namespace ChatRoomProject.DataAccess
             }
         }
 
-        public static IUser RetrieveUser(int groupId, string nickname, string password)
+        public IUser RetrieveUser(int groupId, string nickname, string password)
         {
             IUser user = null;
             try
@@ -119,12 +129,12 @@ namespace ChatRoomProject.DataAccess
             }
         }
 
-        public static IUser CreateUserInstance(SqlDataReader data_reader)
+        public IUser CreateUserInstance(SqlDataReader data_reader)
         {
-            return new User(((int)data_reader.GetValue(1)).ToString(), data_reader.GetString(2), data_reader.GetString(3));
+            return new User((int)data_reader.GetValue(1), data_reader.GetString(2), data_reader.GetString(3));
         }
         /*registration*/
-        public static bool IsValidNickname(string groupId, string nickname)
+        public bool IsValidNickname(string groupId, string nickname)
         {
             try
             {
@@ -150,7 +160,7 @@ namespace ChatRoomProject.DataAccess
                 return true;
             }
         }
-        public static bool IsValidPassword(string groupId, string nickname, string password)
+        public bool IsValidPassword(string groupId, string nickname, string password)
         {
             try
             {

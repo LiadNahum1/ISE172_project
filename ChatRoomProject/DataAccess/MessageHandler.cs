@@ -79,22 +79,28 @@ namespace ChatRoomProject.DataAccess
                 command = new SqlCommand(null, connection);
                 // Create and prepare an SQL statement.
                 command.CommandText =
-                    "INSERT INTO Messages ([Guid],[SendTime],[Body]) " +
-                    "VALUES (@guid, @time,@body)";
+                    "INSERT INTO Messages ([Guid],[User_Id],[SendTime],[Body]) " +
+                    "VALUES (@guid, @userId, @time,@body)";
                 SqlParameter guid_param = new SqlParameter(@"guid", SqlDbType.Text, 68);
+                SqlParameter user_id_param = new SqlParameter(@"userId", SqlDbType.Int);
                 SqlParameter time_param = new SqlParameter(@"time", SqlDbType.DateTime);
                 SqlParameter body_param = new SqlParameter(@"body", SqlDbType.Text, 100);
                 guid_param.Value = msg.Id.ToString();
+                user_id_param.Value = userId;
                 time_param.Value = msg.Date;
                 body_param.Value = msg.MessageContent;
                 command.Parameters.Add(guid_param);
+                command.Parameters.Add(user_id_param);
                 command.Parameters.Add(time_param);
                 command.Parameters.Add(body_param);
 
                 // Call Prepare after setting the Commandtext and Parameters.
                 command.Prepare();
+                int num_rows_changed = command.ExecuteNonQuery();
+                // data_reader.Close();
                 command.Dispose();
                 connection.Close();
+                Console.WriteLine($"ExecuteNonQuery in SqlCommand executed!! {num_rows_changed.ToString()} row was changes\\inserted");
             }
             catch (Exception ex)
             {

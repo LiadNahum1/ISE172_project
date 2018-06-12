@@ -14,6 +14,7 @@ namespace ChatRoomProject.PresentationLayer
     /// /// </summary>
     public partial class ChatRoomW : Window
     {
+        private int numChange;
         private string nickName;
         private string groupId;
         private string currChose;
@@ -39,6 +40,7 @@ namespace ChatRoomProject.PresentationLayer
             filter =null; //default
             ascending = true;//default
             inisializeFilterandSorter();
+            this.numChange = 0;
             List<IMessage> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName , this.isPressed);
             foreach (IMessage msg in messagesFromLogic)
             {
@@ -213,18 +215,24 @@ namespace ChatRoomProject.PresentationLayer
         }
         
 
-        private void ListBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            IMessage lastmessage = _main.LastMessage;
-
-            if (!chat.CanEdit(lastmessage))
-                MessageBox.Show("this is not your message so you cant eddit it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            else
+            if (numChange%2 == 0)
             {
-                EditMessage edit = new EditMessage(chat, lastmessage);
-                edit.Show();
+                IMessage lastmessage = _main.LastMessage;
+                log.Info("hi");
+                if (chat.CanEdit(lastmessage))
+                {
+                         EditMessage edit = new EditMessage(chat, lastmessage, this._main);
+                        edit.Show();
+                }
+                else
+                {
+                    numChange++;
+                          MessageBox.Show("this is not your message so you cant eddit it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-           
+            numChange++;
         }
     }
 }

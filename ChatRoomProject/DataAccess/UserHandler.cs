@@ -44,7 +44,7 @@ namespace ChatRoomProject.DataAccess
                 command.CommandText =
                     "INSERT INTO [Users] ([Group_Id],[Nickname],[Password]) " +
                     "VALUES (@group_Id,@nickname,@password)";
-                SqlParameter group_Id_param = new SqlParameter(@"group_Id", SqlDbType.Int, 32);
+                SqlParameter group_Id_param = new SqlParameter(@"group_Id", SqlDbType.Int);
                 SqlParameter nickname_param = new SqlParameter(@"nickname", SqlDbType.Char, 8);
                 SqlParameter password_param = new SqlParameter(@"password", SqlDbType.Char, 64);
   

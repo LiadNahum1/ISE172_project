@@ -23,19 +23,21 @@ namespace ChatRoomProject.PresentationLayer
         private ChatRoom chat;
         private IMessage lastMessage;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
-        public EditMessage(ChatRoom chat , IMessage lastMessage)
+        private ObservableObjectChatRoom _main;
+        public EditMessage(ChatRoom chat , IMessage lastMessage , ObservableObjectChatRoom _main)
         {
             InitializeComponent();
             this.chat = chat;
             this.lastMessage = lastMessage;
+            this._main = _main;
         }
 
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
+            string newContent = _main.NewMessageContent;
             try
             {
-                chat.EditMessage(_main.NewMessageContent, this.lastMessage);
+                chat.EditMessage(newContent, this.lastMessage);
             }
             catch(Exception error)
             {

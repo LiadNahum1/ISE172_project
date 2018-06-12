@@ -45,7 +45,7 @@ namespace ChatRoomProject.LogicLayer
         public void Start()
         {
             log.Info("The system starts now");
-            messages = message_handler.RetrieveMessages(true);
+           messages = message_handler.RetrieveMessages(true);
         }
         //This is done every two seconds by reading from the timer.
         //This returns an updated list of messages that are organized according to
@@ -131,11 +131,6 @@ namespace ChatRoomProject.LogicLayer
             if (!IsValidNickname(groupId, nickname))
             {
                 throw new Exception(INVALID_NICKNAME);
-            }
-          
-            if (!IsValidPassword(password))
-            {
-                throw new Exception(INVALID_PASSWORD);
             }
             else
             {

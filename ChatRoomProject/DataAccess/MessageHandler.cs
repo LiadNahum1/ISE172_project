@@ -45,38 +45,62 @@ namespace ChatRoomProject.DataAccess
         {
             filters.Add(new NicknameFilter(nickName));
         }
+        public int GetUserId(IMessage msg)
+        {
+            try
+            {
+                connection.Open();
+                sql_query = "SELECT [Id] From [dbo].[Users] WHERE [Users].[Nickname]='" + msg.UserName + "' AND [Users].[Group_Id]=" + msg.GroupID + ";";
+                //sql_query = "SELCET [Id] FROM [dbo].[Users] WHERE [Users].[Nickname]='" + msg.UserName + "' AND [Users].[Group_Id]='" + msg.GroupID + "';";
+                command = new SqlCommand(sql_query, connection);
+                command.ExecuteReader();
+                data_reader = command.ExecuteReader();
+                int userId = 0;
+                while (data_reader.Read())
+                {
+                    userId = (int)data_reader.GetValue(0);
+                }
+                data_reader.Close();
+                command.Dispose();
+                connection.Close();
+                return userId;
+            }
+            catch (Exception e)
+            {
+                throw new Exception();   
+            }
+        }
+            
         public  void InsertNewMessage(IMessage msg)
         {
             try
             {
+                int userId = GetUserId(msg);
                 connection.Open();
                 command = new SqlCommand(null, connection);
                 // Create and prepare an SQL statement.
                 command.CommandText =
                     "INSERT INTO Messages ([Guid],[SendTime],[Body]) " +
                     "VALUES (@guid, @time,@body)";
-                SqlParameter guid_param = new SqlParameter(@"guid", SqlDbType.Text, 20);
-                SqlParameter user_Id_param = new SqlParameter(@"user_Id", SqlDbType.Text, 20);
-                SqlParameter time_param = new SqlParameter(@"time", SqlDbType.Text, 20);
-                SqlParameter body_param = new SqlParameter(@"body", SqlDbType.Text, 20);
-                guid_param.Value = msg.Id;
+                SqlParameter guid_param = new SqlParameter(@"guid", SqlDbType.Text, 68);
+                SqlParameter time_param = new SqlParameter(@"time", SqlDbType.DateTime);
+                SqlParameter body_param = new SqlParameter(@"body", SqlDbType.Text, 100);
+                guid_param.Value = msg.Id.ToString();
                 time_param.Value = msg.Date;
                 body_param.Value = msg.MessageContent;
                 command.Parameters.Add(guid_param);
-                command.Parameters.Add(user_Id_param);
                 command.Parameters.Add(time_param);
                 command.Parameters.Add(body_param);
 
                 // Call Prepare after setting the Commandtext and Parameters.
                 command.Prepare();
-                int num_rows_changed = command.ExecuteNonQuery();
                 command.Dispose();
                 connection.Close();
-                Console.WriteLine($"ExecuteNonQuery in SqlCommand executed!! {num_rows_changed.ToString()} row was changes\\inserted");
             }
             catch (Exception ex)
             {
                 log.Error("Writing into Data Base failed");
+                log.Error(ex.ToString());
             }
         }
 
@@ -114,7 +138,7 @@ namespace ChatRoomProject.DataAccess
                     else// not the first retrieve
                     {
                         sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users]" +
-                            "on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime] >= '" + lastDate + "' order by [SendTime];"; //TODO no more than 200
+                            "on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime] > '" + lastDate + "' order by [SendTime];"; //TODO no more than 200
                        // SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
                        // last_date.Value = lastDate;
                        // command.Parameters.Add(last_date); // todo check
@@ -168,7 +192,7 @@ namespace ChatRoomProject.DataAccess
                     newMessages.Add(message);
                 }
                 if (newMessages.Count > 1) { 
-                lastDate = newMessages.ElementAt(0).Date;  //save the last date
+                lastDate = newMessages.ElementAt(newMessages.Count-1).Date;  //save the last date
             }
                 data_reader.Close();
                 command.Dispose();

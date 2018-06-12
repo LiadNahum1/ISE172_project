@@ -45,8 +45,6 @@ namespace ChatRoomProject.PresentationLayer
             else
                 this.validation = false;
         }
-
-
         //Call to Registration function in ChatRoom. If there are no problems, open the main window again  
         private void Registrate_Click(object sender, RoutedEventArgs e)
         {

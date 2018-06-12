@@ -69,7 +69,7 @@ namespace ChatRoomProject.LogicLayer
 
         public override string ToString()
         {
-            return "Group:" + this.groupId + ",Nickname:" + this.nickname + " (" +TimeZoneInfo.ConvertTime(this.date,TimeZoneInfo.Utc,TimeZoneInfo.Local) + "): " + this.messageContent + " (Message GUID:" + this.id + ")";
+            return "Group:" + this.groupId + ",Nickname:" + this.nickname  +  " (" + TimeZoneInfo.ConvertTime(this.date, TimeZoneInfo.Utc, TimeZoneInfo.Local) + "): "+ this.messageContent;
         }
     }
 }

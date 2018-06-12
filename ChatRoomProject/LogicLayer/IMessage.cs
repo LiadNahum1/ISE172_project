@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChatRoomProject.DataAccess
+namespace ChatRoomProject.LogicLayer
 {
     public interface IMessage
     {

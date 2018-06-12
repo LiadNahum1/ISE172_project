@@ -21,10 +21,10 @@ namespace ChatRoomProject.PresentationLayer
     public partial class EditMessage : Window
     {
         private ChatRoom chat;
-        private string lastMessage;
+        private IMessage lastMessage;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
-        public EditMessage(ChatRoom chat , string lastMessage)
+        public EditMessage(ChatRoom chat , IMessage lastMessage)
         {
             InitializeComponent();
             this.chat = chat;

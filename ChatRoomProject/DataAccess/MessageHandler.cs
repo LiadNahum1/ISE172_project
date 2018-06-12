@@ -11,19 +11,30 @@ namespace ChatRoomProject.DataAccess
     public class MessageHandler
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("MessageHandler.cs");
-        private static string sql_query = null;
-        private static string server_address = "ise172.ise.bgu.ac.il,1433\\DB_LAB";
-        private static string database_name = "MS3";
-        private static string user_name = "publicUser";
-        private static string password = "isANerd";
-        private static string connetion_string = $"Data Source={server_address};Initial Catalog={database_name };User ID={user_name};Password={password}";
-        private static SqlConnection connection = new SqlConnection(connetion_string);
-        private static SqlCommand command;
+        private string sql_query;
+        private string server_address;
+        private string database_name;
+        private string user_name;
+        private string password;
+        private string connetion_string;
+        private SqlConnection connection;
+        private SqlCommand command;
         private SqlDataReader data_reader;
-        private IList<IQueryAction> filters = new List<IQueryAction>();
-        private DateTime lastDate = new DateTime();
+        private IList<IQueryAction> filters;
+        private DateTime lastDate;
         private const int MAX_MESSAGES = 200;
-        
+        public MessageHandler()
+        {
+            this.sql_query = null;
+            this.server_address = "ise172.ise.bgu.ac.il,1433\\DB_LAB";
+            this.database_name = "MS3";
+            this.user_name = "publicUser";
+            this.password = "isANerd";
+            this.connetion_string = $"Data Source={server_address};Initial Catalog={database_name };User ID={user_name};Password={password}";
+            this.connection = new SqlConnection(connetion_string);
+            this.filters = new List<IQueryAction>();
+            this.lastDate = new DateTime();
+        }
         public void ClearFilters() { filters.Clear(); }
         public void AddGroupFilter(int groupId)
         {
@@ -101,10 +112,10 @@ namespace ChatRoomProject.DataAccess
                     else// not the first retrieve
                     {
                         sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users]" +
-                            "on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime]>'@last_date' order by [SendTime];"; //TODO no more than 200
-                        SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
-                        last_date.Value = lastDate;
-                        command.Parameters.Add(last_date); // todo check
+                            "on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime] >= '" + lastDate + "' order by [SendTime];"; //TODO no more than 200
+                       // SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
+                       // last_date.Value = lastDate;
+                       // command.Parameters.Add(last_date); // todo check
                         command = new SqlCommand(sql_query, connection);
                     }
 
@@ -129,11 +140,11 @@ namespace ChatRoomProject.DataAccess
                         {
                             sql = filters.ElementAt(i).execute(sql) + " AND";
                         }
-                        sql += " [SendTime]>'@last_date' order by [SendTime];";
-                        SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
-                        last_date.Value = lastDate;
+                        sql += " [SendTime]>'" + lastDate + "' order by [SendTime];";
+                        //SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
+                        //last_date.Value = lastDate;
                       //  command.Parameters.AddWithValue()
-                        command.Parameters.Add(last_date); // todo check
+                        //command.Parameters.Add(last_date); // todo check
                         command = new SqlCommand(sql_query, connection);
                     }
                 }
@@ -153,7 +164,6 @@ namespace ChatRoomProject.DataAccess
                     string nickname = data_reader.GetString(4);
                     IMessage message = new Message(guid, nickname, groupId, date, msgContent);
                     newMessages.Add(message);
-                    log.Info(message.ToString());
                 }
                 if (newMessages.Count > 1) { 
                 lastDate = newMessages.ElementAt(0).Date;  //save the last date

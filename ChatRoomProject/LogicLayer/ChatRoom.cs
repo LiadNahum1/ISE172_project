@@ -237,7 +237,7 @@ namespace ChatRoomProject.LogicLayer
             {
                 throw new Exception(EMPTY_INPUT);
             }
-            else if(UserHandler.IsValidNickname(groupId, nickname))
+            else if (UserHandler.IsValidNickname(groupId, nickname))
             {
                 throw new Exception(INVALID_LOGIN); //user wasnt found
             }
@@ -246,15 +246,10 @@ namespace ChatRoomProject.LogicLayer
                 throw new Exception(WRONG_PASSWORD);
             }
             else
-                return true; 
-            /* foreach (IUser user in this.users)
-             {
-                 if (user.GroupID().Equals(groupId) && user.Nickname().Equals(nickname))
-                 {
-                     this.currentUser = user;
-                     return true;
-                 }
-             }*/
+            {
+                this.currentUser = UserHandler.RetrieveUser(int.Parse(groupId), nickname, password);
+                return true;
+            }
         }
 
         //Logout the current user

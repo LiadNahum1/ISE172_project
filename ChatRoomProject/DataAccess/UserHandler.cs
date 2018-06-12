@@ -91,9 +91,37 @@ namespace ChatRoomProject.DataAccess
             }
         }
 
+        public static IUser RetrieveUser(int groupId, string nickname, string password)
+        {
+            IUser user = null;
+            try
+            {
+                connection.Open();
+                log.Info("connected to: " + server_address);
+                sql_query = "SELECT * FROM [dbo].[Users] WHERE [Group_Id]="+ groupId + " AND [Nickname]='"+nickname+"' AND [Password]='" + hashing.GetHashString(password + SALT)+"';";
+                command = new SqlCommand(sql_query, connection);
+
+                data_reader = command.ExecuteReader();
+                while (data_reader.Read())
+                {
+                    user = CreateUserInstance(data_reader);
+                }
+                data_reader.Close();
+                command.Dispose();
+                connection.Close();
+                return user;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Reading from Data Base failed");
+                log.Error(ex.ToString());
+                return null;
+            }
+        }
+
         public static IUser CreateUserInstance(SqlDataReader data_reader)
         {
-            return new User(data_reader.GetString(1), data_reader.GetString(2), data_reader.GetString(3));
+            return new User(((int)data_reader.GetValue(1)).ToString(), data_reader.GetString(2), data_reader.GetString(3));
         }
         /*registration*/
         public static bool IsValidNickname(string groupId, string nickname)

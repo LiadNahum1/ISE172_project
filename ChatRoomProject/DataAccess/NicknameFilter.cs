@@ -16,7 +16,7 @@ namespace ChatRoomProject.DataAccess
 
         public string execute(string query)
         {
-            String concat = query +String.Format( " [Nickname]='{0}'",nickname); //todo check name in table
+            String concat = query +String.Format( " [Users].[Nickname]='{0}'",nickname); //todo check name in table
             return concat;
         }
     }

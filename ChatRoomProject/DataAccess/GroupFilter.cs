@@ -16,7 +16,7 @@ namespace ChatRoomProject.DataAccess
 
         public string execute(string query)
         {
-            String concat = query + String.Format(" [groupId]={0}", id); // check in table
+            String concat = query + String.Format(" [Group_Id]={0}", id); // check in table
             return concat;
         }
     }

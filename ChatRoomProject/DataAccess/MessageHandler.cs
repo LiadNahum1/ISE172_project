@@ -53,7 +53,6 @@ namespace ChatRoomProject.DataAccess
                 sql_query = "SELECT [Id] From [dbo].[Users] WHERE [Users].[Nickname]='" + msg.UserName + "' AND [Users].[Group_Id]=" + msg.GroupID + ";";
                 //sql_query = "SELCET [Id] FROM [dbo].[Users] WHERE [Users].[Nickname]='" + msg.UserName + "' AND [Users].[Group_Id]='" + msg.GroupID + "';";
                 command = new SqlCommand(sql_query, connection);
-                command.ExecuteReader();
                 data_reader = command.ExecuteReader();
                 int userId = 0;
                 while (data_reader.Read())

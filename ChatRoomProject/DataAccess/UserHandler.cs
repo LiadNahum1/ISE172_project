@@ -78,7 +78,7 @@ namespace ChatRoomProject.DataAccess
             {
                 connection.Open();
                 log.Info("connected to: " + server_address);
-                sql_query = "SELECT RTRIM* FROM [dbo].[Users];";
+                sql_query = "SELECT * FROM [dbo].[Users];";
                 command = new SqlCommand(sql_query, connection);
               
                 data_reader = command.ExecuteReader();

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using ChatRoomProject.LogicLayer;
 
 namespace ChatRoomProject.DataAccess
 {
@@ -80,13 +81,14 @@ namespace ChatRoomProject.DataAccess
             }
         }
 
-        public void DeleteByGuid(string messageGuid)
+        public void EditByGuid( string lastMessageContent,string messageGuid)
         {
             connection.Open();
-            log.Info("connected to: " + server_address);
+            log.Info("connected to: " + server_address);//to continu
             SqlCommand Command = new SqlCommand(
-              "DELETE FROM [dbo].[Messages] WHERE Guid='@word'" +connection);
-            Command.Parameters.AddWithValue("@word", messageGuid);
+              "UPDATE [dbo].[Messages] Body ='@content',Date=  WHERE Guid='@id'" + connection);
+            Command.Parameters.AddWithValue("@id", messageGuid);
+            Command.Parameters.AddWithValue("@content", messageGuid);
             Command.ExecuteNonQuery();
         }
 

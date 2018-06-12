@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using ChatRoomProject.LogicLayer;
 
 namespace ChatRoomProject.PresentationLayer
 {
@@ -36,7 +37,7 @@ namespace ChatRoomProject.PresentationLayer
                 OnPropertyChanged("Nickname");
             }
         }
-        public ObservableCollection<string> Messages { get; } = new ObservableCollection<string>();
+        public ObservableCollection<IMessage> Messages { get; } = new ObservableCollection<IMessage>();
         public ObservableCollection<string> SortOp { get; } = new ObservableCollection<string>();
         public ObservableCollection<string> FilterOp { get; } = new ObservableCollection<string>();
         public ObservableObjectChatRoom()
@@ -72,17 +73,17 @@ namespace ChatRoomProject.PresentationLayer
                 OnPropertyChanged("NewMessageContent");
             }
         }
-        private string lastMessageContent = "";
-        public string LastMessageContent
+        private IMessage lastMessage;
+        public IMessage LastMessage
         {
             get
             {
-                return lastMessageContent;
+                return lastMessage;
             }
             set
             {
-                lastMessageContent = value;
-                OnPropertyChanged("LastMessageContent");
+                lastMessage = value;
+                OnPropertyChanged("LastMessage");
             }
         }
         private string messageContent = "";

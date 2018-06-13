@@ -251,9 +251,8 @@ namespace ChatRoomProject.DataAccess
                     newMessages.Add(message);
                 }
                 this.lastDate = DateTime.Now.ToUniversalTime();
-               // if (newMessages.Count > 1) { 
-               // lastDate = newMessages.ElementAt(newMessages.Count-1).Date;  //save the last date
-           // }
+                this.lastDate=this.lastDate.AddSeconds(-2);
+            
                 data_reader.Close();
                 command.Dispose();
                 connection.Close();

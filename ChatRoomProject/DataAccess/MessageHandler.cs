@@ -130,26 +130,19 @@ namespace ChatRoomProject.DataAccess
                 log.Info("connected to: " + server_address);
                 if (filters.Count == 0) // no filters 
                 {
-
                     if (isStart) // first retrieve
                     {
-
-                        sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users]" +
+                        sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users] " +
                             "on [Messages].[User_Id]=[Users].[Id]  order by [SendTime] DESC;";
                         // todo check ascending or descending
                         command = new SqlCommand(sql_query, connection);
-                        isStart = false;
                     }
                     else// not the first retrieve
                     {
-                        sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users]" +
-                            "on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime] > '" + lastDate + "' order by [SendTime];"; //TODO no more than 200
-                                                                                                                                // SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
-                                                                                                                                // last_date.Value = lastDate;
-                                                                                                                                // command.Parameters.Add(last_date); // todo check
+                        sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users] " +
+                            "on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime] > '" + lastDate + "' order by [SendTime] DESC;"; //TODO no more than 200                                                                                                      
                         command = new SqlCommand(sql_query, connection);
                     }
-
                 }
                 else // there are filters
                 {
@@ -217,10 +210,10 @@ namespace ChatRoomProject.DataAccess
                             sql += "[Users].[Id]=" + auto_Id[i] + " OR ";
                         }
                         sql=sql.Substring(0, sql.Length - 4); // delete the last OR
-                        sql += " AND [SendTime]>' @lastDate ' order by [SendTime] DESC;";
-                        SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
-                        last_date.Value = lastDate;
-                        command.Parameters.Add(last_date); // todo check
+                        sql += " AND [SendTime]>'" + lastDate +"' order by [SendTime] DESC;";
+                        //SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
+                        //last_date.Value = lastDate;
+                        //command.Parameters.Add(last_date); // todo check
                         command = new SqlCommand(sql, connection);
                     }
                 }
@@ -257,9 +250,10 @@ namespace ChatRoomProject.DataAccess
                     IMessage message = new Message(guid, nickname, groupId, date, msgContent);
                     newMessages.Add(message);
                 }
-                if (newMessages.Count > 1) { 
-                lastDate = newMessages.ElementAt(newMessages.Count-1).Date;  //save the last date
-            }
+                this.lastDate = DateTime.Now.ToUniversalTime();
+               // if (newMessages.Count > 1) { 
+               // lastDate = newMessages.ElementAt(newMessages.Count-1).Date;  //save the last date
+           // }
                 data_reader.Close();
                 command.Dispose();
                 connection.Close();

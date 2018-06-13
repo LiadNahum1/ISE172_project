@@ -29,6 +29,7 @@ namespace ChatRoomProject.PresentationLayer
             InitializeComponent();
             this.chat = chat;
             this.lastMessage = lastMessage;
+            this.DataContext = _main;
             this._main = _main;
         }
 
@@ -38,6 +39,7 @@ namespace ChatRoomProject.PresentationLayer
             try
             {
                 chat.EditMessage(newContent, this.lastMessage);
+                _main.NewMessageContent = "";
             }
             catch(Exception error)
             {

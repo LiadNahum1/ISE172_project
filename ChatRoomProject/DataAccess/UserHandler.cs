@@ -130,7 +130,7 @@ namespace ChatRoomProject.DataAccess
 
         public IUser CreateUserInstance(SqlDataReader data_reader)
         {
-            return new User((int)data_reader.GetValue(1), data_reader.GetString(2), data_reader.GetString(3));
+            return new User((int)data_reader.GetValue(1), data_reader.GetString(2).Trim(), data_reader.GetString(3));
         }
         /*registration*/
         public bool IsValidNickname(string groupId, string nickname)

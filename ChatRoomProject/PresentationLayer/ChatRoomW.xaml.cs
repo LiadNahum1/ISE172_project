@@ -220,7 +220,7 @@ namespace ChatRoomProject.PresentationLayer
             if (numChange%2 == 0)
             {
                 IMessage lastmessage = _main.LastMessage;
-                log.Info("hi");
+                log.Info("selctioin changed");
                 if (chat.CanEdit(lastmessage))
                 {
                          EditMessage edit = new EditMessage(chat, lastmessage, this._main);

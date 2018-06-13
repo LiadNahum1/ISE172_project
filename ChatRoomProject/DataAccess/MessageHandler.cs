@@ -109,17 +109,30 @@ namespace ChatRoomProject.DataAccess
             }
         }
 
-        public void EditByGuid( string lastMessageContent,string messageGuid)
+        public void EditByGuid( string newMessageContent ,string messageGuid)
         {
             connection.Open();
-            log.Info("connected to: " + server_address);//to continu
-            SqlCommand Command = new SqlCommand(
-              "UPDATE [dbo].[Messages] Body ='@content',Date= '@date' WHERE Guid='@id'" + connection);
-            Command.Parameters.AddWithValue("@id", messageGuid);
-            Command.Parameters.AddWithValue("@content", messageGuid);
-            Command.Parameters.AddWithValue("@date", DateTime.Now.ToUniversalTime());
-            Command.ExecuteNonQuery();
-        }
+            sql_query = "UPDATE [dbo].[Messages] SET [Body]='"+newMessageContent+"' ,[SendTime]='"+ DateTime.Now.ToUniversalTime() + "' WHERE Guid='"+messageGuid+"'";
+            command = new SqlCommand(sql_query, connection);
+            // Create and prepare an SQL statement.
+            //command.CommandText = "UPDATE [dbo].[Messages] SET [Body] ='@content',[SendTime]= '@date' WHERE Guid='@id'";
+            //SqlParameter content_param = new SqlParameter(@"content", SqlDbType.Text, 100);
+            //SqlParameter date_param = new SqlParameter(@"date", SqlDbType.DateTime);
+            //SqlParameter guid_param = new SqlParameter(@"id", SqlDbType.Text, 68);
+            //content_param.Value = newMessageContent; 
+            //date_param.Value = DateTime.Now.ToUniversalTime();
+            //guid_param.Value = messageGuid;
+            //command.Parameters.Add(content_param);
+            //command.Parameters.Add(date_param);
+            //command.Parameters.Add(guid_param);
+
+        //// Call Prepare after setting the Commandtext and Parameters.
+        //command.Prepare();
+        command.ExecuteNonQuery();
+        command.Dispose();
+        connection.Close();
+
+    }
 
         public List<IMessage> RetrieveMessages(bool isStart)
         {

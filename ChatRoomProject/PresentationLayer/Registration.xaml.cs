@@ -20,10 +20,11 @@ namespace ChatRoomProject.PresentationLayer
     /// </summary>
     public partial class Registration : Window
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ChatRoom.cs");
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("Registretion.cs");
         private ChatRoom chat;
         private string hashedPassword;
-        private bool validation; 
+        private bool validation;
+        const string INVALID_PASSWORD = "Invalid password \nLetters and numbers only, 4 <= length <= 16";
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
         public Registration(ChatRoom chat)
@@ -61,7 +62,7 @@ namespace ChatRoomProject.PresentationLayer
                 }
                 else
                 {
-                    throw new Exception("Password not valid");
+                    throw new Exception(INVALID_PASSWORD);
                 }
 
             }

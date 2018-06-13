@@ -47,7 +47,7 @@ namespace ChatRoomProject.PresentationLayer
             }
             this.Close();
         }
-
+      //this wiil cencel the users choise and close the window
         private void btnDialogCENcel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

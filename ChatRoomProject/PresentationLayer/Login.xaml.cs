@@ -25,7 +25,8 @@ namespace ChatRoomProject.PresentationLayer
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("Login.cs");
         private ChatRoom chat;
         private string hashedPassword;
-        private bool validation; 
+        private bool validation;
+        const string INVALID_PASSWORD = "Invalid password \nLetters and numbers only, 4 <= length <= 16";
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
         public Login(ChatRoom chat)
@@ -60,6 +61,10 @@ namespace ChatRoomProject.PresentationLayer
                     ChatRoomW chatRoom = new ChatRoomW(this.chat);
                     chatRoom.Show();
                     this.Close();
+                }
+                else
+                {
+                    throw new Exception(INVALID_PASSWORD);
                 }
             }
             catch (Exception err)

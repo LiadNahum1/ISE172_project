@@ -68,7 +68,7 @@ namespace ChatRoomProject.DataAccess
                 throw new Exception();
             }
         }
-
+        //the function gets  imessege and insert it to the data base
         public  void InsertNewMessage(IMessage msg)
         {
             try
@@ -106,10 +106,11 @@ namespace ChatRoomProject.DataAccess
                 log.Error("Writing into Data Base failed");
             }
         }
-
+        //this function gets a message guid and new message content and eddit the message with this guid
         public void EditByGuid( string newMessageContent ,string messageGuid)
         {
             connection.Open();
+            log.Info("user edit message");
             sql_query = "UPDATE [dbo].[Messages] SET [Body]='"+newMessageContent+"' ,[SendTime]='"+ DateTime.Now.ToUniversalTime() + "' WHERE Guid='"+messageGuid+"'";
             command = new SqlCommand(sql_query, connection);
         command.ExecuteNonQuery();
@@ -117,7 +118,7 @@ namespace ChatRoomProject.DataAccess
         connection.Close();
 
     }
-
+        //this function gets the message from the data base
         public List<IMessage> RetrieveMessages(bool isStart)
         {
             List<IMessage> newMessages = new List<IMessage>();

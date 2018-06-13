@@ -26,7 +26,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Registrate" Foreground="Black" Background="DodgerBlue" FontSize="20"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Click="Registrate_Click"/>
+        <Button Content="Register" Foreground="Black" Background="DodgerBlue" FontSize="20"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Click="Registrate_Click"/>
         <Button Content="Login" Foreground="Black" Background="DodgerBlue" Grid.Row="4" FontSize="20" Grid.Column="1" Grid.ColumnSpan="2" Click="Login_Click"/>
         <Button Content="Exit" Foreground="Black" Background="DodgerBlue" Grid.Row="6" FontSize="20" Grid.Column="1" Grid.ColumnSpan="2" Click="Exit_Click"/>
         <Label  Content="Chat Room " Foreground="CadetBlue" FontSize="80" FontStyle="Oblique" Grid.ColumnSpan="4" HorizontalAlignment="Center" Margin="94,0,32,0"   />

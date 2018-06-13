@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatRoomProject.PresentationLayer"
         mc:Ignorable="d"
-        Title="EditMessage" Height="300" Width="300">
+        Title="EditMessage" Height="300" Width="400">
     <Grid Margin="15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

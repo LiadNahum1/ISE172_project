@@ -14,7 +14,6 @@ namespace ChatRoomProject.PresentationLayer
     /// /// </summary>
     public partial class ChatRoomW : Window
     {
-        private int numChange;
         private string nickName;
         private string groupId;
         private string currChose;
@@ -40,7 +39,6 @@ namespace ChatRoomProject.PresentationLayer
             filter =null; //default
             ascending = true;//default
             inisializeFilterandSorter();
-            this.numChange = 0;
             List<IMessage> messagesFromLogic = chat.MessageManager(this.ascending, this.filter, this.sort, this.groupId, this.nickName , this.isPressed);
             foreach (IMessage msg in messagesFromLogic)
             {
@@ -214,25 +212,20 @@ namespace ChatRoomProject.PresentationLayer
             }
         }
         
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //this will get the user choise of message and send it to the chat room
+        private void ListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (numChange%2 == 0)
+            IMessage lastmessage = _main.LastMessage;
+            log.Info("selctioin changed");
+            if (chat.CanEdit(lastmessage))
             {
-                IMessage lastmessage = _main.LastMessage;
-                log.Info("selctioin changed");
-                if (chat.CanEdit(lastmessage))
-                {
-                         EditMessage edit = new EditMessage(chat, lastmessage, this._main);
-                        edit.Show();
-                }
-                else
-                {
-                    numChange++;
-                          MessageBox.Show("this is not your message so you cant eddit it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                EditMessage edit = new EditMessage(chat, lastmessage, this._main);
+                edit.Show();
             }
-            numChange++;
+            else
+            {
+                MessageBox.Show("this is not your message so you cant eddit it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

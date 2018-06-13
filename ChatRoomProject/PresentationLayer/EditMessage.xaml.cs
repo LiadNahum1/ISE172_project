@@ -32,7 +32,7 @@ namespace ChatRoomProject.PresentationLayer
             this.DataContext = _main;
             this._main = _main;
         }
-
+        //this will send the chat room request for editing
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
             string newContent = _main.NewMessageContent;

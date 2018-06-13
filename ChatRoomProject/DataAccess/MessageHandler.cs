@@ -51,7 +51,6 @@ namespace ChatRoomProject.DataAccess
             {
                 connection.Open();
                 sql_query = "SELECT [Id] From [dbo].[Users] WHERE [Users].[Nickname]='" + msg.UserName + "' AND [Users].[Group_Id]=" + msg.GroupID + ";";
-
                 command = new SqlCommand(sql_query, connection);
                 data_reader = command.ExecuteReader();
                 int userId = 0;
@@ -105,7 +104,6 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Writing into Data Base failed");
-                log.Error(ex.ToString());
             }
         }
 
@@ -114,20 +112,6 @@ namespace ChatRoomProject.DataAccess
             connection.Open();
             sql_query = "UPDATE [dbo].[Messages] SET [Body]='"+newMessageContent+"' ,[SendTime]='"+ DateTime.Now.ToUniversalTime() + "' WHERE Guid='"+messageGuid+"'";
             command = new SqlCommand(sql_query, connection);
-            // Create and prepare an SQL statement.
-            //command.CommandText = "UPDATE [dbo].[Messages] SET [Body] ='@content',[SendTime]= '@date' WHERE Guid='@id'";
-            //SqlParameter content_param = new SqlParameter(@"content", SqlDbType.Text, 100);
-            //SqlParameter date_param = new SqlParameter(@"date", SqlDbType.DateTime);
-            //SqlParameter guid_param = new SqlParameter(@"id", SqlDbType.Text, 68);
-            //content_param.Value = newMessageContent; 
-            //date_param.Value = DateTime.Now.ToUniversalTime();
-            //guid_param.Value = messageGuid;
-            //command.Parameters.Add(content_param);
-            //command.Parameters.Add(date_param);
-            //command.Parameters.Add(guid_param);
-
-        //// Call Prepare after setting the Commandtext and Parameters.
-        //command.Prepare();
         command.ExecuteNonQuery();
         command.Dispose();
         connection.Close();
@@ -136,8 +120,6 @@ namespace ChatRoomProject.DataAccess
 
         public List<IMessage> RetrieveMessages(bool isStart)
         {
-          
-            //this.lastDate = this.lastDate.AddSeconds(-2);
             List<IMessage> newMessages = new List<IMessage>();
             try
             {
@@ -155,8 +137,11 @@ namespace ChatRoomProject.DataAccess
                     else// not the first retrieve
                     {
                         sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] " +
-                            "JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id] WHERE [SendTime]>='" + lastDate.ToUniversalTime() + "' order by [SendTime] DESC;"; //TODO no more than 200                                                                                                      
+                            "JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id] WHERE [SendTime]> @DatePar order by [SendTime] DESC;"; //TODO no more than 200                                                                                                      
                         command = new SqlCommand(sql_query, connection);
+                        SqlParameter par = new SqlParameter("DatePar", DbType.DateTime) { Value = lastDate.ToUniversalTime() };
+                        command.Parameters.Add(par);
+
                     }
                 }
                 else // there are filters
@@ -174,8 +159,10 @@ namespace ChatRoomProject.DataAccess
                     if (!isStart)
                     // return only the new filter messages
                     {
-                        sql += " AND [SendTime]>='" + lastDate.ToUniversalTime() + "' order by [SendTime] DESC;";
+                        sql += " AND [SendTime]>@DatePar order by [SendTime] DESC;";
                         command = new SqlCommand(sql, connection);
+                        SqlParameter par = new SqlParameter("DatePar", DbType.DateTime) { Value = lastDate.ToUniversalTime() };
+                        command.Parameters.Add(par);
                     }
                 }
               
@@ -190,7 +177,7 @@ namespace ChatRoomProject.DataAccess
                         date = data_reader.GetDateTime(1); //2 is the coloumn index of the date. There are such               
                         try
                         {
-                            guid = Guid.Parse(data_reader.GetString(0));
+                            guid = Guid.Parse(data_reader.GetString(0).Trim());
                         }
                         catch(Exception e)
                         {

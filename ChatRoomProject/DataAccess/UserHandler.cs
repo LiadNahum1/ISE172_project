@@ -67,9 +67,7 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Writing into Data Base failed");
-                log.Error(ex.ToString());
             }
-            //Console.ReadKey();
         }
         public List<IUser> RetrieveUsers()
         {
@@ -80,7 +78,7 @@ namespace ChatRoomProject.DataAccess
                 log.Info("connected to: " + server_address);
                 sql_query = "SELECT * FROM [dbo].[Users];";
                 command = new SqlCommand(sql_query, connection);
-              
+         
                 data_reader = command.ExecuteReader();
                 while (data_reader.Read())
                 {
@@ -95,8 +93,7 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Reading from Data Base failed");
-                log.Error(ex.ToString());
-                return null;
+                return users;;
             }
         }
 
@@ -123,14 +120,13 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Reading from Data Base failed");
-                log.Error(ex.ToString());
                 return null;
             }
         }
 
         public IUser CreateUserInstance(SqlDataReader data_reader)
         {
-            return new User((int)data_reader.GetValue(1), data_reader.GetString(2).Trim(), data_reader.GetString(3));
+            return new User((int)data_reader.GetValue(1), data_reader.GetString(2).Trim(), data_reader.GetString(3).Trim());
         }
         /*registration*/
         public bool IsValidNickname(string groupId, string nickname)
@@ -155,7 +151,7 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Reading from Data Base failed");
-                log.Error(ex.ToString());
+
                 return true;
             }
         }

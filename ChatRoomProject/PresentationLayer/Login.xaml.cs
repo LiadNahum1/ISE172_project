@@ -66,7 +66,7 @@ namespace ChatRoomProject.PresentationLayer
             {
                 log.Info("Login failed. The user isn't registered");
                 log.Info(err.ToString());
-                MessageBox.Show(err.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

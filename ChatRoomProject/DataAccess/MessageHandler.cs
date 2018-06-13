@@ -66,10 +66,10 @@ namespace ChatRoomProject.DataAccess
             }
             catch (Exception e)
             {
-                throw new Exception();   
+                throw new Exception();
             }
         }
-            
+
         public  void InsertNewMessage(IMessage msg)
         {
             try
@@ -123,6 +123,8 @@ namespace ChatRoomProject.DataAccess
 
         public List<IMessage> RetrieveMessages(bool isStart)
         {
+          
+            //this.lastDate = this.lastDate.AddSeconds(-2);
             List<IMessage> newMessages = new List<IMessage>();
             try
             {
@@ -132,107 +134,38 @@ namespace ChatRoomProject.DataAccess
                 {
                     if (isStart) // first retrieve
                     {
-                        sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users] " +
-                            "on [Messages].[User_Id]=[Users].[Id]  order by [SendTime] DESC;";
+                        sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] " +
+                            "From [dbo].[Messages] JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id] order by [SendTime] DESC;";
                         // todo check ascending or descending
                         command = new SqlCommand(sql_query, connection);
                     }
                     else// not the first retrieve
                     {
-                        sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] JOIN [dbo].[Users] " +
-                            "on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime] > '" + lastDate + "' order by [SendTime] DESC;"; //TODO no more than 200                                                                                                      
+                        sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] " +
+                            "JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime] > '" + lastDate + "' order by [SendTime] DESC;"; //TODO no more than 200                                                                                                      
                         command = new SqlCommand(sql_query, connection);
                     }
                 }
                 else // there are filters
                 {
-                    if (isStart)
-                    {
-                        // build sql to get the id element of all the useres with the spesifc nickname or groupid
-                        List<int> auto_Id = new List<int>();
-                        string sql_id = "SELECT [Id] FROM [dbo].[Users] WHERE";
+                        String sql = "SELECT TOP" + MAX_MESSAGES + "[Messages].[Guid], [Messages].[SendTime], [Messages].[Body], [Users].[Group_Id], [Users].[Nickname] " +
+                            "FROM[dbo].[Messages] JOIN [dbo].[Users] on [Users].[Id]=[Messages].[User_Id] WHERE ";
+
                         for (int i = 0; i < filters.Count; i++)
                         {
-                            sql_id = filters.ElementAt(i).execute(sql_id) + " AND";
+                            sql = filters.ElementAt(i).execute(sql) + " AND ";
                         }
-                        sql_id = sql_id.Substring(0, sql_id.Length - 4); // delete the last " AND"
-                        command = new SqlCommand(sql_id, connection);
-                        data_reader = command.ExecuteReader();
-                        while (data_reader.Read())
-                        {
-                            auto_Id.Add((int)(data_reader.GetValue(0)));
-                        }
-                        data_reader.Close();
-                        command.Dispose();
-                        connection.Close();
-                        log.Info("close connection " + server_address);
-
-                        connection.Open(); // open again
-                        log.Info("connected to: " + server_address);
-
-                        //sql of all the messages with the auto_id
-                        String sql = "SELECT TOP " + MAX_MESSAGES + " [Messages].[Guid], [Messages].[SendTime], [Messages].[Body], [Users].[Group_Id], [Users].[Nickname] FROM [dbo].[Messages] JOIN [dbo].[Users] on ";
-                        for (int i = 0; i < auto_Id.Count; i++)
-                        {
-                            sql += "[Users].[Id]=" + auto_Id[i] + " OR ";
-                        }
-                        sql=sql.Substring(0, sql.Length - 4); // delete the last OR
+                        sql = sql.Substring(0, sql.Length - 5); // delete the last " AND"
                         command = new SqlCommand(sql, connection);
-                    }
-                    else // return only the new filter messages
+
+                    if (!isStart)
+                    // return only the new filter messages
                     {
-                        // build sql to get the id element of all the useres with the spesifc nickname or groupid
-                        List<int> auto_Id = new List<int>();
-                        string sql_id = "SELECT [Id] FROM [dbo].[Users] WHERE";
-                        for (int i = 0; i < filters.Count; i++)
-                        {
-                            sql_id = filters.ElementAt(i).execute(sql_id) + " AND ";
-                        }
-                        sql_id = sql_id.Substring(0, sql_id.Length - 5); // delete the last " AND"
-                        command = new SqlCommand(sql_id, connection);
-                        data_reader = command.ExecuteReader();
-                        while (data_reader.Read())
-                        {
-                            auto_Id.Add((int)(data_reader.GetValue(0)));
-                        }
-                        data_reader.Close();
-                        command.Dispose();
-                        connection.Close();
-                        log.Info("close connection " + server_address);
-
-                        connection.Open(); // open again
-                        log.Info("connected to: " + server_address);
-
-                        //sql of all the messages with the auto_id
-                        String sql = "SELECT TOP " + MAX_MESSAGES + " [Messages].[Guid], [Messages].[SendTime], [Messages].[Body], [Users].[Group_Id], [Users].[Nickname] FROM [dbo].[Messages] JOIN [dbo].[Users] on ";
-                        for (int i = 0; i < auto_Id.Count; i++)
-                        {
-                            sql += "[Users].[Id]=" + auto_Id[i] + " OR ";
-                        }
-                        sql=sql.Substring(0, sql.Length - 4); // delete the last OR
-                        sql += " AND [SendTime]>'" + lastDate +"' order by [SendTime] DESC;";
-                        //SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
-                        //last_date.Value = lastDate;
-                        //command.Parameters.Add(last_date); // todo check
+                        sql += " AND [SendTime]>'" + lastDate + "' order by [SendTime] DESC;";
                         command = new SqlCommand(sql, connection);
                     }
                 }
-                /*
-                    else // return only the new filter messages
-                    {
-                        String sql = "SELECT TOP " + MAX_MESSAGES + " * FROM[dbo].[Messages] WHERE";
-                        for (int i = 0; i < filters.Count; i++)
-                        {
-                            sql = filters.ElementAt(i).execute(sql) + " AND";
-                        }
-                        sql += " [SendTime]>'" + lastDate + "' order by [SendTime] DESC;";
-                        //SqlParameter last_date = new SqlParameter(@"last_date", SqlDbType.DateTime, 20);
-                        //last_date.Value = lastDate;
-                        //command.Parameters.Add(last_date); // todo check
-                        command = new SqlCommand(sql_query, connection);
-                    }
-                }
-                */
+              
                 data_reader = command.ExecuteReader();
                 while (data_reader.Read())
                 {
@@ -250,9 +183,9 @@ namespace ChatRoomProject.DataAccess
                     IMessage message = new Message(guid, nickname, groupId, date, msgContent);
                     newMessages.Add(message);
                 }
-                this.lastDate = DateTime.Now.ToUniversalTime();
-                this.lastDate=this.lastDate.AddSeconds(-2);
-            
+                if (newMessages.Count >= 1) 
+                    this.lastDate = newMessages.ElementAt(0).Date;
+
                 data_reader.Close();
                 command.Dispose();
                 connection.Close();
@@ -261,7 +194,7 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Error" + ex.ToString());
-                return null;
+               
             }
         }
     }

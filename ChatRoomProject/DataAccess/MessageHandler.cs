@@ -142,14 +142,14 @@ namespace ChatRoomProject.DataAccess
                     else// not the first retrieve
                     {
                         sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] " +
-                            "JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id]  WHERE [SendTime] > '" + lastDate + "' order by [SendTime] DESC;"; //TODO no more than 200                                                                                                      
+                            "JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id] WHERE [SendTime]>='" + lastDate.ToUniversalTime() + "' order by [SendTime] DESC;"; //TODO no more than 200                                                                                                      
                         command = new SqlCommand(sql_query, connection);
                     }
                 }
                 else // there are filters
                 {
-                        String sql = "SELECT TOP" + MAX_MESSAGES + "[Messages].[Guid], [Messages].[SendTime], [Messages].[Body], [Users].[Group_Id], [Users].[Nickname] " +
-                            "FROM[dbo].[Messages] JOIN [dbo].[Users] on [Users].[Id]=[Messages].[User_Id] WHERE ";
+                        String sql = "SELECT TOP " + MAX_MESSAGES + " [Messages].[Guid], [Messages].[SendTime], [Messages].[Body], [Users].[Group_Id], [Users].[Nickname] " +
+                            "FROM [dbo].[Messages] JOIN [dbo].[Users] on [Users].[Id]=[Messages].[User_Id] WHERE";
 
                         for (int i = 0; i < filters.Count; i++)
                         {
@@ -161,7 +161,7 @@ namespace ChatRoomProject.DataAccess
                     if (!isStart)
                     // return only the new filter messages
                     {
-                        sql += " AND [SendTime]>'" + lastDate + "' order by [SendTime] DESC;";
+                        sql += " AND [SendTime]>='" + lastDate.ToUniversalTime() + "' order by [SendTime] DESC;";
                         command = new SqlCommand(sql, connection);
                     }
                 }
@@ -175,16 +175,23 @@ namespace ChatRoomProject.DataAccess
                     if (!data_reader.IsDBNull(0) & !data_reader.IsDBNull(1))
                     {
                         date = data_reader.GetDateTime(1); //2 is the coloumn index of the date. There are such               
-                        guid = Guid.Parse(data_reader.GetString(0));
+                        try
+                        {
+                            guid = Guid.Parse(data_reader.GetString(0));
+                        }
+                        catch(Exception e)
+                        {
+                            log.Error("invalid parse to guid");
+                        }
                     }
+
                     string msgContent = data_reader.GetString(2).Trim();
                     int groupId = (int)data_reader.GetValue(3);
                     string nickname = data_reader.GetString(4).Trim();
                     IMessage message = new Message(guid, nickname, groupId, date, msgContent);
                     newMessages.Add(message);
                 }
-                if (newMessages.Count >= 1) 
-                    this.lastDate = newMessages.ElementAt(0).Date;
+                this.lastDate = DateTime.Now;
 
                 data_reader.Close();
                 command.Dispose();
@@ -194,7 +201,7 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Error" + ex.ToString());
-               
+                return newMessages;     
             }
         }
     }

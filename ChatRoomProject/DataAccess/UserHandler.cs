@@ -50,7 +50,7 @@ namespace ChatRoomProject.DataAccess
   
                 group_Id_param.Value = user.GroupID();
                 nickname_param.Value = user.Nickname();
-                password_param.Value = user.Password(); //To check!!!
+                password_param.Value = user.Password(); 
                 command.Parameters.Add(group_Id_param);
                 command.Parameters.Add(nickname_param);
                 command.Parameters.Add(password_param);
@@ -104,7 +104,7 @@ namespace ChatRoomProject.DataAccess
             {
                 connection.Open();
                 log.Info("connected to: " + server_address);
-                sql_query = "SELECT * FROM [dbo].[Users] WHERE [Group_Id]="+ groupId + " AND [Nickname]='"+nickname+"' AND [Password]='" + hashing.GetHashString(password + SALT)+"';";
+                sql_query = "SELECT * FROM [dbo].[Users] WHERE [Group_Id]="+ groupId + " AND [Nickname]='"+nickname+"' AND [Password]='" +password +"';";
                 command = new SqlCommand(sql_query, connection);
 
                 data_reader = command.ExecuteReader();
@@ -160,10 +160,9 @@ namespace ChatRoomProject.DataAccess
             try
             {
                 connection.Open();
-                String hashedPassword = hashing.GetHashString(password + SALT);
                 log.Info("connected to: " + server_address);
                 sql_query = "SELECT * FROM [dbo].[Users] WHERE [Group_Id]=" + groupId + " AND [Nickname]='" + nickname+"'"
-                    + "AND [Password]='" + hashedPassword + "';";
+                    + "AND [Password]='" + password + "';";
                 command = new SqlCommand(sql_query, connection);
                 data_reader = command.ExecuteReader();
                 bool result = true; 

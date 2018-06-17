@@ -24,6 +24,7 @@ namespace ChatRoomProject.PresentationLayer
         private ChatRoom chat;
         private string hashedPassword;
         private bool validation;
+        private static string SALT = "1337";
         const string INVALID_PASSWORD = "Invalid password \nLetters and numbers only, 4 <= length <= 16";
         ObservableObjectChatRoom _main = new ObservableObjectChatRoom();
 
@@ -41,7 +42,7 @@ namespace ChatRoomProject.PresentationLayer
             if (chat.IsValidPassword(pb.Password))
             {
                 this.validation = true;
-                this.hashedPassword = chat.HashedPassword(pb.Password);
+                this.hashedPassword = chat.HashedPassword(pb.Password+SALT);
             }
             else
                 this.validation = false;

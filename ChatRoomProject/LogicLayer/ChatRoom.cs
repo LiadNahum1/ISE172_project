@@ -90,15 +90,14 @@ namespace ChatRoomProject.LogicLayer
                     {
                         message_handler.AddGroupFilter(Int32.Parse(groupId));
                     }
-                    List<IMessage> onlyNew = GetOnlyNew(message_handler.RetrieveMessages(ispressed));
-                    updateList.AddRange(onlyNew); // filter list
+                
+                    updateList.AddRange(message_handler.RetrieveMessages(ispressed)); // filter list
                     this.messages = updateList;
                 }
 
                 else // no filter so update the list of messages
                 {
-                    List<IMessage> onlyNew = GetOnlyNew(message_handler.RetrieveMessages(ispressed));// concat the new messages from the data base
-                    updateList.AddRange(onlyNew);
+                    updateList.AddRange(message_handler.RetrieveMessages(ispressed));// concat the new messages from the data base
                     this.messages = updateList;
                 }
             }
@@ -114,25 +113,7 @@ namespace ChatRoomProject.LogicLayer
             return updateList;
         }
 
-        public List<IMessage> GetOnlyNew(List<IMessage> retreivedMsg)
-        {
-            List<IMessage> onlyNew = new List<IMessage>();
-            bool isExist = false;
-            foreach (IMessage msg in retreivedMsg)
-            {
-                foreach (IMessage msgSaved in this.messages)
-                {
-                    if (msg.Id.Equals(msgSaved.Id))
-                    {
-                        isExist = true;
-                    }
-                }
-                if (!isExist)
-                    onlyNew.Add(msg);
-            }
-            return onlyNew;
-        }
-
+   
         /*The method registrates a new user to the system. The method first checks if nickname and groupId input is legal.
          * If it is, the method creats new User instance and adds him to the users list. 
          * If nickname is already been used by the same groupId, the function throws an exception

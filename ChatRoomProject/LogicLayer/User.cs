@@ -13,7 +13,7 @@ namespace ChatRoomProject.LogicLayer
         private int groupID;
         private string nickname;
         private string password;
-        private static string SALT = "1337";
+
 
         /*constructor
          * gets groupId, nickname and boolean value isRestored which indicates whether the current user details are restored from dataBase or
@@ -24,7 +24,7 @@ namespace ChatRoomProject.LogicLayer
         {
             this.groupID = groupID;
             this.nickname = nickname;
-            this.password = hashing.GetHashString(password + SALT);
+            this.password = password;
         }
 
         public string Password()

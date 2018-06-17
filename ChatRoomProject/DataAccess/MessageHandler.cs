@@ -131,14 +131,14 @@ namespace ChatRoomProject.DataAccess
                     if (isStart) // first retrieve
                     {
                         sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] " +
-                            "From [dbo].[Messages] JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id] order by [SendTime] DESC;";
+                            "From [dbo].[Messages] JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id] WHERE [SendTime] <='"+DateTime.Now.ToUniversalTime()+"' order by [SendTime] DESC;";
                         // todo check ascending or descending
                         command = new SqlCommand(sql_query, connection);
                     }
                     else// not the first retrieve
                     {
                         sql_query = "SELECT TOP " + MAX_MESSAGES + " [Guid], [SendTime], [Body], [Group_id], [Nickname] From [dbo].[Messages] " +
-                            "JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id] WHERE [SendTime]> @DatePar order by [SendTime] DESC;"; //TODO no more than 200                                                                                                      
+                            "JOIN [dbo].[Users] on [Messages].[User_Id]=[Users].[Id] WHERE [SendTime]>= @DatePar AND [SendTime] <='" + DateTime.Now.ToUniversalTime() + "' order by [SendTime] DESC;";                                                                                                       
                         command = new SqlCommand(sql_query, connection);
                         SqlParameter par = new SqlParameter("DatePar", DbType.DateTime) { Value = lastDate.ToUniversalTime() };
                         command.Parameters.Add(par);
@@ -154,19 +154,21 @@ namespace ChatRoomProject.DataAccess
                         {
                             sql = filters.ElementAt(i).execute(sql) + " AND ";
                         }
-                        sql = sql.Substring(0, sql.Length - 5); // delete the last " AND"
-                        command = new SqlCommand(sql, connection);
+                    //     sql = sql.Substring(0, sql.Length - 5); // delete the last " AND"
+                    sql = sql + "[SendTime] <= '" + DateTime.Now.ToUniversalTime() + "'";
+                    command = new SqlCommand(sql, connection);
 
                     if (!isStart)
                     // return only the new filter messages
                     {
-                        sql += " AND [SendTime]>@DatePar order by [SendTime] DESC;";
+                        sql += " AND [SendTime]>=@DatePar";
                         command = new SqlCommand(sql, connection);
                         SqlParameter par = new SqlParameter("DatePar", DbType.DateTime) { Value = lastDate.ToUniversalTime() };
                         command.Parameters.Add(par);
                     }
+                    sql += "order by[SendTime] DESC; ";
                 }
-              
+                this.lastDate = DateTime.Now;
                 data_reader = command.ExecuteReader();
                 while (data_reader.Read())
                 {
@@ -192,7 +194,7 @@ namespace ChatRoomProject.DataAccess
                     IMessage message = new Message(guid, nickname, groupId, date, msgContent);
                     newMessages.Add(message);
                 }
-                this.lastDate = DateTime.Now;
+
 
                 data_reader.Close();
                 command.Dispose();

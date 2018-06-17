@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChatRoomProject.DataAccess
 {
+    /*GroupFilter query*/
     class GroupFilter:IQueryAction
     {
         private int id;

@@ -8,10 +8,7 @@ using ChatRoomProject.DataAccess;
 using System.Timers;
 namespace ChatRoomProject.LogicLayer
 {
-    /// <summary>
-    /// this class will get the data from the presentation layer make it ordered,
-    /// validate it and sending it to the persistent layer for saving and restoring
-    /// </summary>
+  /*This is the main class of the Logic Layer*/
     public class ChatRoom : IChatRoom
     {
         //fields
@@ -40,7 +37,7 @@ namespace ChatRoomProject.LogicLayer
             this.currentUser = null; //user that is connected now
         }
 
-        /*The method restores the users and the messages that had been saved in the system files from previous use */
+        
         public void Start()
         {
             log.Info("The system starts now");
@@ -109,13 +106,13 @@ namespace ChatRoomProject.LogicLayer
             if (sort.Equals("SortByTimestamp"))
                 updateList = SortTimestamp(updateList, ascending);
 
-            updateList = LegalSizeOfMessagesList(updateList); // id there are more than 200 messag
+            updateList = LegalSizeOfMessagesList(updateList); // if there are more than 200 messag
             return updateList;
         }
 
    
-        /*The method registrates a new user to the system. The method first checks if nickname and groupId input is legal.
-         * If it is, the method creats new User instance and adds him to the users list. 
+        /*The method registrates a new user . The method first checks if nickname and groupId input are legal.
+         * If there are, the method creats new User instance and adds him to data base 
          * If nickname is already been used by the same groupId, the function throws an exception
          */
         public void Registration(string groupId, string nickname, string password)
@@ -139,6 +136,7 @@ namespace ChatRoomProject.LogicLayer
                 user_handler.InsertNewUser(user);
             }
         }
+        /*returns a hash string of password*/
         public string HashedPassword(string password)
         {
             return hashing.GetHashString(password);
@@ -272,8 +270,8 @@ namespace ChatRoomProject.LogicLayer
             return list;
         }
 
-        //Send messages. If empty or more than 150 characters throw an exception.
-        //Otherwise, send it and save into messages list
+        //Send messages. If empty or more than 100 characters throw an exception.
+        //Otherwise, send it and save into data base
         public void Send(string messageContent)
         {
             if (!Message.CheckValidity(messageContent))
@@ -292,6 +290,7 @@ namespace ChatRoomProject.LogicLayer
             else
             {
                 message_handler.InsertNewMessage(new Message(this.currentUser.Nickname(), this.currentUser.GroupID(), messageContent));
+                log.Info("message was sent");
 
             }
         }

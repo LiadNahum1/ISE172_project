@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ChatRoomProject.DataAccess
 {
-    class NicknameFilter:IQueryAction
+    /*NicknameFilter query*/
+    class NicknameFilter :IQueryAction
     {
         private string nickname;
         public NicknameFilter(string nickname)

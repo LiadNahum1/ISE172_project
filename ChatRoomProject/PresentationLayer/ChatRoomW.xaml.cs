@@ -224,7 +224,7 @@ namespace ChatRoomProject.PresentationLayer
             }
             else
             {
-                MessageBox.Show("this is not your message so you cant eddit it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("this is not your message so you cant edit it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

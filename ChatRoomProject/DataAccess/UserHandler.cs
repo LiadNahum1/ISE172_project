@@ -9,6 +9,7 @@ using ChatRoomProject.LogicLayer;
 
 namespace ChatRoomProject.DataAccess
 {
+    /*The class deals with writing and retrieving from Users table on the data base*/
     class UserHandler
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("UserHandler.cs");
@@ -34,6 +35,7 @@ namespace ChatRoomProject.DataAccess
             this.connetion_string = $"Data Source={server_address};Initial Catalog={database_name };User ID={user_name};Password={password}";
             this.connection = new SqlConnection(connetion_string);
         }
+        /*The function gets an IUser and insert it to the data base Users table*/
         public void InsertNewUser(IUser user)
         {
             try
@@ -69,6 +71,7 @@ namespace ChatRoomProject.DataAccess
                 log.Error("Writing into Data Base failed");
             }
         }
+        /*The function returns a List of all users in data base*/
         public List<IUser> RetrieveUsers()
         {
             List<IUser> users = new List<IUser>();
@@ -96,7 +99,12 @@ namespace ChatRoomProject.DataAccess
                 return users;;
             }
         }
-
+        /*The function build and return a new User*/
+        public IUser CreateUserInstance(SqlDataReader data_reader)
+        {
+            return new User((int)data_reader.GetValue(1), data_reader.GetString(2).Trim(), data_reader.GetString(3).Trim());
+        }
+        /*The function returns the User that his details are groupId, nickname and password*/
         public IUser RetrieveUser(int groupId, string nickname, string password)
         {
             IUser user = null;
@@ -124,11 +132,10 @@ namespace ChatRoomProject.DataAccess
             }
         }
 
-        public IUser CreateUserInstance(SqlDataReader data_reader)
-        {
-            return new User((int)data_reader.GetValue(1), data_reader.GetString(2).Trim(), data_reader.GetString(3).Trim());
-        }
-        /*registration*/
+       
+        /*The function gets groupId and nickname and search for the specific user. The function has two roles:
+         * 1. In Registration - if nothing was found, than the function returns true because it means that there is no user with the same groupId and nickname and therefore can register.
+         * 2. In Login - if nothing was found that means that the user is not registered*/
         public bool IsValidNickname(string groupId, string nickname)
         {
             try
@@ -151,10 +158,11 @@ namespace ChatRoomProject.DataAccess
             catch (Exception ex)
             {
                 log.Error("Reading from Data Base failed");
-
                 return true;
             }
         }
+        /*The function gets groupId, nickname and password and search for the specific user. 
+         *If nothing was found, that means that there is no such user and returns false. Password is wrong */
         public bool IsValidPassword(string groupId, string nickname, string password)
         {
             try

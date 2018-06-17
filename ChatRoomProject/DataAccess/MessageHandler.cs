@@ -9,6 +9,7 @@ using ChatRoomProject.LogicLayer;
 
 namespace ChatRoomProject.DataAccess
 {
+    /*The class deals with writing and retrieving from Messages table on the data base*/
     public class MessageHandler
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("MessageHandler.cs");
@@ -36,15 +37,19 @@ namespace ChatRoomProject.DataAccess
             this.filters = new List<IQueryAction>();
             this.lastDate = new DateTime();
         }
+        /*Clears the filters list*/
         public void ClearFilters() { filters.Clear(); }
+        /*Adds a GroupId filter to the filters list*/
         public void AddGroupFilter(int groupId)
         {
             filters.Add(new GroupFilter(groupId));
         }
+        /*Adds a Nickname filter to the filters list*/
         public void AddNicknameFilter(string nickName)
         {
             filters.Add(new NicknameFilter(nickName));
         }
+        /*The function gets an IMessage and returns the user id that sent that message*/
         public int GetUserId(IMessage msg)
         {
             try
@@ -68,7 +73,7 @@ namespace ChatRoomProject.DataAccess
                 throw new Exception();
             }
         }
-        //the function gets  imessege and insert it to the data base
+        /*the function gets  IMessege and insert it to the data base Messages table*/
         public  void InsertNewMessage(IMessage msg)
         {
             try
@@ -106,7 +111,7 @@ namespace ChatRoomProject.DataAccess
                 log.Error("Writing into Data Base failed");
             }
         }
-        //this function gets a message guid and new message content and eddit the message with this guid
+        //this function gets a message guid and new message content and edit the message with this guid
         public void EditByGuid( string newMessageContent ,string messageGuid)
         {
             connection.Open();
@@ -118,9 +123,10 @@ namespace ChatRoomProject.DataAccess
         connection.Close();
 
     }
-        //this function gets the message from the data base
+        //this function gets the messages from the data base according to the filters that have been chosen*/
         public List<IMessage> RetrieveMessages(bool isStart)
         {
+            this.lastDate = DateTime.Now.AddSeconds(-2);
             List<IMessage> newMessages = new List<IMessage>();
             try
             {
@@ -154,7 +160,6 @@ namespace ChatRoomProject.DataAccess
                         {
                             sql = filters.ElementAt(i).execute(sql) + " AND ";
                         }
-                    //     sql = sql.Substring(0, sql.Length - 5); // delete the last " AND"
                     sql = sql + "[SendTime] <= '" + DateTime.Now.ToUniversalTime() + "'";
                     command = new SqlCommand(sql, connection);
 
@@ -168,7 +173,7 @@ namespace ChatRoomProject.DataAccess
                     }
                     sql += "order by[SendTime] DESC; ";
                 }
-                this.lastDate = DateTime.Now;
+
                 data_reader = command.ExecuteReader();
                 while (data_reader.Read())
                 {

@@ -60,7 +60,6 @@ namespace ChatRoomProject.DataAccess
                 // Call Prepare after setting the Commandtext and Parameters.
                 command.Prepare();
                 int num_rows_changed = command.ExecuteNonQuery();
-               // data_reader.Close();
                 command.Dispose();
                 connection.Close();
                 Console.WriteLine($"ExecuteNonQuery in SqlCommand executed!! {num_rows_changed.ToString()} row was changes\\inserted");
@@ -68,7 +67,10 @@ namespace ChatRoomProject.DataAccess
             }
             catch (Exception ex)
             {
+                command.Dispose();
+                connection.Close();
                 log.Error("Writing into Data Base failed");
+                throw new Exception(ex.ToString());
             }
         }
         /*The function returns a List of all users in data base*/
@@ -95,8 +97,11 @@ namespace ChatRoomProject.DataAccess
             }
             catch (Exception ex)
             {
+                data_reader.Close();
+                command.Dispose();
+                connection.Close();
                 log.Error("Reading from Data Base failed");
-                return users;;
+                throw new Exception(ex.ToString());
             }
         }
         /*The function build and return a new User*/
@@ -127,8 +132,11 @@ namespace ChatRoomProject.DataAccess
             }
             catch (Exception ex)
             {
+                data_reader.Close();
+                command.Dispose();
+                connection.Close();
                 log.Error("Reading from Data Base failed");
-                return null;
+                throw new Exception(ex.ToString());
             }
         }
 
@@ -157,8 +165,11 @@ namespace ChatRoomProject.DataAccess
             }
             catch (Exception ex)
             {
+                data_reader.Close();
+                command.Dispose();
+                connection.Close();
                 log.Error("Reading from Data Base failed");
-                return true;
+                throw new Exception(ex.ToString());
             }
         }
         /*The function gets groupId, nickname and password and search for the specific user. 
@@ -185,8 +196,11 @@ namespace ChatRoomProject.DataAccess
             }
             catch (Exception ex)
             {
+                data_reader.Close();
+                command.Dispose();
+                connection.Close();
                 log.Error("Reading from Data Base failed");
-                return true;
+                throw new Exception(ex.ToString());
             }
         }
     }

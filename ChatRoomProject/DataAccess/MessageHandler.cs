@@ -70,7 +70,10 @@ namespace ChatRoomProject.DataAccess
             }
             catch (Exception e)
             {
-                throw new Exception();
+                data_reader.Close();
+                command.Dispose();
+                connection.Close();
+                throw new Exception(e.Message);
             }
         }
         /*the function gets  IMessege and insert it to the data base Messages table*/
@@ -101,27 +104,36 @@ namespace ChatRoomProject.DataAccess
                 // Call Prepare after setting the Commandtext and Parameters.
                 command.Prepare();
                 int num_rows_changed = command.ExecuteNonQuery();
-                // data_reader.Close();
                 command.Dispose();
                 connection.Close();
                 Console.WriteLine($"ExecuteNonQuery in SqlCommand executed!! {num_rows_changed.ToString()} row was changes\\inserted");
             }
             catch (Exception ex)
             {
+                command.Dispose();
+                connection.Close();
                 log.Error("Writing into Data Base failed");
+                
             }
         }
         //this function gets a message guid and new message content and edit the message with this guid
         public void EditByGuid( string newMessageContent ,string messageGuid)
         {
-            connection.Open();
-            log.Info("user edit message");
-            sql_query = "UPDATE [dbo].[Messages] SET [Body]='"+newMessageContent+"' ,[SendTime]='"+ DateTime.Now.ToUniversalTime() + "' WHERE Guid='"+messageGuid+"'";
-            command = new SqlCommand(sql_query, connection);
-        command.ExecuteNonQuery();
-        command.Dispose();
-        connection.Close();
-
+            try
+            {
+                connection.Open();
+                log.Info("user edit message");
+                sql_query = "UPDATE [dbo].[Messages] SET [Body]='" + newMessageContent + "' ,[SendTime]='" + DateTime.Now.ToUniversalTime() + "' WHERE Guid='" + messageGuid + "'";
+                command = new SqlCommand(sql_query, connection);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                connection.Close();
+            }
+            catch(Exception e){
+                command.Dispose();
+                connection.Close();
+                log.Error("edit failed");
+            }
     }
         //this function gets the messages from the data base according to the filters that have been chosen*/
         public List<IMessage> RetrieveMessages(bool isStart)
@@ -208,8 +220,11 @@ namespace ChatRoomProject.DataAccess
             }
             catch (Exception ex)
             {
+                data_reader.Close();
+                command.Dispose();
+                connection.Close();
                 log.Error("Error" + ex.ToString());
-                return newMessages;     
+                throw new Exception(ex.ToString());   
             }
         }
     }

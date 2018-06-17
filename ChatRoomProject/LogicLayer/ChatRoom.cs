@@ -41,7 +41,14 @@ namespace ChatRoomProject.LogicLayer
         public void Start()
         {
             log.Info("The system starts now");
-            messages = message_handler.RetrieveMessages(true);
+            try
+            {
+                messages = message_handler.RetrieveMessages(true);
+            }
+            catch(Exception e)
+            {
+                log.Error(e.ToString());
+            }
         }
         //This is done every two seconds by reading from the timer.
         //This returns an updated list of messages that are organized according to
@@ -49,65 +56,73 @@ namespace ChatRoomProject.LogicLayer
         //if the user is interested.
         public List<IMessage> MessageManager(bool ascending, string filter, string sort, string groupId, string nickName, bool ispressed)
         {
-            List<IMessage> updateList = new List<IMessage>();
-            if (ispressed)
+            try
             {
-                this.messages.Clear();
-                if (filter != null) // if the user chose to filter the messages 
+                List<IMessage> updateList = new List<IMessage>();
+                if (ispressed)
                 {
-                    if (filter.Equals("filterByUser"))
+                    this.messages.Clear();
+                    if (filter != null) // if the user chose to filter the messages 
                     {
-                        message_handler.AddNicknameFilter(nickName);
-                        message_handler.AddGroupFilter(Int32.Parse(groupId));
+                        if (filter.Equals("filterByUser"))
+                        {
+                            message_handler.AddNicknameFilter(nickName);
+                            message_handler.AddGroupFilter(Int32.Parse(groupId));
+                        }
+                        else // FilterByGroupID
+                            message_handler.AddGroupFilter(Int32.Parse(groupId));
+                        updateList = message_handler.RetrieveMessages(ispressed); // filter list
+                        this.messages = updateList;
                     }
-                    else // FilterByGroupID
-                        message_handler.AddGroupFilter(Int32.Parse(groupId));
-                    updateList = message_handler.RetrieveMessages(ispressed); // filter list
-                    this.messages = updateList;
-                }
 
-                else // no filter so update the list of messages
+                    else // no filter so update the list of messages
+                    {
+                        message_handler.ClearFilters(); // delete all the filters
+                        this.messages = (message_handler.RetrieveMessages(ispressed)); // update the new messages from the data base
+                        updateList = this.messages;
+                    }
+                }
+                else // not the first time of the same sort/filter
                 {
-                    message_handler.ClearFilters(); // delete all the filters
-                    this.messages = (message_handler.RetrieveMessages(ispressed)); // update the new messages from the data base
                     updateList = this.messages;
+                    if (filter != null) // if the user chose to filter the messages 
+                    {
+                        if (filter.Equals("filterByUser"))
+                        {
+                            message_handler.AddNicknameFilter(nickName);
+                            message_handler.AddGroupFilter(Int32.Parse(groupId));
+                        }
+                        else // FilterByGroupID
+                        {
+                            message_handler.AddGroupFilter(Int32.Parse(groupId));
+                        }
+
+                        updateList.AddRange(message_handler.RetrieveMessages(ispressed)); // filter list
+                        this.messages = updateList;
+                    }
+
+                    else // no filter so update the list of messages
+                    {
+                        updateList.AddRange(message_handler.RetrieveMessages(ispressed));// concat the new messages from the data base
+                        this.messages = updateList;
+                    }
                 }
+
+                if (sort.Equals("SortByNickName"))
+                    updateList = SortByNickname(updateList, ascending);
+                if (sort.Equals("SortByIdNicknameTimestamp"))
+                    updateList = SortByIdNicknameTimestamp(updateList, ascending);
+                if (sort.Equals("SortByTimestamp"))
+                    updateList = SortTimestamp(updateList, ascending);
+
+                updateList = LegalSizeOfMessagesList(updateList); // if there are more than 200 messag
+                return updateList;
             }
-            else // not the first time of the same sort/filter
+            catch(Exception e)
             {
-                updateList = this.messages;
-                if (filter != null) // if the user chose to filter the messages 
-                {
-                    if (filter.Equals("filterByUser"))
-                    {
-                        message_handler.AddNicknameFilter(nickName);
-                        message_handler.AddGroupFilter(Int32.Parse(groupId));
-                    }
-                    else // FilterByGroupID
-                    {
-                        message_handler.AddGroupFilter(Int32.Parse(groupId));
-                    }
-                
-                    updateList.AddRange(message_handler.RetrieveMessages(ispressed)); // filter list
-                    this.messages = updateList;
-                }
-
-                else // no filter so update the list of messages
-                {
-                    updateList.AddRange(message_handler.RetrieveMessages(ispressed));// concat the new messages from the data base
-                    this.messages = updateList;
-                }
+                log.Error(e.ToString());
+                return null; 
             }
-
-            if (sort.Equals("SortByNickName"))
-                updateList = SortByNickname(updateList, ascending);
-            if (sort.Equals("SortByIdNicknameTimestamp"))
-                updateList = SortByIdNicknameTimestamp(updateList, ascending);
-            if (sort.Equals("SortByTimestamp"))
-                updateList = SortTimestamp(updateList, ascending);
-
-            updateList = LegalSizeOfMessagesList(updateList); // if there are more than 200 messag
-            return updateList;
         }
 
    
@@ -133,7 +148,14 @@ namespace ChatRoomProject.LogicLayer
             {
                 IUser user = new User(int.Parse(groupId), nickname, password);
                 this.users.Add(user);
-                user_handler.InsertNewUser(user);
+                try
+                {
+                    user_handler.InsertNewUser(user);
+                }
+                catch(Exception e)
+                {
+                    log.Error(e.ToString());
+                }
             }
         }
         /*returns a hash string of password*/
@@ -154,7 +176,15 @@ namespace ChatRoomProject.LogicLayer
          */
         private bool IsValidNickname(string groupId, string nickname)
         {
-            return this.user_handler.IsValidNickname(groupId, nickname);
+            try
+            {
+                return this.user_handler.IsValidNickname(groupId, nickname);
+            }
+            catch(Exception e)
+            {
+                log.Error(e.ToString());
+                return false;
+            }
         }
 
         /*Check if password is legal. Need to be consisted only from letters and numbers and
@@ -223,29 +253,44 @@ namespace ChatRoomProject.LogicLayer
             {
 
                 messages.Remove(lastMessage);
-                message_handler.EditByGuid(newMessage, lastMessage.Id.ToString());
+                try
+                {
+                    message_handler.EditByGuid(newMessage, lastMessage.Id.ToString());
+                }
+                catch(Exception e)
+                {
+                    log.Error(e.ToString());
+                }
             }
 
         }
         //Check if the user is registered. If he is, returns true. Otherwise, returns false.
         public bool Login(string groupId, string nickname, string password)
         {
-            if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname) || CheckIfInputIsEmpty(password))
+            try
             {
-                throw new Exception(EMPTY_INPUT);
+                if (CheckIfInputIsEmpty(groupId) || CheckIfInputIsEmpty(nickname) || CheckIfInputIsEmpty(password))
+                {
+                    throw new Exception(EMPTY_INPUT);
+                }
+                else if (this.user_handler.IsValidNickname(groupId, nickname))
+                {
+                    throw new Exception(INVALID_LOGIN); //user wasnt found
+                }
+                else if (!this.user_handler.IsValidPassword(groupId, nickname, password))
+                {
+                    throw new Exception(WRONG_PASSWORD);
+                }
+                else
+                {
+                    this.currentUser = this.user_handler.RetrieveUser(int.Parse(groupId), nickname, password);
+                    return true;
+                }
             }
-            else if (this.user_handler.IsValidNickname(groupId, nickname))
+            catch(Exception e)
             {
-                throw new Exception(INVALID_LOGIN); //user wasnt found
-            }
-            else if (!this.user_handler.IsValidPassword(groupId, nickname, password))
-            {
-                throw new Exception(WRONG_PASSWORD);
-            }
-            else
-            {
-                this.currentUser = this.user_handler.RetrieveUser(int.Parse(groupId), nickname, password);
-                return true;
+                log.Error(e.ToString());
+                return false; 
             }
         }
 
@@ -289,8 +334,15 @@ namespace ChatRoomProject.LogicLayer
             }
             else
             {
-                message_handler.InsertNewMessage(new Message(this.currentUser.Nickname(), this.currentUser.GroupID(), messageContent));
-                log.Info("message was sent");
+                try
+                {
+                    message_handler.InsertNewMessage(new Message(this.currentUser.Nickname(), this.currentUser.GroupID(), messageContent));
+                    log.Info("message was sent");
+                }
+                catch(Exception e)
+                {
+                    log.Error(e.ToString());
+                }
 
             }
         }
